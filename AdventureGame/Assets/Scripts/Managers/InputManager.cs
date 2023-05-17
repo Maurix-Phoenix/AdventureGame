@@ -9,12 +9,13 @@ public class InputManager : MonoBehaviour
     public bool Initialize()
     {
         //add the standard inputs here
-        AddInput(new MXInput("Jump", KeyCode.Space));
+        AddInput(new MXInput("Action", KeyCode.E));
+        AddInput(new MXInput("Attack", KeyCode.F));
+        
         AddInput(new MXInput("MoveForward", KeyCode.W));
         AddInput(new MXInput("MoveBackward", KeyCode.S));
         AddInput(new MXInput("MoveLeft", KeyCode.A));
         AddInput(new MXInput("MoveRight", KeyCode.D));
-        AddInput(new MXInput("Fire", KeyCode.Mouse0));
         return true;
     }
 

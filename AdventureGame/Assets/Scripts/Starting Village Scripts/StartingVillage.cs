@@ -27,4 +27,9 @@ public class StartingVillage : MonoBehaviour
     {
         Player.gameObject.SetActive(true);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Triggered");
+    }
 }
