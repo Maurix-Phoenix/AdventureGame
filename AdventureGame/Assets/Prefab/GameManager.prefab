@@ -1,5 +1,90 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1641119695
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1641119697}
+  - component: {fileID: 1641119696}
+  m_Layer: 0
+  m_Name: AnimationController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1641119697
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641119695}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.784628, y: -7.3186283, z: 20.949974}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5187088159008421640}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1641119696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641119695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127068f7ee99f354eb719a85b2996417, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Collection:
+  - CollectionName: Player
+    ClipList:
+    - AnimationName: Attack1
+      AnimationClip: {fileID: 1827226128182048838, guid: db509ad77f9b4f84a8eb1989f589b24c, type: 3}
+    - AnimationName: Attack2
+      AnimationClip: {fileID: 1827226128182048838, guid: 8283fadf2c89507469495f30db8680db, type: 3}
+    - AnimationName: Attack3
+      AnimationClip: {fileID: 1827226128182048838, guid: 9a6c3585df66f2e4782635fc7a23494c, type: 3}
+    - AnimationName: Attack4
+      AnimationClip: {fileID: 1827226128182048838, guid: b267a2c210dbd1d4badc3f270df6d12d, type: 3}
+    - AnimationName: Attack4_Start
+      AnimationClip: {fileID: 1827226128182048838, guid: 11cede249330b1744a2bc174ddb6111c, type: 3}
+    - AnimationName: Attack4_Spinning
+      AnimationClip: {fileID: 1827226128182048838, guid: 5729b70d60fdcac45bd03f32c0b8dbea, type: 3}
+    - AnimationName: Defend
+      AnimationClip: {fileID: 1827226128182048838, guid: 61f2c64d4f97d9f459a1d367eb16fb13, type: 3}
+    - AnimationName: Defend_Hit
+      AnimationClip: {fileID: 1827226128182048838, guid: 655c85429305c154b88f3b9157168e0c, type: 3}
+    - AnimationName: Die
+      AnimationClip: {fileID: 1827226128182048838, guid: 5940bb0b55717a746bbbe4d3e47e7e39, type: 3}
+    - AnimationName: Die_Stay
+      AnimationClip: {fileID: 1827226128182048838, guid: 0e112f1584fcccd4face09e3b7156832, type: 3}
+    - AnimationName: Dizzy
+      AnimationClip: {fileID: 1827226128182048838, guid: 065be5573fa6aca4380d5ddfb9dde3d0, type: 3}
+    - AnimationName: GetHit
+      AnimationClip: {fileID: 1827226128182048838, guid: c98546b8d8d3ab046afc8acfe706361f, type: 3}
+    - AnimationName: GetUp
+      AnimationClip: {fileID: 1827226128182048838, guid: 4e1dc6b0156559b4ca64937d40514fb5, type: 3}
+    - AnimationName: Idle
+      AnimationClip: {fileID: 1827226128182048838, guid: 423aabfede0896f4db862ab8e54dde30, type: 3}
+    - AnimationName: Idle_Battle
+      AnimationClip: {fileID: 1827226128182048838, guid: 0308cf4e83cf517488b60af58b290fe0, type: 3}
+    - AnimationName: Move_Battle
+      AnimationClip: {fileID: 1827226128182048838, guid: 7d4f9e9da55a3bd4f958a63308a522a1, type: 3}
+    - AnimationName: Move
+      AnimationClip: {fileID: 1827226128182048838, guid: 0791e523b7f1b2740a3b1cde42b6aeac, type: 3}
+    - AnimationName: Sprint
+      AnimationClip: {fileID: 1827226128182048838, guid: 5eee3d6dbfbcef04ab20b548575d7b9d, type: 3}
+    - AnimationName: Victory
+      AnimationClip: {fileID: 1827226128182048838, guid: 03bef14f938475e429e87b9e986bc32c, type: 3}
 --- !u!1 &337449655055255430
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,6 +383,7 @@ Transform:
   - {fileID: 3945595803031098578}
   - {fileID: 7490989302710749500}
   - {fileID: 8396596833807404191}
+  - {fileID: 1641119697}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

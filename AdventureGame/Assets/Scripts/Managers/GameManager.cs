@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public UIManager UIManager { get; private set; }
     public EventManager EventManager { get; private set; }
     public InputManager InputManager { get; private set; }
+    public AnimationController AnimationController { get; private set; }
 
     //GameFlow Events 
     public Action GameStart;

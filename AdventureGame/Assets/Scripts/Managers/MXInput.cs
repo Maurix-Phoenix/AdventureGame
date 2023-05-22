@@ -4,19 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class MXInput
+public class MXInput : Input
 {
     public string InputName;
     public KeyCode InputKey;
     public Action Pressed;
     public Action Holding;
     public Action Released;
-
+    public bool Value;
 
     public MXInput(string inputName, KeyCode inputKey)
     {
         InputName = inputName;
         InputKey = inputKey;
+        Value = false;
     }
     
     /// <summary>
@@ -24,7 +25,12 @@ public class MXInput
     /// </summary>
     public void OnPressed()
     {
-        Pressed?.Invoke();
+        if(!Value)
+        {
+            Value = true;
+            Pressed?.Invoke();
+        }
+        
     }
 
     /// <summary>
@@ -32,7 +38,11 @@ public class MXInput
     /// </summary>
     public void OnHolding()
     {
-        Holding?.Invoke();
+        if(Value)
+        {
+            Value = true;
+            Holding?.Invoke();
+        }
     }
 
     /// <summary>
@@ -40,7 +50,13 @@ public class MXInput
     /// </summary>
     public void OnReleased()
     {
-        Released?.Invoke();
+        if(Value)
+        {
+            Value = false;
+            Released?.Invoke();
+        }
+        
+        
     }
 
 }

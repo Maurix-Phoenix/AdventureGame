@@ -11,6 +11,8 @@ public class InputManager : MonoBehaviour
         //add the standard inputs here
         AddInput(new MXInput("Action", KeyCode.E));
         AddInput(new MXInput("Attack", KeyCode.F));
+        AddInput(new MXInput("Sprint", KeyCode.LeftShift));
+        AddInput(new MXInput("Jump", KeyCode.Space));
         
         AddInput(new MXInput("MoveForward", KeyCode.W));
         AddInput(new MXInput("MoveBackward", KeyCode.S));
@@ -111,6 +113,8 @@ public class InputManager : MonoBehaviour
         }
         return null;
     }
+
+
     public void Rebind(MXInput input, KeyCode newKC)
     {
         if(InputExists(input))
@@ -118,6 +122,7 @@ public class InputManager : MonoBehaviour
             InputsList[InputsList.IndexOf(input)].InputKey = newKC;
         }
     }
+
     public void SubscribeInput(string inputName, InputType type , Action subscriber)
     {
         MXInput input = GetInput(inputName);
