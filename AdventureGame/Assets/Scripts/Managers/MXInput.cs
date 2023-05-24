@@ -30,7 +30,6 @@ public class MXInput : Input
             Value = true;
             Pressed?.Invoke();
         }
-        
     }
 
     /// <summary>
@@ -55,8 +54,6 @@ public class MXInput : Input
             Value = false;
             Released?.Invoke();
         }
-        
-        
     }
 
 }

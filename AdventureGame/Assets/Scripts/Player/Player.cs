@@ -1,24 +1,16 @@
-using JetBrains.Annotations;
-using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using TMPro;
-using UnityEditor;
-using UnityEditor.Animations;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static AdventureGame;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance { get; private set; }
+
     private InputManager _IM;
     private EventManager _EM;
     private AnimationController _AC;
 
     private Animator _Animator;
-    private Rigidbody _RigidBody;
+    public Rigidbody RigidBody;
 
     private IPlayerState _PlayerState;
 
@@ -26,8 +18,8 @@ public class Player : MonoBehaviour
     private bool _CanMove = true;
     private bool _IsMoving = false;
     private bool _IsSprinting = false;
-    private Vector3 _Direction = Vector3.zero;
-    private float _MoveSpeed = 3.0f;
+    private Vector3 _MoveDirection = Vector3.zero;
+    private float _MoveSpeed = 1.0f;
     private float _SpintSpeedAdd = 1.5f;
     private float _Speed;
 
@@ -36,6 +28,7 @@ public class Player : MonoBehaviour
     #region Combat Data
     private bool _IsInCombat = false;
     private bool _CombatStance = false;
+    private bool _IsAttacking = false;
     private const float _CombatStanceTimer = 5.0f;
     private float _CombatStanceT = _CombatStanceTimer;
     #endregion
@@ -54,7 +47,14 @@ public class Player : MonoBehaviour
     #region Unity Methods
     private void Awake()
     {
-
+        if (Instance != null && Instance != this)
+        { 
+            Destroy(Instance.gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
 
     private void OnEnable()
@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
         _IM = GameManager.Instance.InputManager;
         _EM = GameManager.Instance.EventManager;
         _AC = AnimationController.Instance;
-        _RigidBody = GetComponent<Rigidbody>();
+        RigidBody = GetComponent<Rigidbody>();
         _Animator = GetComponent<Animator>();
 
         _Speed = _MoveSpeed;
@@ -94,7 +94,9 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        CheckDirection();
+        Idle();
+        Move();
+        
     }
     #endregion
 
@@ -169,46 +171,35 @@ public class Player : MonoBehaviour
     }
     private void OnMoveForwardReleased()
     {
-        _Direction.z = 0;
-        Move();
-
+        _MoveDirection.z = 0;
     }
     private void OnMoveBackwardReleased()
     {
-        _Direction.z = 0;
-        Move();
-
+        _MoveDirection.z = 0;
     }
     private void OnMoveLeftReleased()
     {
-        _Direction.x = 0;
-        Move();
-
+        _MoveDirection.x = 0;
     }
     private void OnMoveRightReleased()
     {
-        _Direction.x = 0;
-        Move();
+        _MoveDirection.x = 0;
     }
     private void OnMoveForwardInput()
     {
-        _Direction.z = 1;
-        Move();
+        _MoveDirection.z = 1;
     }
     private void OnMoveBackwardInput()
     {
-        _Direction.z = -1;
-        Move();
+        _MoveDirection.z = -1;
     }
     private void OnMoveLeftInput()
     {
-        _Direction.x = -1;
-        Move();
+        _MoveDirection.x = -1;
     }
     private void OnMoveRightInput()
     {
-        _Direction.x = 1;
-        Move();
+        _MoveDirection.x = 1;
     }
     private void OnSprintInput()
     {
@@ -220,25 +211,36 @@ public class Player : MonoBehaviour
     }
     private void OnSprintInputReleased()
     {
-        if (_IsMoving && _IsSprinting)
-        {
-            _Speed = _MoveSpeed;
-            _IsSprinting = false;
-        }
-
+        _Speed = _MoveSpeed;
+        _IsSprinting = false;
     }
     #endregion
 
     #region Movement
+    private void Idle()
+    { 
+        if(!_IsMoving && !_IsAttacking)
+        {
+            if (_CombatStance)
+            {
+                _AC.PlayAnimation(_Animator, "Player", "Idle_Battle");
+            }
+            else
+            {
+                _AC.PlayAnimation(_Animator, "Player", "Idle");
+            }
+        }
+    }
     private void Move()
     {
+        CheckDirection();
         if (_CanMove)
         {
-            if (_Direction != Vector3.zero)
+            if (_MoveDirection != Vector3.zero)
             {
                 _IsMoving = true;
-                transform.LookAt(transform.position + new Vector3(_Direction.x, 0 ,_Direction.z));
-                _RigidBody.MovePosition(transform.position + _Direction * Time.fixedDeltaTime * _Speed);
+                transform.LookAt(transform.position + new Vector3(_MoveDirection.x, 0, _MoveDirection.z));
+                RigidBody.MovePosition(transform.position + _MoveDirection * Time.fixedDeltaTime * _Speed);
 
                 if (_IsSprinting)
                 {
@@ -253,15 +255,8 @@ public class Player : MonoBehaviour
             else
             {
                 _IsMoving = false;
-                _Direction = Vector3.zero;
-                if (_CombatStance)
-                {
-                    _AC.PlayAnimation(_Animator, "Player", "Idle_Battle");
-                }
-                else
-                {
-                    _AC.PlayAnimation(_Animator, "Player", "Idle");
-                }
+                _MoveDirection = Vector3.zero;
+                Idle();
             }
         }
     }
@@ -269,11 +264,11 @@ public class Player : MonoBehaviour
     {
         if (!_IsMoving)
         {
-            if (_Direction != Vector3.zero)
+            if (_MoveDirection != Vector3.zero)
             {
                 _IsMoving = true;
             }
-            else if (_Direction == Vector3.zero)
+            else if (_MoveDirection == Vector3.zero)
             {
                 _IsMoving = false;
             }
@@ -281,11 +276,13 @@ public class Player : MonoBehaviour
     }
     #endregion
 
+    #region Combat
     #region Attacking
     private void Attack()
     {
         if (_CanAttack)
         {
+            _IsAttacking = true;
             _CombatStance = true;
             if (_AttackComboCount < _AttackComboCountMAX)
             {
@@ -318,6 +315,7 @@ public class Player : MonoBehaviour
         }
         else
         {
+            _IsAttacking = false;
             _CanAttack = true;
         }
 
@@ -331,7 +329,6 @@ public class Player : MonoBehaviour
     }
     #endregion
 
-    #region Combat
     private void UpdateCombat()
     {
         if (_IsInCombat)

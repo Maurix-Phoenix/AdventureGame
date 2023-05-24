@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static MXUtilities;
 
 
 /// <summary>
@@ -89,7 +90,7 @@ public class GameManager : MonoBehaviour
         GameFlowState = State.Started;
         //Get called after Awake and Initialization
         //do starting operation here
-        Debug.Log(gameObject.name + " " + GameFlowState.ToString());
+        MXDebug.Log(gameObject.name + " " + GameFlowState.ToString());
         GameStart?.Invoke();
     }
 

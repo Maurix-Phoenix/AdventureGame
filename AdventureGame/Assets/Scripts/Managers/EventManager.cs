@@ -15,4 +15,10 @@ public class EventManager : MonoBehaviour
     {
         TriggerAreaEnter?.Invoke(e);
     }
+
+    public Action PlayerSpawn;
+    public void RaiseOnPlayerSpawn()
+    {
+        PlayerSpawn?.Invoke();
+    }
 }
