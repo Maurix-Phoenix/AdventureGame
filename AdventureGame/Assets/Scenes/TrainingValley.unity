@@ -16511,68 +16511,84 @@ PrefabInstance:
       value: Cactus
       objectReference: {fileID: 0}
     - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[5].CollectionName
+      value: Cactus
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
       propertyPath: Collection.Array.data[1].ClipList.Array.size
-      value: 0
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[2].ClipList.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[3].ClipList.Array.size
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
       propertyPath: Collection.Array.data[4].ClipList.Array.size
-      value: 1
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[5].ClipList.Array.size
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
       propertyPath: Collection.Array.data[1].ClipList.Array.data[0].AnimationClip
       value: 
-      objectReference: {fileID: 1827226128182048838, guid: db509ad77f9b4f84a8eb1989f589b24c, type: 3}
+      objectReference: {fileID: 7400000, guid: 1b1e02561fcbcf64c82b7c02dfb9f53b, type: 3}
     - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
       propertyPath: Collection.Array.data[1].ClipList.Array.data[0].AnimationName
-      value: Attack1
+      value: Idle
       objectReference: {fileID: 0}
     - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
       propertyPath: Collection.Array.data[1].ClipList.Array.data[1].AnimationClip
       value: 
-      objectReference: {fileID: 1827226128182048838, guid: 8283fadf2c89507469495f30db8680db, type: 3}
+      objectReference: {fileID: 7400000, guid: e599599913457404aa360071350dd7c4, type: 3}
     - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
       propertyPath: Collection.Array.data[1].ClipList.Array.data[1].AnimationName
-      value: Attack2
+      value: Idle_Battle
       objectReference: {fileID: 0}
     - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
       propertyPath: Collection.Array.data[1].ClipList.Array.data[2].AnimationClip
       value: 
-      objectReference: {fileID: 1827226128182048838, guid: 9a6c3585df66f2e4782635fc7a23494c, type: 3}
+      objectReference: {fileID: 7400000, guid: 769c6c4d31c2dad48b0664b47847f7e1, type: 3}
     - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
       propertyPath: Collection.Array.data[1].ClipList.Array.data[2].AnimationName
-      value: Attack3
+      value: Move
       objectReference: {fileID: 0}
     - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
       propertyPath: Collection.Array.data[1].ClipList.Array.data[3].AnimationClip
       value: 
-      objectReference: {fileID: 1827226128182048838, guid: b267a2c210dbd1d4badc3f270df6d12d, type: 3}
+      objectReference: {fileID: 7400000, guid: 18d0edd1f2ba4444d9ba9bdf01f251d4, type: 3}
     - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
       propertyPath: Collection.Array.data[1].ClipList.Array.data[3].AnimationName
-      value: Attack4
+      value: Attack1
       objectReference: {fileID: 0}
     - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
       propertyPath: Collection.Array.data[1].ClipList.Array.data[4].AnimationClip
       value: 
-      objectReference: {fileID: 1827226128182048838, guid: 11cede249330b1744a2bc174ddb6111c, type: 3}
+      objectReference: {fileID: 7400000, guid: 24d275f677a39b245a5e175f24e345a0, type: 3}
     - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
       propertyPath: Collection.Array.data[1].ClipList.Array.data[4].AnimationName
-      value: Attack4_Start
+      value: Attack2
       objectReference: {fileID: 0}
     - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
       propertyPath: Collection.Array.data[1].ClipList.Array.data[5].AnimationClip
       value: 
-      objectReference: {fileID: 1827226128182048838, guid: 5729b70d60fdcac45bd03f32c0b8dbea, type: 3}
+      objectReference: {fileID: 7400000, guid: b374e22ebb027494eaf0e15709666b60, type: 3}
     - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
       propertyPath: Collection.Array.data[1].ClipList.Array.data[5].AnimationName
-      value: Attack4_Spinning
+      value: GetHit
       objectReference: {fileID: 0}
     - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
       propertyPath: Collection.Array.data[1].ClipList.Array.data[6].AnimationClip
       value: 
-      objectReference: {fileID: 1827226128182048838, guid: 61f2c64d4f97d9f459a1d367eb16fb13, type: 3}
+      objectReference: {fileID: 7400000, guid: d57bb9f35b232f546851ae283a6a4310, type: 3}
     - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
       propertyPath: Collection.Array.data[1].ClipList.Array.data[6].AnimationName
-      value: Defend
+      value: Die
       objectReference: {fileID: 0}
     - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
       propertyPath: Collection.Array.data[1].ClipList.Array.data[7].AnimationClip
@@ -16599,12 +16615,212 @@ PrefabInstance:
       value: Die_Stay
       objectReference: {fileID: 0}
     - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[2].ClipList.Array.data[0].AnimationClip
+      value: 
+      objectReference: {fileID: 1827226128182048838, guid: c0a0375e97cb4250b0cc67ccda1cd64b, type: 3}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[2].ClipList.Array.data[0].AnimationName
+      value: Idle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[2].ClipList.Array.data[1].AnimationClip
+      value: 
+      objectReference: {fileID: 1827226128182048838, guid: f108f4bd5e61430c9eb03a14bdb0e880, type: 3}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[2].ClipList.Array.data[1].AnimationName
+      value: Idle_Battle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[2].ClipList.Array.data[2].AnimationClip
+      value: 
+      objectReference: {fileID: 1827226128182048838, guid: d67bea35413f4c61bf18c860a2b68b3b, type: 3}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[2].ClipList.Array.data[2].AnimationName
+      value: Move
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[2].ClipList.Array.data[3].AnimationClip
+      value: 
+      objectReference: {fileID: 1827226128182048838, guid: 028c61d558784b2aa3625071e431652b, type: 3}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[2].ClipList.Array.data[3].AnimationName
+      value: Attack1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[2].ClipList.Array.data[4].AnimationClip
+      value: 
+      objectReference: {fileID: 1827226128182048838, guid: 8bf4ec8fe2f7424885d58724f3e4e7ca, type: 3}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[2].ClipList.Array.data[4].AnimationName
+      value: Attack2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[2].ClipList.Array.data[5].AnimationClip
+      value: 
+      objectReference: {fileID: 1827226128182048838, guid: a44ecade09064c168017828ec2febe8a, type: 3}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[2].ClipList.Array.data[5].AnimationName
+      value: GetHit
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[2].ClipList.Array.data[6].AnimationClip
+      value: 
+      objectReference: {fileID: 1827226128182048838, guid: 3e6a628beacf4cfca1697e1e65a28d45, type: 3}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[2].ClipList.Array.data[6].AnimationName
+      value: Die
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[3].ClipList.Array.data[0].AnimationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: 21b5bb1519e484148aa30042c43904c0, type: 3}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[3].ClipList.Array.data[0].AnimationName
+      value: Idle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[3].ClipList.Array.data[1].AnimationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: 2bfd6fdaf6b23874ca93fca2e578b931, type: 3}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[3].ClipList.Array.data[1].AnimationName
+      value: Idle_Battle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[3].ClipList.Array.data[2].AnimationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: f5d4d1a7dadc5a84d910c492d947ca4f, type: 3}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[3].ClipList.Array.data[2].AnimationName
+      value: Move
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[3].ClipList.Array.data[3].AnimationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: 438236b1bb4dc03468cb3f2d12fa922c, type: 3}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[3].ClipList.Array.data[3].AnimationName
+      value: Attack1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[3].ClipList.Array.data[4].AnimationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: 8254c95c1caa1da4cb1d22972c413dad, type: 3}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[3].ClipList.Array.data[4].AnimationName
+      value: Attack2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[3].ClipList.Array.data[5].AnimationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: a4dd2805a4cbc5b428b746ff8cf375c4, type: 3}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[3].ClipList.Array.data[5].AnimationName
+      value: GetHit
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[3].ClipList.Array.data[6].AnimationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: f76b9b823f2fc9a469d0c2c780514380, type: 3}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[3].ClipList.Array.data[6].AnimationName
+      value: Die
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
       propertyPath: Collection.Array.data[4].ClipList.Array.data[0].AnimationClip
       value: 
       objectReference: {fileID: 1827226128182048838, guid: 11b47f4308ab4ea1a77f45904a1cd0d2, type: 3}
     - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
       propertyPath: Collection.Array.data[4].ClipList.Array.data[0].AnimationName
       value: Idle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[4].ClipList.Array.data[1].AnimationClip
+      value: 
+      objectReference: {fileID: 1827226128182048838, guid: f0daf145f0a24017a35ced6e06050023, type: 3}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[4].ClipList.Array.data[1].AnimationName
+      value: Idle_Battle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[4].ClipList.Array.data[2].AnimationClip
+      value: 
+      objectReference: {fileID: 1827226128182048838, guid: 9b9279213c434f60bfdd45c1f0e4d752, type: 3}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[4].ClipList.Array.data[2].AnimationName
+      value: Move
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[4].ClipList.Array.data[3].AnimationClip
+      value: 
+      objectReference: {fileID: 1827226128182048838, guid: c25688f83d5f4ff3bbccaaf074a7da91, type: 3}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[4].ClipList.Array.data[3].AnimationName
+      value: Attack1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[4].ClipList.Array.data[4].AnimationClip
+      value: 
+      objectReference: {fileID: 1827226128182048838, guid: e49e58fcb12c43f4a7a539cba4962b5d, type: 3}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[4].ClipList.Array.data[4].AnimationName
+      value: Attack2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[4].ClipList.Array.data[5].AnimationClip
+      value: 
+      objectReference: {fileID: 1827226128182048838, guid: e424a3fc633c48f6a431e2ba6bb3629d, type: 3}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[4].ClipList.Array.data[5].AnimationName
+      value: GetHit
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[4].ClipList.Array.data[6].AnimationClip
+      value: 
+      objectReference: {fileID: 1827226128182048838, guid: 85954cadc1314eb7ba106f3d72458d2e, type: 3}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[4].ClipList.Array.data[6].AnimationName
+      value: Die
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[5].ClipList.Array.data[0].AnimationClip
+      value: 
+      objectReference: {fileID: 1827226128182048838, guid: 11b47f4308ab4ea1a77f45904a1cd0d2, type: 3}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[5].ClipList.Array.data[0].AnimationName
+      value: Idle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[5].ClipList.Array.data[1].AnimationClip
+      value: 
+      objectReference: {fileID: 1827226128182048838, guid: 9b9279213c434f60bfdd45c1f0e4d752, type: 3}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[5].ClipList.Array.data[1].AnimationName
+      value: Move
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[5].ClipList.Array.data[2].AnimationClip
+      value: 
+      objectReference: {fileID: 1827226128182048838, guid: c25688f83d5f4ff3bbccaaf074a7da91, type: 3}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[5].ClipList.Array.data[2].AnimationName
+      value: Attack1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[5].ClipList.Array.data[3].AnimationClip
+      value: 
+      objectReference: {fileID: 1827226128182048838, guid: e49e58fcb12c43f4a7a539cba4962b5d, type: 3}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[5].ClipList.Array.data[3].AnimationName
+      value: Attack2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[5].ClipList.Array.data[4].AnimationClip
+      value: 
+      objectReference: {fileID: 1827226128182048838, guid: 85954cadc1314eb7ba106f3d72458d2e, type: 3}
+    - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: Collection.Array.data[5].ClipList.Array.data[4].AnimationName
+      value: Die
       objectReference: {fileID: 0}
     - target: {fileID: 1641119696, guid: 425171639d978d4469b704cabb8834c2, type: 3}
       propertyPath: Collection.Array.data[1].ClipList.Array.data[10].AnimationClip

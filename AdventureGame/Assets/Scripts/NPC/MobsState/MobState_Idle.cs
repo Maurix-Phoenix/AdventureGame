@@ -7,6 +7,7 @@ using static MXUtilities;
 
 public class MobState_Idle : IMobState
 {
+    private string _Name;
     private float _IdleTime = 5.0f;
     private float _IdleT;
     private float _MoveTime = 1f;
@@ -19,8 +20,8 @@ public class MobState_Idle : IMobState
 
     public void OnEnterState(Mob mob)
     {
-        MXDebug.Log("Enter state...");
         Mob = mob;
+        _Name = Mob.MT.Name;
         _IdleT = _IdleTime;
         _MoveT = _MoveTime;
         _CanMove = false;
@@ -30,20 +31,16 @@ public class MobState_Idle : IMobState
 
     public void OnExitState()
     {
-        MXDebug.Log("Exiting state...");
 
     }
 
     public void OnFixedUpdateState()
     {
-        MXDebug.Log("Fixed Update state...");
-
         Move();
     }
 
     public void OnUpdateState()
     {
-        MXDebug.Log("Update state...");
         _IdleT -= Time.deltaTime;
         if(_IdleT < 0 )
         {
@@ -69,12 +66,14 @@ public class MobState_Idle : IMobState
             Mob.Rigidbody.MovePosition(Mob.transform.position + _Direction * Time.fixedDeltaTime * Mob.MT.MoveSpeed);
 
             //apply move animation here
-
+            AnimationController.Instance.PlayAnimation(Mob.Animator, _Name, "Move", 0, false, true);
 
             if (_MoveT < 0 )
             {
 
                 //Deactivate move aniamtion here
+                AnimationController.Instance.PlayAnimation(Mob.Animator, _Name, "Idle", 0, false, true);
+
 
                 _Destination = Vector3.zero;
                 _Direction = Vector3.zero;

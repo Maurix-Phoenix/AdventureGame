@@ -16,7 +16,6 @@ MonoBehaviour:
   MobsList:
   - {fileID: 11400000, guid: 944111de63c72b84fa9b3e26fb5bf16e, type: 2}
   - {fileID: 11400000, guid: 1be5a0dbea930f746bbb641238236045, type: 2}
-  - {fileID: 11400000, guid: a5ad3c83efb4f4f498e418268d3a098f, type: 2}
   - {fileID: 11400000, guid: 4daa4f3704e75224cbcfba43cacb749a, type: 2}
   - {fileID: 11400000, guid: d399a0ccb62a7fa45ab5de3eddf43f97, type: 2}
   SpawnIntervail: 30

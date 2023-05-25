@@ -201,8 +201,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eed8fe9f4f605e48bdf00f2660e6bc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MT: {fileID: 11400000, guid: a5ad3c83efb4f4f498e418268d3a098f, type: 2}
+  MT: {fileID: 11400000, guid: 1be5a0dbea930f746bbb641238236045, type: 2}
+  Animator: {fileID: 0}
   Rigidbody: {fileID: 0}
+  StartingPos: {x: 0, y: 0, z: 0}
 --- !u!54 &-3421719557825841535
 Rigidbody:
   m_ObjectHideFlags: 0

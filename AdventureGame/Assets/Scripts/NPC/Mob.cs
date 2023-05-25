@@ -7,7 +7,9 @@ public class Mob : MonoBehaviour
 {
 
     public MobTemplate MT;
+    public Animator Animator;
     public Rigidbody Rigidbody;
+    public  Vector3 StartingPos;
 
     private IMobState _CurrentState;
 
@@ -27,7 +29,7 @@ public class Mob : MonoBehaviour
     private void OnEnable()
     {
         Rigidbody = GetComponent<Rigidbody>();
-        
+        Animator = GetComponent<Animator>();
 
         if(MT != null)
         {
@@ -47,6 +49,7 @@ public class Mob : MonoBehaviour
             MXDebug.Log($"{gameObject.name}: MobTemplate NOT FOUND! Using defaul values.");
         }
         _CurrentHealth = _MaxHealth;
+        StartingPos = transform.position;
     }
     private void OnDisable()
     {
@@ -61,15 +64,20 @@ public class Mob : MonoBehaviour
     private void Update()
     {
         _CurrentState.OnUpdateState();
+
+        if(Vector3.Distance(Player.Instance.transform.position, transform.position) < _AggroRange )
+        {
+            ChangeState(new MobState_Chase());
+        }
+        
     }
     private void FixedUpdate()
     {
         _CurrentState.OnFixedUpdateState();
     }
 
-    private void ChangeState(IMobState newState)
+    public void ChangeState(IMobState newState)
     {
-        
         _CurrentState?.OnExitState();
         _CurrentState = newState;
         _CurrentState?.OnEnterState(this);

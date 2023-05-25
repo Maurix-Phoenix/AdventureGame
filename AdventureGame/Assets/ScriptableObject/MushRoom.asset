@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9afa72bf50e9def4ea43b35b6d1d667c, type: 3}
-  m_Name: MushRoom
+  m_Name: Mushroom
   m_EditorClassIdentifier: 
-  Name: MushRoom
+  Name: Mushroom
   Tags: []
   MobPrefab: {fileID: 1997902569578628670, guid: ba63d19852e4fd842a451af96717b9da, type: 3}
   Health: 10
