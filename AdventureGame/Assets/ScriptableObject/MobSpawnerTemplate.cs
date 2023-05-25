@@ -9,7 +9,7 @@ public class MobSpawnerTemplate : ScriptableObject
     public List<MobTemplate> MobsList;
  
     public float SpawnIntervail = 10f; //in seconds
-    public int InitialEnemiesNumber = 3; //how many enemies are spawned at the start of the game
+    public int InitialMobsNumber = 3; //how many enemies are spawned at the start of the game
     public int SpawnNumber = 1; //how many enemies should spawn at the same time
     public int Capacity = 10; //maximun number of current spawned enemies
 

@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9afa72bf50e9def4ea43b35b6d1d667c, type: 3}
-  m_Name: Mob
+  m_Name: TurtleShell
   m_EditorClassIdentifier: 
-  Name: 
+  Name: TurtleShell
   Tags: []
-  MobPrefab: {fileID: 0}
+  MobPrefab: {fileID: 1774625739149480, guid: 38efdaadbfe1d624bbee439cb02e7661, type: 3}
   Health: 10
   Attack: 5
   Defence: 3
+  MoveSpeed: 1
+  AttackSpeed: 1.5
   AttackRange: 1
   AggroRange: 3
   CanRunAway: 0
   RunAwaySpeedMultiplier: 1
-  CanRecoverHealth: 0
-  RecoveringHealthMultiplier: 1

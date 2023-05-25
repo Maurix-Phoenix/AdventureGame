@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+
 using UnityEngine;
+
 
 public static class MXUtilities
 {
@@ -14,7 +13,7 @@ public static class MXUtilities
             Error,
         }
         public static void Log(string logMessage, LogType type = LogType.Normal)
-        { 
+        {
             #if UNITY_EDITOR
             switch (type)
             {
@@ -27,24 +26,4 @@ public static class MXUtilities
         }
     }
 
-    public static void SafeSpawn(GameObject prefab, Vector3 position,
-    Transform parent = null, bool findNearValidPosition = false, float nearPositionRange = 1f, bool spawnAnyways = false)
-    {
-
-        if (prefab != null)
-        {
-            if (spawnAnyways)
-            {
-                GameObject.Instantiate(prefab, position, Quaternion.identity, parent);
-            }
-            else
-            {
-
-            }
-        }
-        else
-        {
-            MXDebug.Log("");
-        }
-    }
 }

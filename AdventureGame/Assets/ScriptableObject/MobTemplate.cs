@@ -15,6 +15,8 @@ public class MobTemplate : ScriptableObject
     public float Health = 10f;
     public float Attack = 5f;
     public float Defence = 3f;
+    public float MoveSpeed = 1f;
+    public float AttackSpeed = 1.5f;
 
     [Header("InCombat")]
     public float AttackRange = 1.0f;
@@ -22,7 +24,4 @@ public class MobTemplate : ScriptableObject
     public bool CanRunAway = false;
     public float RunAwaySpeedMultiplier = 1.0f;
 
-    [Header("OutOfCombat")]
-    public bool CanRecoverHealth = false;
-    public float RecoveringHealthMultiplier = 1.0f;
 }
