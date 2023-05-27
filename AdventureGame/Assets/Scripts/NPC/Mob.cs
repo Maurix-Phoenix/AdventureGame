@@ -1,11 +1,15 @@
 
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
 using static MXUtilities;
 public class Mob : MonoBehaviour
 {
-
+    private EventManager _EM;
+    private UIManager _UI;
+    public MobSpawner Spawner;
     public MobTemplate MT;
     public Animator Animator;
     public Rigidbody Rigidbody;
@@ -13,6 +17,8 @@ public class Mob : MonoBehaviour
 
     private IMobState _CurrentState;
 
+    private bool _PlayerIsDead = false;
+    private bool _Dead = false;
     private float _MaxHealth = 10f;
     private float _CurrentHealth;
     private float _BaseAttack = 5f;
@@ -20,14 +26,14 @@ public class Mob : MonoBehaviour
     private float _MoveSpeed = 1f;
     private float _AttackSpeed = 1.5f;
 
-    private float _AttackRange = 1.0f;
+    private float _AttackRange = 1.5f;
     private float _AggroRange = 3.0f;
-    private bool _CanRunAway = false;
-    private float _RunAwaySpeedMultiplier = 1.0f;
 
     private Vector3 _direction = Vector3.zero;
     private void OnEnable()
     {
+        _UI = GameManager.Instance.UIManager;
+        _EM = GameManager.Instance.EventManager;
         Rigidbody = GetComponent<Rigidbody>();
         Animator = GetComponent<Animator>();
 
@@ -41,19 +47,32 @@ public class Mob : MonoBehaviour
 
             _AttackRange = MT.AttackRange;
             _AggroRange = MT.AggroRange;
-            _CanRunAway = MT.CanRunAway;
-            _RunAwaySpeedMultiplier = MT.RunAwaySpeedMultiplier;
         }
         else
         {
-            MXDebug.Log($"{gameObject.name}: MobTemplate NOT FOUND! Using defaul values.");
+            MXDebug.Log($"{gameObject.name}: MobTemplate NOT FOUND! Using defaul values.\nAssign the MobTemplate or the Mob will not work properly!");
         }
         _CurrentHealth = _MaxHealth;
         StartingPos = transform.position;
+
+        SubscribeEvents();
     }
     private void OnDisable()
     {
-        
+        UnsubscribeEvents();
+    }
+
+    private void SubscribeEvents()
+    {
+        _EM.PlayerDeath += OnPlayerDeath;
+        _EM.PlayerSpawn += OnPlayerSpawn;
+    }
+
+    private void UnsubscribeEvents()
+    {
+        _EM.PlayerDeath -= OnPlayerDeath;
+        _EM.PlayerSpawn -= OnPlayerSpawn;
+
     }
 
     private void Start()
@@ -63,17 +82,25 @@ public class Mob : MonoBehaviour
 
     private void Update()
     {
-        _CurrentState.OnUpdateState();
-
-        if(Vector3.Distance(Player.Instance.transform.position, transform.position) < _AggroRange )
+        if(!_Dead)
         {
-            ChangeState(new MobState_Chase());
+            _CurrentState.OnUpdateState();
+
+            if (Vector3.Distance(Player.Instance.transform.position, transform.position) < _AggroRange &&
+               Vector3.Distance(Player.Instance.transform.position, transform.position) > _AttackRange &&
+               !_PlayerIsDead)
+            {
+                ChangeState(new MobState_Chase());
+            }
         }
         
     }
     private void FixedUpdate()
     {
-        _CurrentState.OnFixedUpdateState();
+        if (!_Dead)
+        {
+            _CurrentState.OnFixedUpdateState();
+        }
     }
 
     public void ChangeState(IMobState newState)
@@ -81,6 +108,64 @@ public class Mob : MonoBehaviour
         _CurrentState?.OnExitState();
         _CurrentState = newState;
         _CurrentState?.OnEnterState(this);
+    }
+
+    public IMobState GetCurrentState()
+    {
+        return _CurrentState;
+    }
+
+    public void TakeDamage(float d)
+    {
+        if(!_Dead)
+        {
+            float totalDamage = d - (_BaseDefence / 2);
+            _CurrentHealth -= totalDamage;
+            //take damage sound
+            AnimationController.Instance.PlayAnimation(Animator, MT.Name, "GetHit");
+            _UI.CreateWorldLabel(totalDamage.ToString("N1"), transform.position, transform);
+
+            if (_CurrentHealth <= 0)
+            {
+                StartCoroutine(Kill());
+            }
+        }
+
+    }
+    public IEnumerator Kill()
+    {
+        _Dead = true;
+
+        //Play Sound here...
+
+        AnimationController.Instance.PlayAnimation(Animator, MT.Name, "Die");
+        yield return MXProgramFlow.EWait(Animator.GetCurrentAnimatorClipInfo(0).Length);
+
+        //Loot
+        if (MT.CoinsLoot.Count > 0)
+        {
+            Vector3 coinPos = new Vector3(transform.position.x, transform.position.y + 0.25f, transform.position.z);
+            Instantiate(MT.CoinsLoot[Random.Range(0, MT.CoinsLoot.Count)].CoinPrefab, coinPos, Quaternion.identity);
+        }
+
+        if (Spawner != null )
+        {
+            Spawner.Renqueue(this);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+    }
+    private void OnPlayerSpawn()
+    {
+        _PlayerIsDead = false;
+    }
+    private void OnPlayerDeath()
+    {
+        _PlayerIsDead = true;
+        ChangeState(new MobState_Idle());
     }
 
 }

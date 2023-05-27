@@ -21,7 +21,9 @@ public class MobTemplate : ScriptableObject
     [Header("InCombat")]
     public float AttackRange = 1.0f;
     public float AggroRange = 3.0f;
-    public bool CanRunAway = false;
-    public float RunAwaySpeedMultiplier = 1.0f;
 
+    [Header("Coin Loot")]
+    public List<CoinTemplate> CoinsLoot = new List<CoinTemplate>();
+   
+    
 }

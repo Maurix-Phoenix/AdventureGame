@@ -61,18 +61,17 @@ public class MobState_Idle : IMobState
         if(_CanMove)
         {
             _MoveT -= Time.fixedDeltaTime;
-            MXDebug.Log("MOVING...");
             Mob.transform.LookAt(_Destination);
             Mob.Rigidbody.MovePosition(Mob.transform.position + _Direction * Time.fixedDeltaTime * Mob.MT.MoveSpeed);
 
             //apply move animation here
-            AnimationController.Instance.PlayAnimation(Mob.Animator, _Name, "Move", 0, false, true);
+            AnimationController.Instance.PlayAnimation(Mob.Animator, _Name, "Move");
 
             if (_MoveT < 0 )
             {
 
                 //Deactivate move aniamtion here
-                AnimationController.Instance.PlayAnimation(Mob.Animator, _Name, "Idle", 0, false, true);
+                AnimationController.Instance.PlayAnimation(Mob.Animator, _Name, "Idle");
 
 
                 _Destination = Vector3.zero;

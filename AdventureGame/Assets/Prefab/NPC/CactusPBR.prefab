@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 4084551644797787691}
   - component: {fileID: -5406668741708537522}
   - component: {fileID: -4374234928972206932}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CactusPBR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MT: {fileID: 11400000, guid: 944111de63c72b84fa9b3e26fb5bf16e, type: 2}
+  Animator: {fileID: 0}
   Rigidbody: {fileID: 0}
+  StartingPos: {x: 0, y: 0, z: 0}
 --- !u!54 &-5406668741708537522
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -179,7 +181,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0

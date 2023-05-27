@@ -1,4 +1,7 @@
 
+using System;
+using System.Collections;
+using System.Threading;
 using UnityEngine;
 
 
@@ -26,4 +29,16 @@ public static class MXUtilities
         }
     }
 
+    public static class MXProgramFlow
+    {
+        public static IEnumerator EWait(float waitTime)
+        {
+            float counter = 0;
+            while(counter < waitTime)
+            {
+                counter += Time.deltaTime;
+                yield return null;
+            }
+        }
+    }
 }

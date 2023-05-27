@@ -1,18 +1,28 @@
 using UnityEngine;
+using static MXUtilities;
 using static AdventureGame;
+using System.Collections.Generic;
+using System.Collections;
+using UnityEngine.Rendering;
 
 public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
+    public PlayerSpawningPoint SpawningPoint;
+    public GameObject HitLabel;
+    public Rigidbody RigidBody;
+    public Transform AttackPoint;
+    public TrailRenderer SwordEffectTrail;
+    public LayerMask MobsLayerMask;
 
     private InputManager _IM;
     private EventManager _EM;
+    private UIManager _UI;
     private AnimationController _AC;
 
     private Animator _Animator;
-    public Rigidbody RigidBody;
 
-    private IPlayerState _PlayerState;
+    private bool _Dead = false;
 
     #region Player Movement Data
     private bool _CanMove = true;
@@ -26,11 +36,18 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Combat Data
+    private const float _MaxHealth = 50f;
+    private float _Health = _MaxHealth;
+    private float _Defence = 5f;
+    private float _Attack = 5f;
+    private float _AttackRange = 0.2f;
     private bool _IsInCombat = false;
     private bool _CombatStance = false;
     private bool _IsAttacking = false;
     private const float _CombatStanceTimer = 5.0f;
     private float _CombatStanceT = _CombatStanceTimer;
+
+
     #endregion
 
     #region Player Attacks Data
@@ -43,6 +60,10 @@ public class Player : MonoBehaviour
     private float _AttackT;
     // private float _BaseAttackDamage = 2.0f;
     #endregion;
+
+    #region Player Resources Data
+    private int _Coins;
+    #endregion
 
     #region Unity Methods
     private void Awake()
@@ -59,14 +80,19 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {
+        _UI = GameManager.Instance.UIManager;
         _IM = GameManager.Instance.InputManager;
         _EM = GameManager.Instance.EventManager;
         _AC = AnimationController.Instance;
         RigidBody = GetComponent<Rigidbody>();
         _Animator = GetComponent<Animator>();
 
+        _Dead = false;
         _Speed = _MoveSpeed;
         _AttackComboCount = 0;
+        _Health = _MaxHealth;
+
+        _EM.RaiseOnPlayerSpawn();
 
         SubscribeToInputs();
         SubscribeToEvents();
@@ -74,6 +100,7 @@ public class Player : MonoBehaviour
 
     private void OnDisable()
     {
+        _UI = GameManager.Instance.UIManager;
         _IM = GameManager.Instance.InputManager;
         _EM = GameManager.Instance.EventManager;
         UnsubscribeToInputs();
@@ -87,25 +114,20 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        _PlayerState?.UpdateState();
-        UpdateAttack();
-        UpdateCombat();
+        if (!_Dead)
+        {
+            UpdateAttack();
+            UpdateCombat();
+        }
     }
 
     private void FixedUpdate()
     {
-        Idle();
-        Move();
-        
-    }
-    #endregion
-
-    #region StateMachine
-    public void SetPlayerState(IPlayerState newState)
-    {
-        _PlayerState?.ExitState();
-        _PlayerState = newState;
-        _PlayerState?.EnterState(this);
+        if(!_Dead)
+        {
+            Idle();
+            Move();
+        }
     }
     #endregion
 
@@ -113,10 +135,11 @@ public class Player : MonoBehaviour
 
     private void SubscribeToEvents()
     {
-
+       
     }
     private void UnsubscribeToEvents()
     {
+
 
     }
 
@@ -163,7 +186,7 @@ public class Player : MonoBehaviour
 
     private void OnActionInput()
     {
-        //do something
+        PlayerAction();
     }
     private void OnAttackInput()
     {
@@ -295,11 +318,34 @@ public class Player : MonoBehaviour
 
             string attackNameAnimation = $"Attack{_AttackComboCount}";
             _AC.PlayAnimation(_Animator, "Player", attackNameAnimation, 0, forceState: true);
+            
+            float totalDamage = _Attack;
+            if(Random.value > 0.7f)
+            {
+                totalDamage = totalDamage * 2;
+            }
+
+            
+
+            Collider[] mobsHit = Physics.OverlapSphere(AttackPoint.position, _AttackRange, MobsLayerMask);
+            foreach(Collider col in mobsHit)
+            {
+                if(col.gameObject.GetComponent<Mob>())
+                {
+                    Mob mob = col.gameObject.GetComponent<Mob>();
+                    if (mob != null)
+                    {
+                        MXDebug.Log($"Hit: {mob.MT.Name}");
+                        mob.TakeDamage(totalDamage);
+                        
+                    }
+                }
+            }
+
             _AttackSequenceT = 0;
             _AttackT = _AttackTime;
         }
     }
-
     private void UpdateAttack()
     {
 
@@ -325,10 +371,9 @@ public class Player : MonoBehaviour
             _AttackSequenceT = 0;
         }
 
-        //Debug.Log($"AttackSeq = {_AttackSequenceT}\n_AttackT = {_AttackT}\ncanAttack = {_CanAttack}\nComboCount = {_AttackComboCount}");
+        //MXDebug.Log($"AttackSeq = {_AttackSequenceT}\n_AttackT = {_AttackT}\ncanAttack = {_CanAttack}\nComboCount = {_AttackComboCount}");
     }
     #endregion
-
     private void UpdateCombat()
     {
         if (_IsInCombat)
@@ -348,6 +393,74 @@ public class Player : MonoBehaviour
         }
 
     }
+
+    public void TakeDamage(float d)
+    {
+        if (!_Dead)
+        {
+            float totalDamage = d - (_Defence / 2);
+            if (totalDamage > 0)
+            {
+                _EM.RaiseOnPlayerTakeDamage(new MXEventParams<float>(totalDamage));
+                _Health -= totalDamage;
+
+                _AC.PlayAnimation(_Animator, "Player", "GetHit");
+                _UI.CreateWorldLabel($"-{totalDamage.ToString("N1")}", transform.position, transform);
+                //damage taken sound
+
+                if (_Health <= 0)
+                {
+                    //death method
+                    StartCoroutine(Kill());
+                }
+
+            }
+            else
+            {
+                //maybe a "damage blocked" sound?
+            }
+        }
+    }
+
+    public IEnumerator Kill()
+    {
+        _Dead = true;
+        _EM.RaiseOnPlayerDeath();
+        _AC.PlayAnimation(_Animator, "Player", "Die", forceState: true);
+        yield return MXProgramFlow.EWait(_Animator.GetCurrentAnimatorStateInfo(0).length);
+        gameObject.SetActive(false);
+
+    }
+
     #endregion
+
+    #region Player Actions
+
+    private void PlayerAction()
+    {
+        MXDebug.Log("Action Key Pressed");
+    }
+
+    #endregion
+
+    #region Resources
+
+    public void AddCoins(int coins)
+    {
+        _Coins += coins;
+        _EM.RaiseOnPlayerEarnCoin(new MXEventParams<int>(coins));
+        _UI.CreateWorldLabel($"+{coins} G", transform.position, transform, lifetime: 1f);
+    }
+
+    #endregion
+    private void OnDrawGizmosSelected()
+    {
+        //checking the attack range
+        if(AttackPoint != null)
+        {
+            Gizmos.DrawSphere(AttackPoint.position, _AttackRange);
+        }
+       
+    }
 }
 

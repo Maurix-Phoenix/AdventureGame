@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9afa72bf50e9def4ea43b35b6d1d667c, type: 3}
-  m_Name: Mushroom
+  m_Name: Cactus
   m_EditorClassIdentifier: 
-  Name: Mushroom
+  Name: Cactus
   Tags: []
-  MobPrefab: {fileID: 1997902569578628670, guid: ba63d19852e4fd842a451af96717b9da, type: 3}
-  Health: 10
-  Attack: 5
+  MobPrefab: {fileID: 662468794185850985, guid: 24df76b01f4fec249852fb8d32c08b8e, type: 3}
+  Health: 12
+  Attack: 7
   Defence: 3
   MoveSpeed: 1
-  AttackSpeed: 1.5
-  AttackRange: 1
-  AggroRange: 3
-  CanRunAway: 0
-  RunAwaySpeedMultiplier: 1
+  AttackSpeed: 2
+  AttackRange: 0.3
+  AggroRange: 1
+  CoinsLoot:
+  - {fileID: 11400000, guid: a907923ab0252fa4b9d1ba41ff05bcb9, type: 2}

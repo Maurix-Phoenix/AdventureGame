@@ -15,7 +15,8 @@ public class MobSpawner : MonoBehaviour
     private int _Capacity = 3;
     private float _SpawnDistance = 3;
 
-    private List<GameObject> _MobsList = new List<GameObject>();
+    private List<Mob> _MobsList = new List<Mob>();
+    private Queue<GameObject> _MobFactory = new Queue<GameObject>();
 
     private void OnEnable()
     {
@@ -40,17 +41,15 @@ public class MobSpawner : MonoBehaviour
 
     }
 
-    // Start is called before the first frame update
     void Start()
     {
+        InitializeFactory();
         if(_IsActive)
         {
             ClearMobs();
             SpawnMob(_InitialMobsNumber);
         }
     }
-
-    // Update is called once per frame
     void Update()
     {
         if(_IsActive)
@@ -61,24 +60,7 @@ public class MobSpawner : MonoBehaviour
                 SpawnMob(_SpawnNumber);
             }
         }
-
-        CheckMobsPosition();
     }
-
-    private void CheckMobsPosition()
-    {
-        if(_MobsList.Count > 0)
-        {
-            for(int i = _MobsList.Count-1; i>=0 ; i--)
-            {
-                if(_MobsList[i].transform.position.y < -5)
-                {
-                    Destroy(_MobsList[i].gameObject);
-                }
-            }
-        }
-    }
-
     private void ClearMobs()
     {
         for (int i = _MobsList.Count - 1; i >= 0; i--)
@@ -87,24 +69,48 @@ public class MobSpawner : MonoBehaviour
         }
         _MobsList.Clear();
     }
-
-    private void SpawnMob(int number)
+    public void SpawnMob(int number)
     {
         for(int i = 0; i < number; i++)
         {
             Vector3 newPos = new Vector3(transform.position.x + Random.Range(-_SpawnDistance, _SpawnDistance),
                                          transform.position.y+1,
                                          transform.position.z + Random.Range(-_SpawnDistance, _SpawnDistance));
+
             if (_MobsList.Count < _Capacity)
             {
-                GameObject mobPrefab = MST.MobsList[Random.Range(0, MST.MobsList.Count)].MobPrefab;
-                GameObject mob = Instantiate(mobPrefab, newPos, Quaternion.identity);
-                mob.transform.SetParent(transform);
-                _SpawnT = _SpawnIntervail;
-                _MobsList.Add( mobPrefab );
-
-                MXDebug.Log($"Spawning Mob {mobPrefab.name}");
+                Mob mob = _MobFactory.Dequeue().GetComponent<Mob>();
+                if (mob != null)
+                {
+                    mob.gameObject.transform.position = newPos;
+                    mob.Spawner = this;
+                    mob.gameObject.SetActive(true);
+                    _SpawnT = _SpawnIntervail;
+                    _MobsList.Add(mob);
+                }
             }
+        }
+    }
+    public void Renqueue(Mob mob)
+    {
+        int id = _MobsList.IndexOf(mob);
+        _MobsList.RemoveAt(id);
+        mob.gameObject.SetActive(false);
+        mob.gameObject.transform.position = Vector3.zero;
+        _MobFactory.Enqueue(mob.gameObject);
+    }
+    private void InitializeFactory()
+    {
+        for(int i = 0; i < _Capacity * 2 ; i++)
+        {
+            GameObject mobPrefab = MST.MobsList[Random.Range(0, MST.MobsList.Count)].MobPrefab;
+            Vector3 newPos = new Vector3(transform.position.x + Random.Range(-_SpawnDistance, _SpawnDistance),
+                             transform.position.y + 1,
+                             transform.position.z + Random.Range(-_SpawnDistance, _SpawnDistance));
+            GameObject mobObj = Instantiate(mobPrefab, newPos, Quaternion.identity);
+            mobObj.transform.SetParent(transform);
+            mobObj.SetActive(false);
+            _MobFactory.Enqueue( mobObj );
         }
     }
 }

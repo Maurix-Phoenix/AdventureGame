@@ -12,6 +12,7 @@ public class CameraScript : MonoBehaviour
     private Vector3 _Direction;
     private bool _FirstAnimationPerformed = false;
     private float _Speed = 5.0f;
+    private bool _PlayerDead = false;
 
     private void OnEnable()
     {
@@ -20,10 +21,12 @@ public class CameraScript : MonoBehaviour
         _FirstAnimationPerformed = false;
 
         _EM.PlayerSpawn += OnPlayerSpawn;
+        _EM.PlayerDeath += OnPlayerDeath;
     }
     private void OnDisable()
     {
         _EM.PlayerSpawn -= OnPlayerSpawn;
+        _EM.PlayerDeath -= OnPlayerDeath;
     }
 
     // Start is called before the first frame update
@@ -40,12 +43,26 @@ public class CameraScript : MonoBehaviour
 
     private void OnPlayerSpawn()
     {
+        _PlayerDead = false;
         _Player = Player.Instance;
+    }
+    private void OnPlayerDeath()
+    {
+        _PlayerDead = true;
+        _FirstAnimationPerformed = false;
+        
     }
 
     private void LateUpdate()
     {
-        FollowAndLookPlayer();
+        if(!_PlayerDead)
+        {
+            FollowAndLookPlayer();
+        }
+        else
+        {
+            transform.Translate(Vector3.forward *( _Speed / 8) * Time.deltaTime);
+        }
     }
 
     private void FollowAndLookPlayer()
@@ -57,7 +74,7 @@ public class CameraScript : MonoBehaviour
                 if (!_FirstAnimationPerformed)
                 {
                     if (transform.position != (_Player.RigidBody.position + Offset)
-                        && (Vector3.Distance(transform.position, _Player.RigidBody.position + Offset) > 1))
+                        && (Vector3.Distance(transform.position, _Player.RigidBody.position + Offset) > 0.3))
                     {
                         _Direction = (_Player.RigidBody.position + Offset) - transform.position;
                         transform.Translate(_Direction.normalized * _Speed * Time.deltaTime);

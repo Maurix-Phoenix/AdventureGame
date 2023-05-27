@@ -57,17 +57,41 @@ public class AnimationController : MonoBehaviour
 
     public void PlayAnimation(Animator animator, string collectionName, string stateName, int stateLayer = 0, bool waitForEnd = false, bool forceState = false)
     {
-        StartCoroutine(EPlayAnimation(animator, collectionName, stateName, stateLayer, waitForEnd, forceState));
+        AnimationClip clip = GetAnimationClip(collectionName, stateName);
+
+        if(forceState)
+        {
+            animator.Play(clip.name);
+        }
+        else
+        {
+            if (IsDifferentAnimation(animator, stateLayer, clip))
+            {
+                animator.Play(clip.name);
+            }
+            else
+            {
+                if (animator.GetCurrentAnimatorStateInfo(stateLayer).normalizedTime == 1)
+                {
+                    animator.Play(clip.name);
+                }
+            }
+        }
+
+        if (waitForEnd)
+        {
+            StartCoroutine(EPlayAnimation(animator, clip, stateLayer));
+        }
+        
     }
 
-    private IEnumerator EPlayAnimation(Animator animator, string collectionName, string animationName, int animLayer = 0, bool waitForEnd = false, bool forceAnim = false)
+    private IEnumerator EPlayAnimation(Animator animator, AnimationClip clip, int animLayer = 0)
     {
-        AnimationClip clip = AnimationController.Instance.GetAnimationClip(collectionName, animationName);
         int animHash = clip.GetHashCode();
 
-        if (animator.GetCurrentAnimatorStateInfo(animLayer).fullPathHash != animHash)
+        if (IsDifferentAnimation(animator, animLayer, clip))
         {
-            if (waitForEnd && animator.GetCurrentAnimatorStateInfo(animLayer).normalizedTime < 1)
+            if ( animator.GetCurrentAnimatorStateInfo(animLayer).normalizedTime < 1)
             {
                 animator.CrossFadeInFixedTime(clip.name, 0.3f);
 
@@ -97,10 +121,15 @@ public class AnimationController : MonoBehaviour
                 animator.Play(clip.name);
             }
         }
+    }
 
-        if(forceAnim)
+    private bool IsDifferentAnimation(Animator animator, int animLayer, AnimationClip clip)
+    {
+        if (animator.GetCurrentAnimatorStateInfo(animLayer).fullPathHash == clip.GetHashCode())
         {
-            animator.Play(clip.name);
+            return false;
         }
+        return true;
+
     }
 }
