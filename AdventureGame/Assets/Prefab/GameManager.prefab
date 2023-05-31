@@ -85,6 +85,70 @@ MonoBehaviour:
       AnimationClip: {fileID: 1827226128182048838, guid: 5eee3d6dbfbcef04ab20b548575d7b9d, type: 3}
     - AnimationName: Victory
       AnimationClip: {fileID: 1827226128182048838, guid: 03bef14f938475e429e87b9e986bc32c, type: 3}
+  - CollectionName: TurtleShell
+    ClipList:
+    - AnimationName: Idle
+      AnimationClip: {fileID: 7400000, guid: 1b1e02561fcbcf64c82b7c02dfb9f53b, type: 3}
+    - AnimationName: Idle_Battle
+      AnimationClip: {fileID: 7400000, guid: e599599913457404aa360071350dd7c4, type: 3}
+    - AnimationName: Move
+      AnimationClip: {fileID: 7400000, guid: 769c6c4d31c2dad48b0664b47847f7e1, type: 3}
+    - AnimationName: Attack1
+      AnimationClip: {fileID: 7400000, guid: 18d0edd1f2ba4444d9ba9bdf01f251d4, type: 3}
+    - AnimationName: Attack2
+      AnimationClip: {fileID: 7400000, guid: 24d275f677a39b245a5e175f24e345a0, type: 3}
+    - AnimationName: GetHit
+      AnimationClip: {fileID: 7400000, guid: b374e22ebb027494eaf0e15709666b60, type: 3}
+    - AnimationName: Die
+      AnimationClip: {fileID: 7400000, guid: d57bb9f35b232f546851ae283a6a4310, type: 3}
+  - CollectionName: Mushroom
+    ClipList:
+    - AnimationName: Idle
+      AnimationClip: {fileID: 1827226128182048838, guid: c0a0375e97cb4250b0cc67ccda1cd64b, type: 3}
+    - AnimationName: Idle_Battle
+      AnimationClip: {fileID: 1827226128182048838, guid: f108f4bd5e61430c9eb03a14bdb0e880, type: 3}
+    - AnimationName: Move
+      AnimationClip: {fileID: 1827226128182048838, guid: d67bea35413f4c61bf18c860a2b68b3b, type: 3}
+    - AnimationName: Attack1
+      AnimationClip: {fileID: 1827226128182048838, guid: 028c61d558784b2aa3625071e431652b, type: 3}
+    - AnimationName: Attack2
+      AnimationClip: {fileID: 1827226128182048838, guid: 8bf4ec8fe2f7424885d58724f3e4e7ca, type: 3}
+    - AnimationName: GetHit
+      AnimationClip: {fileID: 1827226128182048838, guid: a44ecade09064c168017828ec2febe8a, type: 3}
+    - AnimationName: Die
+      AnimationClip: {fileID: 1827226128182048838, guid: 3e6a628beacf4cfca1697e1e65a28d45, type: 3}
+  - CollectionName: Slime
+    ClipList:
+    - AnimationName: Idle
+      AnimationClip: {fileID: 7400000, guid: 21b5bb1519e484148aa30042c43904c0, type: 3}
+    - AnimationName: Idle_Battle
+      AnimationClip: {fileID: 7400000, guid: 2bfd6fdaf6b23874ca93fca2e578b931, type: 3}
+    - AnimationName: Move
+      AnimationClip: {fileID: 7400000, guid: f5d4d1a7dadc5a84d910c492d947ca4f, type: 3}
+    - AnimationName: Attack1
+      AnimationClip: {fileID: 7400000, guid: 438236b1bb4dc03468cb3f2d12fa922c, type: 3}
+    - AnimationName: Attack2
+      AnimationClip: {fileID: 7400000, guid: 8254c95c1caa1da4cb1d22972c413dad, type: 3}
+    - AnimationName: GetHit
+      AnimationClip: {fileID: 7400000, guid: a4dd2805a4cbc5b428b746ff8cf375c4, type: 3}
+    - AnimationName: Die
+      AnimationClip: {fileID: 7400000, guid: f76b9b823f2fc9a469d0c2c780514380, type: 3}
+  - CollectionName: Cactus
+    ClipList:
+    - AnimationName: Idle
+      AnimationClip: {fileID: 1827226128182048838, guid: 11b47f4308ab4ea1a77f45904a1cd0d2, type: 3}
+    - AnimationName: Idle_Battle
+      AnimationClip: {fileID: 1827226128182048838, guid: f0daf145f0a24017a35ced6e06050023, type: 3}
+    - AnimationName: Move
+      AnimationClip: {fileID: 1827226128182048838, guid: 9b9279213c434f60bfdd45c1f0e4d752, type: 3}
+    - AnimationName: Attack1
+      AnimationClip: {fileID: 1827226128182048838, guid: c25688f83d5f4ff3bbccaaf074a7da91, type: 3}
+    - AnimationName: Attack2
+      AnimationClip: {fileID: 1827226128182048838, guid: e49e58fcb12c43f4a7a539cba4962b5d, type: 3}
+    - AnimationName: GetHit
+      AnimationClip: {fileID: 1827226128182048838, guid: e424a3fc633c48f6a431e2ba6bb3629d, type: 3}
+    - AnimationName: Die
+      AnimationClip: {fileID: 1827226128182048838, guid: 85954cadc1314eb7ba106f3d72458d2e, type: 3}
 --- !u!1 &337449655055255430
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,6 +204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8396596833807404191}
   - component: {fileID: 4382297856470744840}
+  - component: {fileID: 1836745555}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -178,6 +243,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AudioSourceMusic: {fileID: 0}
   AudioSourceSFX: {fileID: 0}
+--- !u!81 &1836745555
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 368482002940837723}
+  m_Enabled: 1
 --- !u!1 &838262921493543338
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,3 +644,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4b67e99107e93f4a9bc008090592e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UIWSLabelPrefab: {fileID: 7205204337218923328, guid: 7320f29ea178ce346973116e22d6fa5a, type: 3}
+  UIWSHealthBarPrefab: {fileID: 221572224370314872, guid: b9bd344ecc3228d44b663fdb0c56a67c, type: 3}

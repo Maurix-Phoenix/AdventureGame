@@ -30,6 +30,9 @@ public class Mob : MonoBehaviour
     private float _AggroRange = 3.0f;
 
     private Vector3 _direction = Vector3.zero;
+
+    private UIWS_HealthBar _HealthBar;
+
     private void OnEnable()
     {
         _UI = GameManager.Instance.UIManager;
@@ -55,10 +58,23 @@ public class Mob : MonoBehaviour
         _CurrentHealth = _MaxHealth;
         StartingPos = transform.position;
 
+
+        if( _HealthBar != null )
+        {
+            _HealthBar.gameObject.SetActive( true );
+        }
+        else
+        {
+            _HealthBar = _UI.CreateUIWSHealthBar(new Vector3(0, -0.2f, 0), transform);
+        }
+        _HealthBar.UpdateHealthBar(_CurrentHealth, _MaxHealth);
+
+
         SubscribeEvents();
     }
     private void OnDisable()
     {
+        _HealthBar.gameObject.SetActive( false );
         UnsubscribeEvents();
     }
 
@@ -123,7 +139,9 @@ public class Mob : MonoBehaviour
             _CurrentHealth -= totalDamage;
             //take damage sound
             AnimationController.Instance.PlayAnimation(Animator, MT.Name, "GetHit");
-            _UI.CreateWorldLabel(totalDamage.ToString("N1"), transform.position, transform);
+            _UI.CreateUIWSTempLabel(totalDamage.ToString("N1"), transform.position, transform);
+
+            _HealthBar.UpdateHealthBar(_CurrentHealth, MT.Health);
 
             if (_CurrentHealth <= 0)
             {
@@ -135,6 +153,8 @@ public class Mob : MonoBehaviour
     public IEnumerator Kill()
     {
         _Dead = true;
+
+        _HealthBar.UpdateHealthBar(_CurrentHealth, MT.Health, "DEAD");
 
         //Play Sound here...
 

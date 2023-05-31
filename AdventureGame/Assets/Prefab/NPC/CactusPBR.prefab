@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eed8fe9f4f605e48bdf00f2660e6bc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Spawner: {fileID: 0}
   MT: {fileID: 11400000, guid: 944111de63c72b84fa9b3e26fb5bf16e, type: 2}
   Animator: {fileID: 0}
   Rigidbody: {fileID: 0}

@@ -9,7 +9,6 @@ public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
     public PlayerSpawningPoint SpawningPoint;
-    public GameObject HitLabel;
     public Rigidbody RigidBody;
     public Transform AttackPoint;
     public TrailRenderer SwordEffectTrail;
@@ -19,6 +18,7 @@ public class Player : MonoBehaviour
     private EventManager _EM;
     private UIManager _UI;
     private AnimationController _AC;
+    private UIWS_HealthBar _HealthBar = null;
 
     private Animator _Animator;
 
@@ -84,6 +84,7 @@ public class Player : MonoBehaviour
         _IM = GameManager.Instance.InputManager;
         _EM = GameManager.Instance.EventManager;
         _AC = AnimationController.Instance;
+
         RigidBody = GetComponent<Rigidbody>();
         _Animator = GetComponent<Animator>();
 
@@ -91,6 +92,17 @@ public class Player : MonoBehaviour
         _Speed = _MoveSpeed;
         _AttackComboCount = 0;
         _Health = _MaxHealth;
+
+        if(_HealthBar != null)
+        {
+            _HealthBar.gameObject.SetActive(true);
+        }
+        else
+        {
+            _HealthBar = _UI.CreateUIWSHealthBar(new Vector3(0, 0.4f, 0), transform);
+        }
+
+        _HealthBar.UpdateHealthBar(_Health, _MaxHealth);
 
         _EM.RaiseOnPlayerSpawn();
 
@@ -103,6 +115,9 @@ public class Player : MonoBehaviour
         _UI = GameManager.Instance.UIManager;
         _IM = GameManager.Instance.InputManager;
         _EM = GameManager.Instance.EventManager;
+
+        _HealthBar.gameObject.SetActive(false);
+
         UnsubscribeToInputs();
         UnsubscribeToEvents();
     }
@@ -405,12 +420,14 @@ public class Player : MonoBehaviour
                 _Health -= totalDamage;
 
                 _AC.PlayAnimation(_Animator, "Player", "GetHit");
-                _UI.CreateWorldLabel($"-{totalDamage.ToString("N1")}", transform.position, transform);
+                _UI.CreateUIWSTempLabel($"-{totalDamage.ToString("N1")}", transform.position, transform);
+                _HealthBar.UpdateHealthBar( _Health, _MaxHealth);
                 //damage taken sound
 
                 if (_Health <= 0)
                 {
                     //death method
+                    _HealthBar.UpdateHealthBar(_Health, _MaxHealth, "DEATH");
                     StartCoroutine(Kill());
                 }
 
@@ -449,7 +466,7 @@ public class Player : MonoBehaviour
     {
         _Coins += coins;
         _EM.RaiseOnPlayerEarnCoin(new MXEventParams<int>(coins));
-        _UI.CreateWorldLabel($"+{coins} G", transform.position, transform, lifetime: 1f);
+        _UI.CreateUIWSTempLabel($"+{coins} G", transform.position, transform, lifetime: 1f);
     }
 
     #endregion

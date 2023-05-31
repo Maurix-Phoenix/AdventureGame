@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2172254072628622326}
   - component: {fileID: 4985808244525816009}
   - component: {fileID: 40578647226997495}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,8 +184,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5282104846809099250}
   - component: {fileID: 6390917777307730931}
-  m_Layer: 0
-  m_Name: UIWorldLabel
+  m_Layer: 5
+  m_Name: UIWS_Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

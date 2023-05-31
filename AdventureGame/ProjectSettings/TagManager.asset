@@ -6,11 +6,12 @@ TagManager:
   tags:
   - PlayerBody
   - Ground
+  - Trigger
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - LevelMap
   - Water
   - UI
   - Mobs
@@ -42,4 +43,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 2412619491
+    locked: 0
+  - name: WorldUI
+    uniqueID: 557308991
+    locked: 0
+  - name: LevelMap
+    uniqueID: 13149221
     locked: 0

@@ -4,17 +4,26 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    public GameObject HitLabelPrefab;
+    public GameObject UIWSLabelPrefab;
+    public GameObject UIWSHealthBarPrefab;
     public bool Initialize()
     {
         return true;
     }
 
-    public void CreateWorldLabel(string text, Vector3 position, Transform parent, float speed = 0.5f, float lifetime = 0.8f)
+    public void CreateUIWSTempLabel(string text, Vector3 position, Transform parent, float speed = 0.5f, float lifetime = 0.8f)
     {
-        UIWorldLabel hl = Instantiate(HitLabelPrefab, position, Quaternion.identity, parent).GetComponent<UIWorldLabel>();
+        UIWS_TempLabel hl = Instantiate(UIWSLabelPrefab, position, Quaternion.identity, parent).GetComponent<UIWS_TempLabel>();
         hl.LabelText = text;
         hl.Speed = speed;
         hl.LifeTime = lifetime;
     }
+
+    public UIWS_HealthBar CreateUIWSHealthBar(Vector3 offsetPosition, Transform parent)
+    {
+        UIWS_HealthBar hb = Instantiate(UIWSHealthBarPrefab, parent.position + offsetPosition, Quaternion.identity).GetComponent<UIWS_HealthBar>();
+        hb.Owner = parent.gameObject;
+        hb.transform.SetParent(parent.transform);
+        return hb;
+    }   
 }

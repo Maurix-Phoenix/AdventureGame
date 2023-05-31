@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 
 
-public class UIWorldLabel : MonoBehaviour
+public class UIWS_TempLabel : MonoBehaviour
 {
     
     private TMP_Text Text;
