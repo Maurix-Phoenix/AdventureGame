@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// AudioManager manage and plays the audioclips of the game
+/// </summary>
 public class AudioManager : MonoBehaviour
 {
     public AudioSource AudioSourceMusic;

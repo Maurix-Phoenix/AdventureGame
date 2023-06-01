@@ -6,10 +6,12 @@ using UnityEngine.Scripting.APIUpdating;
 
 public class MobState_Chase : IMobState
 {
+    private AnimationManager _ANIMM;
     public Mob Mob { get; set; }
 
     public void OnEnterState(Mob mob)
     {
+        _ANIMM = GameManager.Instance.AnimationManager;
            Mob = mob;
     }
 
@@ -37,7 +39,7 @@ public class MobState_Chase : IMobState
 
         Mob.transform.LookAt(_Destination);
         Mob.Rigidbody.MovePosition(Mob.transform.position + _Direction * Time.fixedDeltaTime * Mob.MT.MoveSpeed);
-        AnimationController.Instance.PlayAnimation(Mob.Animator, Mob.MT.Name, "Move");
+        _ANIMM.PlayAnimation(Mob.Animator, Mob.MT.Name, "Move");
 
         if(Vector3.Distance(_Destination, Mob.transform.position) <= Mob.MT.AttackRange)
         {

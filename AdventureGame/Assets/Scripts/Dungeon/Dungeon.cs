@@ -14,16 +14,25 @@ public class Dungeon : MonoBehaviour
 
 
     [Header("Dungeon Structure")]
-    public int RoomsNumber = 2;
-    public Vector2Int RoomSizeXRange = new Vector2Int(3, 9);
-    public Vector2Int RoomSizeYRange = new Vector2Int(3, 9);
-    public Vector2Int RoomsDistanceInTile = new Vector2Int(0,3);
+    [SerializeField] private int RoomsNumber = 2;
+    [SerializeField] private Vector2Int RoomSizeXRange = new Vector2Int(3, 9);
+    [SerializeField] private Vector2Int RoomSizeYRange = new Vector2Int(3, 9);
+    [SerializeField] private Vector2Int RoomsDistanceInTile = new Vector2Int(0,3);
     public List<Room> Rooms = new List<Room>();
     public List<Tile> Tiles = new List<Tile>();
     public List<Tile> CorridorTiles = new List<Tile>();
+    public List<GameObject> Boundaries = new List<GameObject>();
+
 
     [Header("Dungeon Objects")]
+    public GameObject PlayerSpawnerPrefab;
     public GameObject GroundPrefab;
+    public GameObject WallPrefab;
+    public GameObject DoorwayPrefab;
+
+    [Header("Dungeon Mob Pool")]
+    public List<MobSpawnerTemplate> MobSpawnerTemplates;
+    public List<MobSpawner>MobSpawners = new List<MobSpawner>();
 
     private void Awake()
     {
@@ -40,6 +49,8 @@ public class Dungeon : MonoBehaviour
     private void Start()
     {
         GenerateRooms(RoomsNumber);
+        GenerateBoundaries();
+        DungeonGenerationComplete();
     }
 
     private void GenerateRooms(int n)
@@ -168,7 +179,32 @@ public class Dungeon : MonoBehaviour
             {
                 newRoom.CreateRoom(roomPosition, roomSize, transform, roomTag);
                 CreateRoomCorridor(newRoom, distanceInTiles);
+                ConnectTiles();
                 Rooms.Add(newRoom);
+            }
+        }
+    }
+
+    private void ConnectTiles()
+    {
+        for (int i = 0; i < Tiles.Count; i++)
+        {
+            Tile tile = Tiles[i];
+            if (tile != null)
+            {
+                tile.FindConnectedTiled();
+            }
+        }
+    }
+
+    private void GenerateBoundaries()
+    {
+        for (int i = 0; i < Tiles.Count; i++)
+        {
+            Tile tile = Tiles[i];
+            if (tile != null)
+            {
+                tile.BuildBoundaries();
             }
         }
     }
@@ -237,7 +273,7 @@ public class Dungeon : MonoBehaviour
                             }
                     }
                     Tile corridorTile = new GameObject($"CorridorTile").AddComponent<Tile>();
-                    corridorTile.CreateTile(corridorPos, transform);
+                    corridorTile.CreateTile(corridorPos, transform, Tile.Types.Corridor);
                     Tiles.Add(corridorTile);
                     CorridorTiles.Add(corridorTile);
                     corridorTile.name = $"Corridor {CorridorTiles.IndexOf(corridorTile)}";
@@ -286,4 +322,31 @@ public class Dungeon : MonoBehaviour
         return true;
     }
 
+    private void DungeonGenerationComplete()
+    {
+        Room sr = Rooms[0]; //starting room
+        Instantiate(PlayerSpawnerPrefab, new Vector3(sr.Position.x + (sr.Size.x /2) * AGDungeons.DUNGEON_UNIT ,
+                                                     sr.Position.y + AGDungeons.DUNGEON_UNIT /8, 
+                                                     sr.Position.z + (sr.Size.y/2) * AGDungeons.DUNGEON_UNIT), Quaternion.identity);
+
+        for(int i = 0; i < Rooms.Count; i++)
+        {
+            
+            Room room = Rooms[i];
+            if(room.Tag != "Starting Room")
+            {
+                room.MobSpawner = CreateMobSpawner(room);
+
+            }
+        }
+    }
+    public MobSpawner CreateMobSpawner(Room room)
+    {
+        MobSpawner ms = new GameObject("Mob Spawner").AddComponent<MobSpawner>();
+        ms.transform.position = new Vector3(room.Position.x + (room.Size.x / 2) * AGDungeons.DUNGEON_UNIT , 0.3f, room.Position.z + (room.Size.y / 2) * AGDungeons.DUNGEON_UNIT);
+        ms.transform.SetParent(room.transform);
+        ms.MST = MobSpawnerTemplates[Random.Range(0, MobSpawnerTemplates.Count)];
+        MobSpawners.Add(ms);
+        return ms;
+    }
 }

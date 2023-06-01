@@ -7,6 +7,8 @@ using static MXUtilities;
 
 public class MobState_Idle : IMobState
 {
+    private AnimationManager _ANIMM;
+
     private string _Name;
     private float _IdleTime = 5.0f;
     private float _IdleT;
@@ -20,6 +22,7 @@ public class MobState_Idle : IMobState
 
     public void OnEnterState(Mob mob)
     {
+        _ANIMM = GameManager.Instance.AnimationManager;
         Mob = mob;
         _Name = Mob.MT.Name;
         _IdleT = _IdleTime;
@@ -27,6 +30,8 @@ public class MobState_Idle : IMobState
         _CanMove = false;
         _Direction = Vector3.zero;
         _Destination = Vector3.zero;
+
+        _ANIMM.PlayAnimation(Mob.Animator, _Name, "Idle");
     }
 
     public void OnExitState()
@@ -65,13 +70,13 @@ public class MobState_Idle : IMobState
             Mob.Rigidbody.MovePosition(Mob.transform.position + _Direction * Time.fixedDeltaTime * Mob.MT.MoveSpeed);
 
             //apply move animation here
-            AnimationController.Instance.PlayAnimation(Mob.Animator, _Name, "Move");
+            _ANIMM.PlayAnimation(Mob.Animator, _Name, "Move");
 
             if (_MoveT < 0 )
             {
 
                 //Deactivate move aniamtion here
-                AnimationController.Instance.PlayAnimation(Mob.Animator, _Name, "Idle");
+                _ANIMM.PlayAnimation(Mob.Animator, _Name, "Idle");
 
 
                 _Destination = Vector3.zero;

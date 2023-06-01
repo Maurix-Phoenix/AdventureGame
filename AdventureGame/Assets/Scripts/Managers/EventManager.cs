@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using static AdventureGame;
 
+/// <summary>
+/// EventManager: In Game Related Events
+/// </summary>
 public class EventManager : MonoBehaviour
 {
     public bool Initialize()
@@ -44,5 +47,10 @@ public class EventManager : MonoBehaviour
         PlayerEarnCoin?.Invoke(e);
     }
 
+    public Action<MXEventParams<float>> PlayerHeal;
+    public void RaiseOnPlayerHeal(MXEventParams<float> e)
+    {
+        PlayerHeal?.Invoke(e);
+    }
     #endregion
 }

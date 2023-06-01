@@ -4,12 +4,16 @@ using static MXUtilities;
 public class MobState_Combat : IMobState
 {
     public Mob Mob { get; set; }
+
+    private AnimationManager _ANIMM;
+
     private bool _CanAttack = false;
     private float _AttackT;
     private int _AttackCount = 0;
 
     public void OnEnterState(Mob mob)
     {
+        _ANIMM = GameManager.Instance.AnimationManager;
         Mob = mob;
         _AttackT = mob.MT.AttackSpeed;
         _AttackCount = 0;
@@ -36,7 +40,7 @@ public class MobState_Combat : IMobState
         while (Mob.GetCurrentState() == this)
         {
             Player player = Player.Instance;
-            if (player.gameObject.activeSelf)
+            if (!player.Dead)
             {
                 Mob.transform.LookAt(player.transform.position);
                 if (Vector3.Distance(player.transform.position, Mob.transform.position) <= Mob.MT.AttackRange)
@@ -49,7 +53,7 @@ public class MobState_Combat : IMobState
                     else
                     {
                         //idle animation
-                        AnimationController.Instance.PlayAnimation(Mob.Animator, Mob.MT.Name, $"Idle_Battle");
+                        _ANIMM.PlayAnimation(Mob.Animator, Mob.MT.Name, $"Idle_Battle");
                     }
 
                     if (_CanAttack)
@@ -60,7 +64,7 @@ public class MobState_Combat : IMobState
                             _AttackCount = 1;
                         }
                         //attack animation
-                        AnimationController.Instance.PlayAnimation(Mob.Animator, Mob.MT.Name, $"Attack{_AttackCount}");
+                        _ANIMM.PlayAnimation(Mob.Animator, Mob.MT.Name, $"Attack{_AttackCount}");
 
                         float attackDamage = Mob.MT.Attack;
                         float totalAttack = attackDamage;
@@ -81,7 +85,11 @@ public class MobState_Combat : IMobState
                 {
                     Mob.ChangeState(new MobState_Chase());
                 }
-            } 
+            }
+            else
+            {
+                Mob.ChangeState(new MobState_Idle());
+            }
             yield return null;
         }
     }

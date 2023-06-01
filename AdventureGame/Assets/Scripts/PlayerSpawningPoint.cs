@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 using static MXUtilities;
-public class PlayerSpawningPoint : MonoBehaviour
-{
+public class PlayerSpawningPoint : MonoBehaviour, IInteractable
+{ 
 
     public GameObject PlayerPrefab;
+    public Light LightGO;
     private GameObject _PlayerInstanceOBJ;
     private EventManager _EM;
     private Player _Player;
@@ -14,6 +16,9 @@ public class PlayerSpawningPoint : MonoBehaviour
     private const float _TimeToSpawn = 3.0f;
     private float _CurrentTime = _TimeToSpawn;
     private bool _PlayerSpawned = false;
+    private int _HealthCharges = 4;
+    private float _HealthPerCharge = 25.0f;
+
 
     private void OnEnable()
     {
@@ -86,5 +91,17 @@ public class PlayerSpawningPoint : MonoBehaviour
     {
         _PlayerSpawned = false;
         _CurrentTime = _TimeToSpawn;
+    }
+
+    public void Interaction()
+    {
+        MXDebug.Log($"{gameObject} INTERACTION TRIGGERED");
+        if(_HealthCharges > 0)
+        {
+            _Player.Heal(_HealthPerCharge);
+            _HealthCharges--;
+
+            LightGO.intensity -= 1;
+        }
     }
 }

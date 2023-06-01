@@ -4,6 +4,9 @@ using static AdventureGame;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
+using UnityEngine.Experimental.GlobalIllumination;
+using Unity.VisualScripting;
 
 public class Player : MonoBehaviour
 {
@@ -13,16 +16,17 @@ public class Player : MonoBehaviour
     public Transform AttackPoint;
     public TrailRenderer SwordEffectTrail;
     public LayerMask MobsLayerMask;
+    public Light PlayerLight;
 
     private InputManager _IM;
     private EventManager _EM;
     private UIManager _UI;
-    private AnimationController _AC;
+    private AnimationManager _ANIMM;
     private UIWS_HealthBar _HealthBar = null;
 
     private Animator _Animator;
 
-    private bool _Dead = false;
+    public bool Dead = false;
 
     #region Player Movement Data
     private bool _CanMove = true;
@@ -83,12 +87,12 @@ public class Player : MonoBehaviour
         _UI = GameManager.Instance.UIManager;
         _IM = GameManager.Instance.InputManager;
         _EM = GameManager.Instance.EventManager;
-        _AC = AnimationController.Instance;
+        _ANIMM = GameManager.Instance.AnimationManager;
 
         RigidBody = GetComponent<Rigidbody>();
         _Animator = GetComponent<Animator>();
 
-        _Dead = false;
+        Dead = false;
         _Speed = _MoveSpeed;
         _AttackComboCount = 0;
         _Health = _MaxHealth;
@@ -108,6 +112,15 @@ public class Player : MonoBehaviour
 
         SubscribeToInputs();
         SubscribeToEvents();
+
+        if(SceneManager.GetActiveScene().name == "TrainingValley")
+        {
+            PlayerLight.gameObject.SetActive(false);
+        }
+        else if(SceneManager.GetActiveScene().name != "Dungeon")
+        {
+            PlayerLight.gameObject.SetActive(false);
+        }
     }
 
     private void OnDisable()
@@ -129,7 +142,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (!_Dead)
+        if (!Dead)
         {
             UpdateAttack();
             UpdateCombat();
@@ -138,7 +151,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(!_Dead)
+        if(!Dead)
         {
             Idle();
             Move();
@@ -261,11 +274,11 @@ public class Player : MonoBehaviour
         {
             if (_CombatStance)
             {
-                _AC.PlayAnimation(_Animator, "Player", "Idle_Battle");
+                _ANIMM.PlayAnimation(_Animator, "Player", "Idle_Battle");
             }
             else
             {
-                _AC.PlayAnimation(_Animator, "Player", "Idle");
+                _ANIMM.PlayAnimation(_Animator, "Player", "Idle");
             }
         }
     }
@@ -282,12 +295,12 @@ public class Player : MonoBehaviour
 
                 if (_IsSprinting)
                 {
-                    _AC.PlayAnimation(_Animator, "Player", "Sprint");
+                    _ANIMM.PlayAnimation(_Animator, "Player", "Sprint");
                 }
                 else
                 {
 
-                    _AC.PlayAnimation(_Animator, "Player", "Move");
+                    _ANIMM.PlayAnimation(_Animator, "Player", "Move");
                 }
             }
             else
@@ -332,7 +345,7 @@ public class Player : MonoBehaviour
             }
 
             string attackNameAnimation = $"Attack{_AttackComboCount}";
-            _AC.PlayAnimation(_Animator, "Player", attackNameAnimation, 0, forceState: true);
+            _ANIMM.PlayAnimation(_Animator, "Player", attackNameAnimation, 0, forceState: true);
             
             float totalDamage = _Attack;
             if(Random.value > 0.7f)
@@ -411,7 +424,7 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(float d)
     {
-        if (!_Dead)
+        if (!Dead)
         {
             float totalDamage = d - (_Defence / 2);
             if (totalDamage > 0)
@@ -419,7 +432,7 @@ public class Player : MonoBehaviour
                 _EM.RaiseOnPlayerTakeDamage(new MXEventParams<float>(totalDamage));
                 _Health -= totalDamage;
 
-                _AC.PlayAnimation(_Animator, "Player", "GetHit");
+                _ANIMM.PlayAnimation(_Animator, "Player", "GetHit");
                 _UI.CreateUIWSTempLabel($"-{totalDamage.ToString("N1")}", transform.position, transform);
                 _HealthBar.UpdateHealthBar( _Health, _MaxHealth);
                 //damage taken sound
@@ -441,9 +454,9 @@ public class Player : MonoBehaviour
 
     public IEnumerator Kill()
     {
-        _Dead = true;
+        Dead = true;
         _EM.RaiseOnPlayerDeath();
-        _AC.PlayAnimation(_Animator, "Player", "Die", forceState: true);
+        _ANIMM.PlayAnimation(_Animator, "Player", "Die", forceState: true);
         yield return MXProgramFlow.EWait(_Animator.GetCurrentAnimatorStateInfo(0).length);
         gameObject.SetActive(false);
 
@@ -456,6 +469,25 @@ public class Player : MonoBehaviour
     private void PlayerAction()
     {
         MXDebug.Log("Action Key Pressed");
+        Ray ray = new Ray(new Vector3(RigidBody.position.x, RigidBody.position.y + 0.1f, transform.position.z), transform.forward);
+        RaycastHit hit;
+
+
+
+        if(Physics.Raycast(ray,out hit, 0.5f))
+        {
+            MXDebug.Log($"hit: {hit.transform.gameObject.name}");
+            if (hit.collider != null)
+            {
+                if(hit.transform.parent.TryGetComponent( out IInteractable interactable))
+                {
+                    interactable.Interaction();
+                    MXDebug.Log($"Action hit: V");
+                }
+            }
+        }
+
+        
     }
 
     #endregion
@@ -467,6 +499,23 @@ public class Player : MonoBehaviour
         _Coins += coins;
         _EM.RaiseOnPlayerEarnCoin(new MXEventParams<int>(coins));
         _UI.CreateUIWSTempLabel($"+{coins} G", transform.position, transform, lifetime: 1f);
+    }
+
+    public void Heal(float h)
+    { 
+        if(_Health + h < _MaxHealth)
+        {
+            _Health +=  h;
+        }
+        else if( _Health  + h >= _MaxHealth)
+        {
+            _Health = _MaxHealth;
+        }
+        _EM.RaiseOnPlayerHeal(new MXEventParams<float>(h));
+
+        _UI.CreateUIWSTempLabel($"+heal {h}", transform.position, transform);
+        _HealthBar.UpdateHealthBar(_Health, _MaxHealth);
+        
     }
 
     #endregion

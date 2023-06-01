@@ -9,6 +9,8 @@ public class Mob : MonoBehaviour
 {
     private EventManager _EM;
     private UIManager _UI;
+    private AnimationManager _ANIMM;
+
     public MobSpawner Spawner;
     public MobTemplate MT;
     public Animator Animator;
@@ -37,6 +39,8 @@ public class Mob : MonoBehaviour
     {
         _UI = GameManager.Instance.UIManager;
         _EM = GameManager.Instance.EventManager;
+        _ANIMM = GameManager.Instance.AnimationManager;
+
         Rigidbody = GetComponent<Rigidbody>();
         Animator = GetComponent<Animator>();
 
@@ -109,6 +113,11 @@ public class Mob : MonoBehaviour
                 ChangeState(new MobState_Chase());
             }
         }
+
+        if(transform.position.y < -5)
+        {
+            StartCoroutine(Kill());
+        }
         
     }
     private void FixedUpdate()
@@ -138,7 +147,7 @@ public class Mob : MonoBehaviour
             float totalDamage = d - (_BaseDefence / 2);
             _CurrentHealth -= totalDamage;
             //take damage sound
-            AnimationController.Instance.PlayAnimation(Animator, MT.Name, "GetHit");
+            _ANIMM.PlayAnimation(Animator, MT.Name, "GetHit");
             _UI.CreateUIWSTempLabel(totalDamage.ToString("N1"), transform.position, transform);
 
             _HealthBar.UpdateHealthBar(_CurrentHealth, MT.Health);
@@ -158,13 +167,13 @@ public class Mob : MonoBehaviour
 
         //Play Sound here...
 
-        AnimationController.Instance.PlayAnimation(Animator, MT.Name, "Die");
+        _ANIMM.PlayAnimation(Animator, MT.Name, "Die", forceState: true);
         yield return MXProgramFlow.EWait(Animator.GetCurrentAnimatorClipInfo(0).Length);
 
         //Loot
         if (MT.CoinsLoot.Count > 0)
         {
-            Vector3 coinPos = new Vector3(transform.position.x, transform.position.y + 0.25f, transform.position.z);
+            Vector3 coinPos = new Vector3(transform.position.x, transform.position.y + 0.2f, transform.position.z);
             Instantiate(MT.CoinsLoot[Random.Range(0, MT.CoinsLoot.Count)].CoinPrefab, coinPos, Quaternion.identity);
         }
 

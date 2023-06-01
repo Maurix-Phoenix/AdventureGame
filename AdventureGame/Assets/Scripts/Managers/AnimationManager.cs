@@ -4,20 +4,16 @@ using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 
-public class AnimationController : MonoBehaviour
+/// <summary>
+/// AnimationManager: Manage the animations and the collection of Animation Clips of the game.
+/// Note: animation state MUST be inside the GameObject's Animator
+/// </summary>
+public class AnimationManager : MonoBehaviour
 {
-    public static AnimationController Instance;
-    private void Awake()
+    public bool Initialize()
     {
-        if(Instance != null && Instance != this)
-        {
-            Destroy(Instance);
-        }
-        else
-        {
-            Instance = this;
-        }
-    }
+        return true;
+    } 
 
     [Serializable]
     public class AnimCollection
@@ -33,7 +29,7 @@ public class AnimationController : MonoBehaviour
         }
     }
 
-   public List<AnimCollection> Collection;
+    public List<AnimCollection> Collection;
 
     public AnimationClip GetAnimationClip(string collection, string animName)
     {

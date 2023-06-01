@@ -20,7 +20,7 @@ public class Coin : MonoBehaviour
         _EM = GameManager.Instance.EventManager;
         if(CT != null)
         {
-            CT.Value = _Value;
+            _Value = CT.Value;
         }
     }
 

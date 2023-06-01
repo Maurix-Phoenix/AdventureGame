@@ -15,6 +15,8 @@ public static class MXUtilities
             Warning,
             Error,
         }
+
+
         public static void Log(string logMessage, LogType type = LogType.Normal)
         {
             #if UNITY_EDITOR
@@ -27,6 +29,7 @@ public static class MXUtilities
             }
             #endif
         }
+
     }
 
     public static class MXProgramFlow

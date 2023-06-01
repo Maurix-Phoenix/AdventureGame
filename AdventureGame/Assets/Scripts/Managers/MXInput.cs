@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Custom Input system
+/// </summary>
 [Serializable]
 public class MXInput : Input
 {

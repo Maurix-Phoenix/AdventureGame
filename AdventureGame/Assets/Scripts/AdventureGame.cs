@@ -8,16 +8,13 @@ public static class AdventureGame
     public enum TriggerType
     {
         NONE = -1,
-        Shop,
-        AdventureGuild,
-        Dungeon,
-        All = 5,
+        LoadScene,
     }
 
     public static class AGDungeons
     {
-        public const float DUNGEON_UNIT = 0.4f;
-        public const float TILE_OFFSET = 0.2f;
+        public const float DUNGEON_UNIT = 0.8f;
+        public const float TILE_OFFSET = 0.4f;
         public const int MIN_X = 30;
         public const int MAX_X = 180;
         public const int MIN_Y = 30;
@@ -50,6 +47,36 @@ public static class AdventureGame
             East = 2,
             West = 3,
             ALL = 4,
+        }
+
+        public static Directions GetOppositeDirection(Directions d)
+        {
+            Directions oppositeD = Directions.NONE;
+            switch (d)
+            {
+                case Directions.North:
+                {
+                    oppositeD = Directions.South;
+                    break;
+                }
+               case Directions.South: 
+               {
+                    oppositeD = Directions.North;
+                    break;
+               }
+               case Directions.East:
+               {
+                    oppositeD = Directions.West;
+                    break;
+               }
+                case Directions.West:
+                {
+                    oppositeD = Directions.East;
+                    break;
+                }
+                default: { oppositeD = Directions.NONE; break; }
+            }
+            return oppositeD;
         }
 
         public static Vector3 North = new Vector3 (0, 0, 1);

@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Input Manager: Custom Inputs related Events
+/// </summary>
 public class InputManager : MonoBehaviour
 {
     public List<MXInput> InputsList = new List<MXInput>();

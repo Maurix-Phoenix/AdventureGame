@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// UIManager: manages show/hide the UI
+/// </summary>
 public class UIManager : MonoBehaviour
 {
     public GameObject UIWSLabelPrefab;

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static MXUtilities;
 
 
@@ -18,7 +19,8 @@ public class GameManager : MonoBehaviour
     public UIManager UIManager { get; private set; }
     public EventManager EventManager { get; private set; }
     public InputManager InputManager { get; private set; }
-    public AnimationController AnimationController { get; private set; }
+    public AnimationManager AnimationManager { get; private set; }
+    public SceneManager SceneManager { get; private set; }
 
     //GameFlow Events 
     public Action GameStart;
@@ -37,6 +39,8 @@ public class GameManager : MonoBehaviour
         Quitting,
     }
     public State GameFlowState { get;  private set; }
+    
+    public Scene CurrentScene { get; private set; }
 
     public void SetGameState(State gameFlowState)
     {
@@ -78,6 +82,13 @@ public class GameManager : MonoBehaviour
         EventManager.Initialize();
         UIManager = GetComponentInChildren<UIManager>();
         UIManager.Initialize();
+        AnimationManager = GetComponentInChildren<AnimationManager>();
+        AnimationManager.Initialize();
+    }
+
+    private void OnEnable()
+    {
+        InitializingManagers();
     }
 
     private void Start()

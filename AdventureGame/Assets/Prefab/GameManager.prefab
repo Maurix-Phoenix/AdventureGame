@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1641119697}
   - component: {fileID: 1641119696}
   m_Layer: 0
-  m_Name: AnimationController
+  m_Name: AnimationManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,66 +41,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 1641119695}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 127068f7ee99f354eb719a85b2996417, type: 3}
+  m_Script: {fileID: 11500000, guid: bfed1ae2537f2b040bc18a380c489ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Collection:
   - CollectionName: Player
     ClipList:
+    - AnimationName: Idle
+      AnimationClip: {fileID: 1827226128182048838, guid: 423aabfede0896f4db862ab8e54dde30, type: 3}
+    - AnimationName: Idle_Battle
+      AnimationClip: {fileID: 1827226128182048838, guid: 0308cf4e83cf517488b60af58b290fe0, type: 3}
+    - AnimationName: Move
+      AnimationClip: {fileID: 1827226128182048838, guid: 0791e523b7f1b2740a3b1cde42b6aeac, type: 3}
+    - AnimationName: Sprint
+      AnimationClip: {fileID: 1827226128182048838, guid: 5eee3d6dbfbcef04ab20b548575d7b9d, type: 3}
     - AnimationName: Attack1
       AnimationClip: {fileID: 1827226128182048838, guid: db509ad77f9b4f84a8eb1989f589b24c, type: 3}
     - AnimationName: Attack2
       AnimationClip: {fileID: 1827226128182048838, guid: 8283fadf2c89507469495f30db8680db, type: 3}
     - AnimationName: Attack3
       AnimationClip: {fileID: 1827226128182048838, guid: 9a6c3585df66f2e4782635fc7a23494c, type: 3}
-    - AnimationName: Attack4
-      AnimationClip: {fileID: 1827226128182048838, guid: b267a2c210dbd1d4badc3f270df6d12d, type: 3}
-    - AnimationName: Attack4_Start
-      AnimationClip: {fileID: 1827226128182048838, guid: 11cede249330b1744a2bc174ddb6111c, type: 3}
-    - AnimationName: Attack4_Spinning
-      AnimationClip: {fileID: 1827226128182048838, guid: 5729b70d60fdcac45bd03f32c0b8dbea, type: 3}
-    - AnimationName: Defend
-      AnimationClip: {fileID: 1827226128182048838, guid: 61f2c64d4f97d9f459a1d367eb16fb13, type: 3}
-    - AnimationName: Defend_Hit
-      AnimationClip: {fileID: 1827226128182048838, guid: 655c85429305c154b88f3b9157168e0c, type: 3}
-    - AnimationName: Die
-      AnimationClip: {fileID: 1827226128182048838, guid: 5940bb0b55717a746bbbe4d3e47e7e39, type: 3}
-    - AnimationName: Die_Stay
-      AnimationClip: {fileID: 1827226128182048838, guid: 0e112f1584fcccd4face09e3b7156832, type: 3}
-    - AnimationName: Dizzy
-      AnimationClip: {fileID: 1827226128182048838, guid: 065be5573fa6aca4380d5ddfb9dde3d0, type: 3}
     - AnimationName: GetHit
       AnimationClip: {fileID: 1827226128182048838, guid: c98546b8d8d3ab046afc8acfe706361f, type: 3}
-    - AnimationName: GetUp
-      AnimationClip: {fileID: 1827226128182048838, guid: 4e1dc6b0156559b4ca64937d40514fb5, type: 3}
-    - AnimationName: Idle
-      AnimationClip: {fileID: 1827226128182048838, guid: 423aabfede0896f4db862ab8e54dde30, type: 3}
-    - AnimationName: Idle_Battle
-      AnimationClip: {fileID: 1827226128182048838, guid: 0308cf4e83cf517488b60af58b290fe0, type: 3}
-    - AnimationName: Move_Battle
-      AnimationClip: {fileID: 1827226128182048838, guid: 7d4f9e9da55a3bd4f958a63308a522a1, type: 3}
-    - AnimationName: Move
-      AnimationClip: {fileID: 1827226128182048838, guid: 0791e523b7f1b2740a3b1cde42b6aeac, type: 3}
-    - AnimationName: Sprint
-      AnimationClip: {fileID: 1827226128182048838, guid: 5eee3d6dbfbcef04ab20b548575d7b9d, type: 3}
-    - AnimationName: Victory
-      AnimationClip: {fileID: 1827226128182048838, guid: 03bef14f938475e429e87b9e986bc32c, type: 3}
-  - CollectionName: TurtleShell
-    ClipList:
-    - AnimationName: Idle
-      AnimationClip: {fileID: 7400000, guid: 1b1e02561fcbcf64c82b7c02dfb9f53b, type: 3}
-    - AnimationName: Idle_Battle
-      AnimationClip: {fileID: 7400000, guid: e599599913457404aa360071350dd7c4, type: 3}
-    - AnimationName: Move
-      AnimationClip: {fileID: 7400000, guid: 769c6c4d31c2dad48b0664b47847f7e1, type: 3}
-    - AnimationName: Attack1
-      AnimationClip: {fileID: 7400000, guid: 18d0edd1f2ba4444d9ba9bdf01f251d4, type: 3}
-    - AnimationName: Attack2
-      AnimationClip: {fileID: 7400000, guid: 24d275f677a39b245a5e175f24e345a0, type: 3}
-    - AnimationName: GetHit
-      AnimationClip: {fileID: 7400000, guid: b374e22ebb027494eaf0e15709666b60, type: 3}
     - AnimationName: Die
-      AnimationClip: {fileID: 7400000, guid: d57bb9f35b232f546851ae283a6a4310, type: 3}
+      AnimationClip: {fileID: 1827226128182048838, guid: 5940bb0b55717a746bbbe4d3e47e7e39, type: 3}
   - CollectionName: Mushroom
     ClipList:
     - AnimationName: Idle
@@ -109,38 +73,28 @@ MonoBehaviour:
       AnimationClip: {fileID: 1827226128182048838, guid: f108f4bd5e61430c9eb03a14bdb0e880, type: 3}
     - AnimationName: Move
       AnimationClip: {fileID: 1827226128182048838, guid: d67bea35413f4c61bf18c860a2b68b3b, type: 3}
+    - AnimationName: Sprint
+      AnimationClip: {fileID: 1827226128182048838, guid: 38efb25f0375445791ea4b4351108675, type: 3}
     - AnimationName: Attack1
       AnimationClip: {fileID: 1827226128182048838, guid: 028c61d558784b2aa3625071e431652b, type: 3}
     - AnimationName: Attack2
       AnimationClip: {fileID: 1827226128182048838, guid: 8bf4ec8fe2f7424885d58724f3e4e7ca, type: 3}
+    - AnimationName: Attack3
+      AnimationClip: {fileID: 1827226128182048838, guid: d710066ffd2d4530bc052007fc79fc35, type: 3}
     - AnimationName: GetHit
       AnimationClip: {fileID: 1827226128182048838, guid: a44ecade09064c168017828ec2febe8a, type: 3}
     - AnimationName: Die
       AnimationClip: {fileID: 1827226128182048838, guid: 3e6a628beacf4cfca1697e1e65a28d45, type: 3}
-  - CollectionName: Slime
-    ClipList:
-    - AnimationName: Idle
-      AnimationClip: {fileID: 7400000, guid: 21b5bb1519e484148aa30042c43904c0, type: 3}
-    - AnimationName: Idle_Battle
-      AnimationClip: {fileID: 7400000, guid: 2bfd6fdaf6b23874ca93fca2e578b931, type: 3}
-    - AnimationName: Move
-      AnimationClip: {fileID: 7400000, guid: f5d4d1a7dadc5a84d910c492d947ca4f, type: 3}
-    - AnimationName: Attack1
-      AnimationClip: {fileID: 7400000, guid: 438236b1bb4dc03468cb3f2d12fa922c, type: 3}
-    - AnimationName: Attack2
-      AnimationClip: {fileID: 7400000, guid: 8254c95c1caa1da4cb1d22972c413dad, type: 3}
-    - AnimationName: GetHit
-      AnimationClip: {fileID: 7400000, guid: a4dd2805a4cbc5b428b746ff8cf375c4, type: 3}
-    - AnimationName: Die
-      AnimationClip: {fileID: 7400000, guid: f76b9b823f2fc9a469d0c2c780514380, type: 3}
   - CollectionName: Cactus
     ClipList:
     - AnimationName: Idle
-      AnimationClip: {fileID: 1827226128182048838, guid: 11b47f4308ab4ea1a77f45904a1cd0d2, type: 3}
+      AnimationClip: {fileID: 1827226128182048838, guid: 9bf3035ac8a641e99ba5d51178d131ba, type: 3}
     - AnimationName: Idle_Battle
       AnimationClip: {fileID: 1827226128182048838, guid: f0daf145f0a24017a35ced6e06050023, type: 3}
     - AnimationName: Move
       AnimationClip: {fileID: 1827226128182048838, guid: 9b9279213c434f60bfdd45c1f0e4d752, type: 3}
+    - AnimationName: Sprint
+      AnimationClip: {fileID: 1827226128182048838, guid: 93edfaa62ef343799630a119e6b5b00d, type: 3}
     - AnimationName: Attack1
       AnimationClip: {fileID: 1827226128182048838, guid: c25688f83d5f4ff3bbccaaf074a7da91, type: 3}
     - AnimationName: Attack2
@@ -149,6 +103,42 @@ MonoBehaviour:
       AnimationClip: {fileID: 1827226128182048838, guid: e424a3fc633c48f6a431e2ba6bb3629d, type: 3}
     - AnimationName: Die
       AnimationClip: {fileID: 1827226128182048838, guid: 85954cadc1314eb7ba106f3d72458d2e, type: 3}
+  - CollectionName: Slime
+    ClipList:
+    - AnimationName: Idle
+      AnimationClip: {fileID: 7400000, guid: 21b5bb1519e484148aa30042c43904c0, type: 3}
+    - AnimationName: Idle_Battle
+      AnimationClip: {fileID: 7400000, guid: 2bfd6fdaf6b23874ca93fca2e578b931, type: 3}
+    - AnimationName: Move
+      AnimationClip: {fileID: 7400000, guid: f5d4d1a7dadc5a84d910c492d947ca4f, type: 3}
+    - AnimationName: Sprint
+      AnimationClip: {fileID: 7400000, guid: dbf4e442d523220489ca9531ab20161f, type: 3}
+    - AnimationName: Attack1
+      AnimationClip: {fileID: 7400000, guid: 438236b1bb4dc03468cb3f2d12fa922c, type: 3}
+    - AnimationName: Attack2
+      AnimationClip: {fileID: 7400000, guid: 8254c95c1caa1da4cb1d22972c413dad, type: 3}
+    - AnimationName: GetHit
+      AnimationClip: {fileID: 7400000, guid: a4dd2805a4cbc5b428b746ff8cf375c4, type: 3}
+    - AnimationName: Die
+      AnimationClip: {fileID: 7400000, guid: f76b9b823f2fc9a469d0c2c780514380, type: 3}
+  - CollectionName: TurtleShell
+    ClipList:
+    - AnimationName: Idle
+      AnimationClip: {fileID: 7400000, guid: 1b1e02561fcbcf64c82b7c02dfb9f53b, type: 3}
+    - AnimationName: Idle_Battle
+      AnimationClip: {fileID: 7400000, guid: e599599913457404aa360071350dd7c4, type: 3}
+    - AnimationName: Move
+      AnimationClip: {fileID: 7400000, guid: 769c6c4d31c2dad48b0664b47847f7e1, type: 3}
+    - AnimationName: Sprint
+      AnimationClip: {fileID: 7400000, guid: 7167b0d559da22d439a92af6ec59a2ad, type: 3}
+    - AnimationName: Attack1
+      AnimationClip: {fileID: 7400000, guid: 18d0edd1f2ba4444d9ba9bdf01f251d4, type: 3}
+    - AnimationName: Attack2
+      AnimationClip: {fileID: 7400000, guid: 24d275f677a39b245a5e175f24e345a0, type: 3}
+    - AnimationName: GetHit
+      AnimationClip: {fileID: 7400000, guid: b374e22ebb027494eaf0e15709666b60, type: 3}
+    - AnimationName: Die
+      AnimationClip: {fileID: 7400000, guid: d57bb9f35b232f546851ae283a6a4310, type: 3}
 --- !u!1 &337449655055255430
 GameObject:
   m_ObjectHideFlags: 0

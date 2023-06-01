@@ -105,7 +105,7 @@ public class MobSpawner : MonoBehaviour
         {
             GameObject mobPrefab = MST.MobsList[Random.Range(0, MST.MobsList.Count)].MobPrefab;
             Vector3 newPos = new Vector3(transform.position.x + Random.Range(-_SpawnDistance, _SpawnDistance),
-                             transform.position.y + 1,
+                             transform.position.y + 0.5f,
                              transform.position.z + Random.Range(-_SpawnDistance, _SpawnDistance));
             GameObject mobObj = Instantiate(mobPrefab, newPos, Quaternion.identity);
             mobObj.transform.SetParent(transform);
@@ -113,4 +113,13 @@ public class MobSpawner : MonoBehaviour
             _MobFactory.Enqueue( mobObj );
         }
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, 0.1f);
+        Gizmos.DrawWireSphere(transform.position, MST.SpawnDistance);
+    }
+#endif
 }

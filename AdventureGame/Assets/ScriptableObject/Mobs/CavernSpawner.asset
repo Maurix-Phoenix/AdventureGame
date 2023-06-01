@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc41e0652c5562a45a4d205b9d451759, type: 3}
-  m_Name: ForestSpawner
+  m_Name: CavernSpawner
   m_EditorClassIdentifier: 
-  Tag: Forset
+  Tag: Dungeon
   MobsList:
-  - {fileID: 11400000, guid: 944111de63c72b84fa9b3e26fb5bf16e, type: 2}
-  - {fileID: 11400000, guid: 1be5a0dbea930f746bbb641238236045, type: 2}
   - {fileID: 11400000, guid: 4daa4f3704e75224cbcfba43cacb749a, type: 2}
-  - {fileID: 11400000, guid: d399a0ccb62a7fa45ab5de3eddf43f97, type: 2}
-  SpawnIntervail: 30
+  - {fileID: 11400000, guid: 2c29ff55b9c7835408fc4a718dbdc4d7, type: 2}
+  - {fileID: 11400000, guid: c01dbf53c292e57438b02f5f6582a7d2, type: 2}
+  SpawnIntervail: 60
   InitialMobsNumber: 3
-  SpawnNumber: 1
-  Capacity: 5
-  SpawnDistance: 1.5
+  SpawnNumber: 2
+  Capacity: 10
+  SpawnDistance: 0.4
