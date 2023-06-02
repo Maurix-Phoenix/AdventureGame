@@ -12,6 +12,7 @@ public class Dungeon : MonoBehaviour
 {
     public static Dungeon Instance;
 
+    private Room _PlayerCurrentRoom = null;
 
     [Header("Dungeon Structure")]
     [SerializeField] private int RoomsNumber = 2;
@@ -51,6 +52,14 @@ public class Dungeon : MonoBehaviour
         GenerateRooms(RoomsNumber);
         GenerateBoundaries();
         DungeonGenerationComplete();
+    }
+
+    private void Update()
+    {
+        if(Player.Instance != null)
+        {
+            _PlayerCurrentRoom = Player.Instance.CurrentRoom;
+        }
     }
 
     private void GenerateRooms(int n)
@@ -336,17 +345,18 @@ public class Dungeon : MonoBehaviour
             if(room.Tag != "Starting Room")
             {
                 room.MobSpawner = CreateMobSpawner(room);
-
             }
         }
     }
     public MobSpawner CreateMobSpawner(Room room)
     {
         MobSpawner ms = new GameObject("Mob Spawner").AddComponent<MobSpawner>();
+        ms.ParentRoom = room;
         ms.transform.position = new Vector3(room.Position.x + (room.Size.x / 2) * AGDungeons.DUNGEON_UNIT , 0.3f, room.Position.z + (room.Size.y / 2) * AGDungeons.DUNGEON_UNIT);
         ms.transform.SetParent(room.transform);
         ms.MST = MobSpawnerTemplates[Random.Range(0, MobSpawnerTemplates.Count)];
         MobSpawners.Add(ms);
         return ms;
     }
+
 }

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using static MXUtilities;
+using static AdventureGame;
+using static AdventureGame.AGDungeons;
+
 public class MobSpawner : MonoBehaviour
 {
     public MobSpawnerTemplate MST;
@@ -14,6 +17,7 @@ public class MobSpawner : MonoBehaviour
     private int _SpawnNumber = 1;
     private int _Capacity = 3;
     private float _SpawnDistance = 3;
+    public Room ParentRoom = null;
 
     private List<Mob> _MobsList = new List<Mob>();
     private Queue<GameObject> _MobFactory = new Queue<GameObject>();
@@ -57,7 +61,7 @@ public class MobSpawner : MonoBehaviour
             _SpawnT -= Time.deltaTime;
             if (_SpawnT <= 0)
             {
-                SpawnMob(_SpawnNumber);
+                SpawnMob(_SpawnNumber, ParentRoom);
             }
         }
     }
@@ -69,13 +73,21 @@ public class MobSpawner : MonoBehaviour
         }
         _MobsList.Clear();
     }
-    public void SpawnMob(int number)
+    public void SpawnMob(int number, Room room = null)
     {
         for(int i = 0; i < number; i++)
         {
             Vector3 newPos = new Vector3(transform.position.x + Random.Range(-_SpawnDistance, _SpawnDistance),
                                          transform.position.y+1,
                                          transform.position.z + Random.Range(-_SpawnDistance, _SpawnDistance));
+
+            //if the room is active spawn mob basing on the room size
+            //if the room is active spawn mob basing on the room tiles
+            if (ParentRoom != null)
+            {
+                newPos = ParentRoom.Tiles[Random.Range(0, ParentRoom.Tiles.Count)].Position;
+                newPos = new Vector3(newPos.x, newPos.y + 0.5f, newPos.z);
+            }
 
             if (_MobsList.Count < _Capacity)
             {
@@ -107,6 +119,12 @@ public class MobSpawner : MonoBehaviour
             Vector3 newPos = new Vector3(transform.position.x + Random.Range(-_SpawnDistance, _SpawnDistance),
                              transform.position.y + 0.5f,
                              transform.position.z + Random.Range(-_SpawnDistance, _SpawnDistance));
+            //if the room is active spawn mob basing on the room tiles
+            if (ParentRoom != null)
+            {
+                newPos = ParentRoom.Tiles[Random.Range(0, ParentRoom.Tiles.Count)].Position;
+                newPos = new Vector3(newPos.x, newPos.y + 0.5f, newPos.z);
+            }
             GameObject mobObj = Instantiate(mobPrefab, newPos, Quaternion.identity);
             mobObj.transform.SetParent(transform);
             mobObj.SetActive(false);
@@ -117,9 +135,12 @@ public class MobSpawner : MonoBehaviour
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
+        
+        //show the normal spawn area radius
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, 0.1f);
         Gizmos.DrawWireSphere(transform.position, MST.SpawnDistance);
+
     }
 #endif
 }

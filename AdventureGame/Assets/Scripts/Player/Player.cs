@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     public LayerMask MobsLayerMask;
     public Light PlayerLight;
 
+
     private InputManager _IM;
     private EventManager _EM;
     private UIManager _UI;
@@ -67,6 +68,10 @@ public class Player : MonoBehaviour
 
     #region Player Resources Data
     private int _Coins;
+    #endregion
+
+    #region Player Dungeon Data
+    public Room CurrentRoom { get; private set; }
     #endregion
 
     #region Unity Methods
@@ -146,6 +151,11 @@ public class Player : MonoBehaviour
         {
             UpdateAttack();
             UpdateCombat();
+        }
+
+        if(SceneManager.GetActiveScene().name == "Dungeon")
+        {
+            CheckPlayerPositionInDungeon();
         }
     }
 
@@ -519,6 +529,37 @@ public class Player : MonoBehaviour
     }
 
     #endregion
+
+    #region Dungeon
+
+    private void CheckPlayerPositionInDungeon()
+    {
+        Ray ray = new Ray(new Vector3(RigidBody.position.x, RigidBody.position.y, transform.position.z), -transform.up);
+        RaycastHit hit;
+
+
+
+        if (Physics.Raycast(ray, out hit, 0.1f))
+        {
+            if (hit.collider != null)
+            {
+                MXDebug.Log($"Player Ground: {hit.collider.name}");
+                if(hit.transform.parent.parent.TryGetComponent(out Room room)) 
+                {
+                    if(room != null)
+                    {
+                        CurrentRoom = room;
+                        MXDebug.Log($"CurrentRoom: {room.name}");
+                    }
+
+                }
+            }
+        }
+    }
+
+    #endregion
+
+#if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
         //checking the attack range
@@ -528,5 +569,6 @@ public class Player : MonoBehaviour
         }
        
     }
+#endif
 }
 

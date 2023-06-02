@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static MXUtilities;
@@ -11,8 +12,21 @@ using static MXUtilities;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-    //Singleton
-    public static GameManager Instance {  get; private set; }
+    //Singleton I HATE THIS
+    private static GameManager _Instance = null;
+    public static GameManager Instance 
+    {
+        get 
+        { 
+            if(_Instance == null)
+            {
+                _Instance = FindAnyObjectByType<GameManager>();
+                DontDestroyOnLoad(_Instance.gameObject);
+            }
+            return _Instance;
+        }
+    }
+
 
     //Other Managers
     public AudioManager AudioManager { get; private set; }
@@ -39,8 +53,6 @@ public class GameManager : MonoBehaviour
         Quitting,
     }
     public State GameFlowState { get;  private set; }
-    
-    public Scene CurrentScene { get; private set; }
 
     public void SetGameState(State gameFlowState)
     {
@@ -58,42 +70,34 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        //Singleton
-        if(Instance != null && Instance != this)
-        {
-            Destroy(Instance.gameObject);
-        }
-        else
-        {
-            Instance = this;
-            DontDestroyOnLoad(Instance.gameObject);
             InitializingManagers();
-        }
     }
+    private void OnEnable()
+    {
 
+    }
     private void InitializingManagers()
     {
         GameFlowState = State.Initializing;
-        AudioManager = GetComponentInChildren<AudioManager>();
-        AudioManager.Initialize();
+        
+        //for correct script execution order refer to this:
         InputManager = GetComponentInChildren<InputManager>();
         InputManager.Initialize();
         EventManager = GetComponentInChildren<EventManager>();
         EventManager.Initialize();
         UIManager = GetComponentInChildren<UIManager>();
         UIManager.Initialize();
+        AudioManager = GetComponentInChildren<AudioManager>();
+        AudioManager.Initialize();
         AnimationManager = GetComponentInChildren<AnimationManager>();
         AnimationManager.Initialize();
     }
 
-    private void OnEnable()
-    {
-        InitializingManagers();
-    }
+
 
     private void Start()
     {
-            SetGameState(State.Started);
+        SetGameState(State.Started);
     }
 
     private void OnGameStart()
@@ -108,7 +112,9 @@ public class GameManager : MonoBehaviour
     private void OnGamePause()
     {
         GameFlowState = State.Paused;
+        Time.timeScale = 0;
         //do pause operation here
+        UIManager.ShowUIPauseMenu();
 
         GamePause?.Invoke();
     }
@@ -116,7 +122,9 @@ public class GameManager : MonoBehaviour
     private void OnGamePlaying()
     {
         GameFlowState = State.Playing;
+        Time.timeScale = 1;
         //do unpause/playing operation here
+        UIManager.HideUIPauseMenu(); 
 
         GamePlaying?.Invoke();
     }
@@ -124,12 +132,23 @@ public class GameManager : MonoBehaviour
     private void OnGameQuitting()
     {
         GameFlowState = State.Quitting;
-        //do quitting operation here
+        //do quitting operation here save ecc...
 
         GameQuitting?.Invoke();
+
+        Application.Quit();
+
+        #if UNITY_EDITOR
+        EditorApplication.ExitPlaymode();
+        #endif
     }
 
+    public void RestartGame()
+    {
 
-
+        UIManager.HideUIPauseMenu();
+        SceneManager.LoadScene("MainMenu");
+        SetGameState(State.Started);
+    }
 }
  

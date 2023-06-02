@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: e362254d614d2a843a36b3e6879666d6
+  - enabled: 1
     path: Assets/Scenes/TrainingValley.unity
     guid: b0e840ff7b42b2145bbc9663faa2c93e
   - enabled: 1

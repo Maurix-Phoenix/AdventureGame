@@ -155,7 +155,7 @@ MonoBehaviour:
   RoomsNumber: 10
   RoomSizeXRange: {x: 3, y: 5}
   RoomSizeYRange: {x: 3, y: 5}
-  RoomsDistanceInTile: {x: 0, y: 3}
+  RoomsDistanceInTile: {x: 1, y: 3}
   Rooms: []
   Tiles: []
   CorridorTiles: []

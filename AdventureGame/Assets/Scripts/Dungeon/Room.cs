@@ -50,7 +50,5 @@ public class Room : MonoBehaviour
         }
 
         transform.SetParent(Parent);
-
-
     }
 }

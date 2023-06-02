@@ -28,6 +28,10 @@ public class Coin : MonoBehaviour
     void Update()
     { 
         transform.Rotate(0,1 * _RotationSpeed * Time.deltaTime,0);
+        if(transform.position.y < -5)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

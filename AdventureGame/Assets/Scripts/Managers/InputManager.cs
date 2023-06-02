@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using static MXUtilities;
 
 /// <summary>
 /// Input Manager: Custom Inputs related Events
@@ -12,6 +14,8 @@ public class InputManager : MonoBehaviour
     public bool Initialize()
     {
         //add the standard inputs here
+        AddInput(new MXInput("PauseMenu", KeyCode.Escape));
+
         AddInput(new MXInput("Action", KeyCode.E));
         AddInput(new MXInput("Attack", KeyCode.F));
         AddInput(new MXInput("Sprint", KeyCode.LeftShift));
@@ -32,20 +36,22 @@ public class InputManager : MonoBehaviour
             {
                 if(Input.GetKey(input.InputKey))
                 {
-                    input.OnHolding();
+
+                    OnHolding(input);
                 }
                 if (Input.GetKeyDown(input.InputKey))
                 {
-                    input.OnPressed();
+
+                    OnPressed(input);
                 }
                 if(Input.GetKeyUp(input.InputKey))
                 {
-                    input.OnReleased();
+
+                    OnReleased(input);
                 }
             }
         }
     }
-
 
     public enum InputType
     {
@@ -56,21 +62,25 @@ public class InputManager : MonoBehaviour
 
     #region Input Methods
 
-    public void AddInput(MXInput input)
+    private void AddInput(MXInput input)
     {
         if(!InputExists(input))
         {
             InputsList.Add(input);
         }
+        else
+        {
+            MXDebug.Log($"{input} input already exists!");
+        }
     }
-    public void RemoveInput(MXInput input)
+    private void RemoveInput(MXInput input)
     {
         if (InputExists(input))
         {
             InputsList.Remove(input);
         }
     }
-    public bool InputExists(MXInput input)
+    private bool InputExists(MXInput input)
     {
         if(InputsList.Count > 0)
         {
@@ -94,7 +104,7 @@ public class InputManager : MonoBehaviour
         }
         return false;
     }
-    public MXInput GetInput(KeyCode kc)
+    private MXInput GetInput(KeyCode kc)
     {
         foreach(MXInput input in InputsList)
         {
@@ -105,7 +115,7 @@ public class InputManager : MonoBehaviour
         }
         return null;
     }
-    public MXInput GetInput(string inputName)
+    private MXInput GetInput(string inputName)
     {
         foreach (MXInput input in InputsList)
         {
@@ -118,6 +128,39 @@ public class InputManager : MonoBehaviour
     }
 
 
+    private void OnPressed(MXInput input)
+    {
+        input.OnHolding();
+
+        //do other input action here
+        if(input.InputName == "PauseMenu" && SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            if(GameManager.Instance.GameFlowState == GameManager.State.Paused)
+            {
+                GameManager.Instance.SetGameState(GameManager.State.Playing);
+            }
+            else
+            {
+                GameManager.Instance.SetGameState(GameManager.State.Paused);
+            }
+        }
+    }
+    private void OnHolding(MXInput input)
+    {
+        input.OnPressed();
+
+        //do other input action here
+
+    }
+    private void OnReleased(MXInput input)
+    {
+        input.OnReleased();
+
+        //do other input action here
+
+    }
+
+
     public void Rebind(MXInput input, KeyCode newKC)
     {
         if(InputExists(input))
@@ -125,7 +168,6 @@ public class InputManager : MonoBehaviour
             InputsList[InputsList.IndexOf(input)].InputKey = newKC;
         }
     }
-
     public void SubscribeInput(string inputName, InputType type , Action subscriber)
     {
         MXInput input = GetInput(inputName);
@@ -161,5 +203,6 @@ public class InputManager : MonoBehaviour
             input.Released -= subscriber;
         }
     }
+
     #endregion
 }
