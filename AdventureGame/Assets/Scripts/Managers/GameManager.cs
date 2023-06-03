@@ -103,6 +103,7 @@ public class GameManager : MonoBehaviour
     private void OnGameStart()
     {
         GameFlowState = State.Started;
+        Time.timeScale = 1;
         //Get called after Awake and Initialization
         //do starting operation here
         MXDebug.Log(gameObject.name + " " + GameFlowState.ToString());

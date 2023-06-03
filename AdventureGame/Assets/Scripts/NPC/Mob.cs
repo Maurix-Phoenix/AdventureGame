@@ -60,6 +60,7 @@ public class Mob : MonoBehaviour
             MXDebug.Log($"{gameObject.name}: MobTemplate NOT FOUND! Using defaul values.\nAssign the MobTemplate or the Mob will not work properly!");
         }
         _CurrentHealth = _MaxHealth;
+        _Dead = false;
         StartingPos = transform.position;
 
 
