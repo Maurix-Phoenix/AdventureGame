@@ -68,6 +68,7 @@ public class Player : MonoBehaviour
 
     #region Player Resources Data
     private int _Coins;
+    public int Coins { get { return _Coins; } }
     #endregion
 
     #region Player Dungeon Data
@@ -147,16 +148,18 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (SceneManager.GetActiveScene().name == "Dungeon")
+        {
+            CheckPlayerPositionInDungeon();
+        } 
+
         if (!Dead)
         {
             UpdateAttack();
             UpdateCombat();
         }
 
-        if(SceneManager.GetActiveScene().name == "Dungeon")
-        {
-            CheckPlayerPositionInDungeon();
-        }
+
     }
 
     private void FixedUpdate()
@@ -492,7 +495,7 @@ public class Player : MonoBehaviour
                 if(hit.transform.parent.TryGetComponent( out IInteractable interactable))
                 {
                     interactable.Interaction();
-                    MXDebug.Log($"Action hit: V");
+                    MXDebug.Log($"hit Interactable: {hit.transform.gameObject.name}");
                 }
             }
         }
@@ -523,7 +526,7 @@ public class Player : MonoBehaviour
         }
         _EM.RaiseOnPlayerHeal(new MXEventParams<float>(h));
 
-        _UI.CreateUIWSTempLabel($"+heal {h}", transform.position, transform);
+        _UI.CreateUIWSTempLabel($"+Heal {h}", transform.position, transform);
         _HealthBar.UpdateHealthBar(_Health, _MaxHealth);
         
     }

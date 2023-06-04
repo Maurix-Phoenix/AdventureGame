@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// this is for testing the navigation system not used in game yet.
+/// </summary>
 public class IATest : MonoBehaviour
 {
     NavMeshAgent agent;

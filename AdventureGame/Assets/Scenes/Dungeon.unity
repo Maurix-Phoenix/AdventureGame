@@ -271,7 +271,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6335714701754035870, guid: 3b49bbbaa5e151944b824433c1bffeca, type: 3}
       propertyPath: StartingPoint.z
-      value: 1.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6335714703114077654, guid: 3b49bbbaa5e151944b824433c1bffeca, type: 3}
       propertyPath: m_IsActive

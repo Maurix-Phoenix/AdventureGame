@@ -58,7 +58,7 @@ public class Dungeon : MonoBehaviour
     {
         if(Player.Instance != null)
         {
-            _PlayerCurrentRoom = Player.Instance.CurrentRoom;
+            _PlayerCurrentRoom = Player.Instance.CurrentRoom; //need this for dynamic room (de)activation.
         }
     }
 

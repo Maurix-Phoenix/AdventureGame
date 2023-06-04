@@ -11,7 +11,7 @@ public class CameraScript : MonoBehaviour
     public Vector3 Offset = new Vector3(0,5,-3);
     private Vector3 _Direction;
     private bool _FirstAnimationPerformed = false;
-    private float _Speed = 5.0f;
+    private float _Speed = 4.5f;
     private bool _PlayerDead = false;
 
     private void OnEnable()
@@ -27,18 +27,6 @@ public class CameraScript : MonoBehaviour
     {
         _EM.PlayerSpawn -= OnPlayerSpawn;
         _EM.PlayerDeath -= OnPlayerDeath;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void OnPlayerSpawn()
@@ -76,8 +64,8 @@ public class CameraScript : MonoBehaviour
                     if (transform.position != (_Player.RigidBody.position + Offset)
                         && (Vector3.Distance(transform.position, _Player.RigidBody.position + Offset) > 0.3))
                     {
-                        _Direction = (_Player.RigidBody.position + Offset) - transform.position;
-                        transform.Translate(_Direction.normalized * _Speed * Time.deltaTime);
+                        _Direction = (_Player.RigidBody.position + Offset - transform.position).normalized;
+                        transform.Translate(_Direction * _Speed * Time.deltaTime);
                         transform.LookAt(_Player.RigidBody.position);
                     }
                     else
