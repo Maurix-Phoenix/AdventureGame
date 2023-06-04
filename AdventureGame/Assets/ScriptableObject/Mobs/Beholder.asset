@@ -15,6 +15,9 @@ MonoBehaviour:
   Name: Beholder
   Tags: []
   MobPrefab: {fileID: 7487410016656624447, guid: 9e6401f8e2320e54797a680db42d218f, type: 3}
+  Attack1SFX: {fileID: 8300000, guid: de834a26c9b68cc4f884543cd983fd5a, type: 3}
+  Attack2SFX: {fileID: 8300000, guid: 25dcf68878ce8574baeaa14187683aeb, type: 3}
+  DieSFX: {fileID: 8300000, guid: d371c10b2bdb0ad4d925e3dac35b5c17, type: 3}
   Health: 20
   Attack: 8
   Defence: 3

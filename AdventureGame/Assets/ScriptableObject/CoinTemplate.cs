@@ -8,4 +8,7 @@ public class CoinTemplate : ScriptableObject
 {
     public GameObject CoinPrefab;
     public int Value;
+
+    [Header("Sounds")]
+    public AudioClip PickupSFX;
 }

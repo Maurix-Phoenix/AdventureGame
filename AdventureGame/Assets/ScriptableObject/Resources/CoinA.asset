@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CoinPrefab: {fileID: 4146216143211834280, guid: 45c1391dbd306484c945baeaeb085207, type: 3}
   Value: 1
+  PickupSFX: {fileID: 8300000, guid: 3fcd56905dd4cff4089a53af7383bf38, type: 3}

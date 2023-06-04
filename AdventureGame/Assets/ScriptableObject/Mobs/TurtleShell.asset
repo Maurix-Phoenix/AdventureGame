@@ -15,6 +15,9 @@ MonoBehaviour:
   Name: TurtleShell
   Tags: []
   MobPrefab: {fileID: 1774625739149480, guid: 38efdaadbfe1d624bbee439cb02e7661, type: 3}
+  Attack1SFX: {fileID: 8300000, guid: 2f2f2abeff522254e894bb30eb6bb030, type: 3}
+  Attack2SFX: {fileID: 8300000, guid: effd97f629e968249babf07095ef2615, type: 3}
+  DieSFX: {fileID: 8300000, guid: e5bc482d55e2af840bacf49eb770f4ca, type: 3}
   Health: 20
   Attack: 5
   Defence: 6

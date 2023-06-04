@@ -11,6 +11,11 @@ public class MobTemplate : ScriptableObject
     [Header("Object")]
     public GameObject MobPrefab = null;
 
+    [Header("Sounds")]
+    public AudioClip Attack1SFX;
+    public AudioClip Attack2SFX;
+    public AudioClip DieSFX;
+
     [Header("Base Stats")]
     public float Health = 10f;
     public float Attack = 5f;

@@ -15,6 +15,9 @@ MonoBehaviour:
   Name: ChestMonster
   Tags: []
   MobPrefab: {fileID: 6860756994242604922, guid: 003b064097ba1bd4fa565d0210db6d9d, type: 3}
+  Attack1SFX: {fileID: 8300000, guid: de834a26c9b68cc4f884543cd983fd5a, type: 3}
+  Attack2SFX: {fileID: 8300000, guid: 25dcf68878ce8574baeaa14187683aeb, type: 3}
+  DieSFX: {fileID: 8300000, guid: d371c10b2bdb0ad4d925e3dac35b5c17, type: 3}
   Health: 30
   Attack: 2
   Defence: 7

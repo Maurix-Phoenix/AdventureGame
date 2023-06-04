@@ -7,6 +7,7 @@ using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.Experimental.GlobalIllumination;
 using Unity.VisualScripting;
+using System.Runtime.InteropServices;
 
 public class Player : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class Player : MonoBehaviour
     private UIManager _UI;
     private AnimationManager _ANIMM;
     private UIWS_HealthBar _HealthBar = null;
+    private AudioSource _AudioSource;
 
     private Animator _Animator;
 
@@ -554,7 +556,6 @@ public class Player : MonoBehaviour
                         CurrentRoom = room;
                         MXDebug.Log($"CurrentRoom: {room.name}");
                     }
-
                 }
             }
         }

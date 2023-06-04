@@ -1,0 +1,21 @@
+
+Design
+Maurizio Fischetti
+
+----------------------------------------
+
+Programming
+Maurizio Fischetti
+----------------------------------------
+
+[Models and Animations]
+Player Character and mobs: https://assetstore.unity.com/publishers/23554
+Buildings and Props in Training Area:https://assetstore.unity.com/publishers/55258
+Dungeon:https://assetstore.unity.com/packages/3d/environments/dungeons/low-poly-free-dungeon-pack-191979
+
+----------------------------------------
+
+[Music & SoundEffects]
+TownTheme used in Main Menu: cynicmusic - https://opengameart.org/content/town-theme-rpg
+Sounds Effects: artisticdude - https://opengameart.org/content/rpg-sound-pack
+----------------------------------------

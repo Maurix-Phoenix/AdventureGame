@@ -15,6 +15,9 @@ MonoBehaviour:
   Name: Slime
   Tags: []
   MobPrefab: {fileID: 1919012471076396, guid: 55776efecb0cd134ea5f418c2f97a705, type: 3}
+  Attack1SFX: {fileID: 8300000, guid: e8f80862bb96be142b7fd0ef3bacb85e, type: 3}
+  Attack2SFX: {fileID: 8300000, guid: dda50bb8e721cb44ea8ed7f8747fa001, type: 3}
+  DieSFX: {fileID: 8300000, guid: 7e128cc18fab384479a8505c52de84e1, type: 3}
   Health: 10
   Attack: 3
   Defence: 3
