@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
     }
     private void OnEnable()
     {
-
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
     private void InitializingManagers()
     {
@@ -93,6 +93,11 @@ public class GameManager : MonoBehaviour
         AnimationManager.Initialize();
     }
 
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        AudioManager.PlaySceneMusic(SceneManager.GetActiveScene());
+    }
 
 
     private void Start()

@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     private EventManager _EM;
     private UIManager _UI;
     private AnimationManager _ANIMM;
+    private AudioManager _AM;
     private UIWS_HealthBar _HealthBar = null;
     private AudioSource _AudioSource;
 
@@ -96,9 +97,11 @@ public class Player : MonoBehaviour
         _IM = GameManager.Instance.InputManager;
         _EM = GameManager.Instance.EventManager;
         _ANIMM = GameManager.Instance.AnimationManager;
+        _AM = GameManager.Instance.AudioManager;
 
         RigidBody = GetComponent<Rigidbody>();
         _Animator = GetComponent<Animator>();
+        _AudioSource= GetComponent<AudioSource>();
 
         Dead = false;
         _Speed = _MoveSpeed;
@@ -360,6 +363,7 @@ public class Player : MonoBehaviour
             }
 
             string attackNameAnimation = $"Attack{_AttackComboCount}";
+            _AM.PlaySFXLocal(_AudioSource, $"PlayerAttack{_AttackComboCount}");
             _ANIMM.PlayAnimation(_Animator, "Player", attackNameAnimation, 0, forceState: true);
             
             float totalDamage = _Attack;

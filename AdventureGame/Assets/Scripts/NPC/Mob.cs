@@ -10,12 +10,14 @@ public class Mob : MonoBehaviour
     private EventManager _EM;
     private UIManager _UI;
     private AnimationManager _ANIMM;
+    private AudioManager _AM;
 
     public MobSpawner Spawner;
     public MobTemplate MT;
     public Animator Animator;
     public Rigidbody Rigidbody;
     public  Vector3 StartingPos;
+    public AudioSource AudioSource;
 
     private IMobState _CurrentState;
 
@@ -40,9 +42,11 @@ public class Mob : MonoBehaviour
         _UI = GameManager.Instance.UIManager;
         _EM = GameManager.Instance.EventManager;
         _ANIMM = GameManager.Instance.AnimationManager;
+        _AM = GameManager.Instance.AudioManager;
 
         Rigidbody = GetComponent<Rigidbody>();
         Animator = GetComponent<Animator>();
+        AudioSource = GetComponent<AudioSource>();
 
         if(MT != null)
         {
@@ -167,7 +171,7 @@ public class Mob : MonoBehaviour
         _HealthBar.UpdateHealthBar(_CurrentHealth, MT.Health, "DEAD");
 
         //Play Sound here...
-
+        _AM.PlaySFXLocal(AudioSource, MT.DieSFX);
         _ANIMM.PlayAnimation(Animator, MT.Name, "Die", forceState: true);
         yield return MXProgramFlow.EWait(Animator.GetCurrentAnimatorClipInfo(0).Length);
 

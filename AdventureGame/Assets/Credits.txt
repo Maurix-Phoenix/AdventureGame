@@ -17,5 +17,6 @@ Dungeon:https://assetstore.unity.com/packages/3d/environments/dungeons/low-poly-
 
 [Music & SoundEffects]
 TownTheme used in Main Menu: cynicmusic - https://opengameart.org/content/town-theme-rpg
+OldCityTheme used in Training Valley:  remaxim - https://opengameart.org/content/old-city-theme
 Sounds Effects: artisticdude - https://opengameart.org/content/rpg-sound-pack
 ----------------------------------------

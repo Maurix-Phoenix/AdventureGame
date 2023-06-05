@@ -6,9 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    [Header("UI")]
     public GameObject ReadmePanel;
     public GameObject StartGameButton;
     public GameObject QuitGameButton;
+
+    [Header("Sounds")]
+    public AudioClip MainMenuMusic;
+
     private bool _readme = false;
     public void StartGameButtonClick()
     {

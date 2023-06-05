@@ -6,6 +6,7 @@ public class MobState_Combat : IMobState
     public Mob Mob { get; set; }
 
     private AnimationManager _ANIMM;
+    private AudioManager _AM;
 
     private bool _CanAttack = false;
     private float _AttackT;
@@ -14,6 +15,8 @@ public class MobState_Combat : IMobState
     public void OnEnterState(Mob mob)
     {
         _ANIMM = GameManager.Instance.AnimationManager;
+        _AM = GameManager.Instance.AudioManager;
+
         Mob = mob;
         _AttackT = mob.MT.AttackSpeed;
         _AttackCount = 0;
@@ -63,6 +66,8 @@ public class MobState_Combat : IMobState
                         {
                             _AttackCount = 1;
                         }
+                        //attackSound
+                        _AM.PlaySFXLocal(Mob.AudioSource, $"{Mob.MT.Name}Attack{_AttackCount}");
                         //attack animation
                         _ANIMM.PlayAnimation(Mob.Animator, Mob.MT.Name, $"Attack{_AttackCount}");
 

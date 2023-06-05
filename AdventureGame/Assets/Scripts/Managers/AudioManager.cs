@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static MXUtilities;
 
 /// <summary>
@@ -35,8 +36,16 @@ public class AudioManager : MonoBehaviour
     }
 
 
-
-
+    public void PlaySceneMusic(Scene scene)
+    {
+        switch (scene.name)
+        {
+            case "MainMenu": { PlayMusic(Musics[0].clip); break; }
+            case "TrainingValley": { PlayMusic(Musics[1].clip); break; }
+            case "Dungeon": { PlayMusic(Musics[1].clip); break; }
+            default: return;
+        }
+    }
 
     public void PlayMusic(string clipName)
     {
@@ -123,8 +132,8 @@ public class AudioManager : MonoBehaviour
                         return;
                     }
                 }
-                MXDebug.Log($"[AudioManager]: can't find clip named '{clipName}' in the Music list.", MXUtilities.MXDebug.LogType.Warning);
             }
+            MXDebug.Log($"[AudioManager]: can't find clip named '{clipName}' in the Music list.", MXUtilities.MXDebug.LogType.Warning);
         }
         else MXDebug.Log($"[AudioManager]: Audiosource or clip invalid in {audioS.gameObject.name}.", MXUtilities.MXDebug.LogType.Warning);
     }
@@ -143,8 +152,8 @@ public class AudioManager : MonoBehaviour
                         return;
                     }
                 }
-                MXDebug.Log($"[AudioManager]: can't find clip {ac.name} in the Music list.", MXUtilities.MXDebug.LogType.Warning);
             }
+            MXDebug.Log($"[AudioManager]: can't find clip {ac.name} in the Music list.", MXUtilities.MXDebug.LogType.Warning);
         }
         else MXDebug.Log($"Audiosource or clip invalid in {audioS.gameObject.name}.", MXUtilities.MXDebug.LogType.Warning);
     }
@@ -163,12 +172,12 @@ public class AudioManager : MonoBehaviour
                         return;
                     }
                 }
-                MXDebug.Log($"[AudioManager]: can't find clip named '{clipName}' in the SFXs list.", MXUtilities.MXDebug.LogType.Warning);
             }
+            MXDebug.Log($"[AudioManager]: can't find clip named '{clipName}' in the SFXs list.", MXUtilities.MXDebug.LogType.Warning);
         }
         else MXDebug.Log($"Audiosource or clip invalid in {audioS.gameObject.name}.", MXUtilities.MXDebug.LogType.Warning);
     }
-    public void PlayLocalSFXLocal(AudioSource audioS, AudioClip ac)
+    public void PlaySFXLocal(AudioSource audioS, AudioClip ac)
     {//local sound effect
         if (audioS != null && ac != null)
         {
@@ -182,8 +191,8 @@ public class AudioManager : MonoBehaviour
                         return;
                     }
                 }
-                MXDebug.Log($"[AudioManager]: can't find clip {ac.name} in the SFXs list.", MXUtilities.MXDebug.LogType.Warning);
             }
+            MXDebug.Log($"[AudioManager]: can't find clip {ac.name} in the SFXs list.", MXUtilities.MXDebug.LogType.Warning);
         }
         else MXDebug.Log($"Audiosource or clip invalid in {audioS.gameObject.name}.", MXUtilities.MXDebug.LogType.Warning);
     }

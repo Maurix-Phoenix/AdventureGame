@@ -268,8 +268,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AudioSourceMusic: {fileID: 1641586439}
   AudioSourceSFX: {fileID: 496696792}
-  Musics: []
-  SFXs: []
+  Musics:
+  - Name: MainMenuTheme
+    clip: {fileID: 8300000, guid: b77cdcba435318543bc2b9330792e10f, type: 3}
+  SFXs:
+  - Name: PlayerAttack1
+    clip: {fileID: 8300000, guid: fcf91a1e1a83d6b43b04e5e780d27d9a, type: 3}
+  - Name: PlayerAttack2
+    clip: {fileID: 8300000, guid: e0e7215a8a4681541823e889fcd64fa1, type: 3}
+  - Name: PlayerAttack3
+    clip: {fileID: 8300000, guid: 2b69571449c16084abacc8fd3e9c5115, type: 3}
+  - Name: SlimeAttack1
+    clip: {fileID: 8300000, guid: e8f80862bb96be142b7fd0ef3bacb85e, type: 3}
+  - Name: SlimeAttack2
+    clip: {fileID: 8300000, guid: dda50bb8e721cb44ea8ed7f8747fa001, type: 3}
+  - Name: SlimeDie
+    clip: {fileID: 8300000, guid: 7e128cc18fab384479a8505c52de84e1, type: 3}
+  - Name: TurtleShellAttack1
+    clip: {fileID: 8300000, guid: 2f2f2abeff522254e894bb30eb6bb030, type: 3}
+  - Name: TurtleShellAttack2
+    clip: {fileID: 8300000, guid: effd97f629e968249babf07095ef2615, type: 3}
+  - Name: TurtleShellDie
+    clip: {fileID: 8300000, guid: e5bc482d55e2af840bacf49eb770f4ca, type: 3}
+  - Name: CactusAttack1
+    clip: {fileID: 8300000, guid: 2f2f2abeff522254e894bb30eb6bb030, type: 3}
+  - Name: CactusAttack2
+    clip: {fileID: 8300000, guid: effd97f629e968249babf07095ef2615, type: 3}
+  - Name: CactusDie
+    clip: {fileID: 8300000, guid: e5bc482d55e2af840bacf49eb770f4ca, type: 3}
+  - Name: MushroomAttack1
+    clip: {fileID: 8300000, guid: cb506814c93e80d479d26baf0d1aed70, type: 3}
+  - Name: MushroomAttack2
+    clip: {fileID: 8300000, guid: 1ae7c136b0d18b04e8ba2fd898fa7f8a, type: 3}
+  - Name: MushroomDie
+    clip: {fileID: 8300000, guid: 6c36d144c11f5514183d1ebdcf5c4773, type: 3}
+  - Name: BeholderAttack1
+    clip: {fileID: 8300000, guid: de834a26c9b68cc4f884543cd983fd5a, type: 3}
+  - Name: BeholderAttack2
+    clip: {fileID: 8300000, guid: 25dcf68878ce8574baeaa14187683aeb, type: 3}
+  - Name: BeholderDie
+    clip: {fileID: 8300000, guid: d371c10b2bdb0ad4d925e3dac35b5c17, type: 3}
+  - Name: MonsterChestAttack1
+    clip: {fileID: 8300000, guid: de834a26c9b68cc4f884543cd983fd5a, type: 3}
+  - Name: MonsterChestAttack2
+    clip: {fileID: 8300000, guid: 25dcf68878ce8574baeaa14187683aeb, type: 3}
+  - Name: MonsterChestDie
+    clip: {fileID: 8300000, guid: d371c10b2bdb0ad4d925e3dac35b5c17, type: 3}
+  - Name: CoinA
+    clip: {fileID: 8300000, guid: 3fcd56905dd4cff4089a53af7383bf38, type: 3}
+  - Name: CoinB
+    clip: {fileID: 8300000, guid: 662b08851c8439b4ab3a8faf0aca4ca1, type: 3}
+  - Name: CoinC
+    clip: {fileID: 8300000, guid: 92199011bf187b544aaa890d9375bf90, type: 3}
 --- !u!1 &838262921493543338
 GameObject:
   m_ObjectHideFlags: 0
@@ -1257,7 +1307,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1611,10 +1661,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
