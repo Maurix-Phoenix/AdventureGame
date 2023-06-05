@@ -49,11 +49,7 @@ They have also been very useful for interactive objects (see later)
 8-Object Pooling(on course): Not optimized yet, but there is a small vague example in the mob spawner.
 __________________________________________________________
 Known Bugs
-1. the game manager does not always act like want. this is a last minute issue, i'm sorry about that.
-
-2.Mob act werd... (animator + rigidbody related problems)
-
-3. a lot of physics issue due the small scale of the object in game.
+See Bug Report file.
 
 __________________________________________________________
 
