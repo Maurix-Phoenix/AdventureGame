@@ -1,6 +1,6 @@
 Bug Report
 
-- For some reason, UI Pause menu elements (buttons, scrollview) don't works on Dungeon scene. [FIXED]
+- [FIXED] For some reason, UI Pause menu elements (buttons, scrollview) don't works on Dungeon scene.
 
 Know Bugs: 
 - Sometimes the animation of the camera does not work properly causing the camera to go far away from the player.
