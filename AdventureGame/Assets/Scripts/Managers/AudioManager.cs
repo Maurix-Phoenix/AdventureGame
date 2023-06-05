@@ -59,10 +59,10 @@ public class AudioManager : MonoBehaviour
                     AudioSourceMusic.Play();
                     return;
                 }
-                MXDebug.Log($"[AudioManager]: can't find clip named '{clipName}' in the Music list.", MXUtilities.MXDebug.LogType.Warning);
             }
             else MXDebug.Log($"[AudioManager]: AudioClip invalid.", MXUtilities.MXDebug.LogType.Warning);
         }
+        MXDebug.Log($"[AudioManager]: can't find clip named '{clipName}' in the Music list.", MXUtilities.MXDebug.LogType.Warning);
     }
     public void PlayMusic(AudioClip ac)
     {//global music
@@ -76,10 +76,10 @@ public class AudioManager : MonoBehaviour
                     AudioSourceMusic.Play();
                     return;
                 }
-                MXDebug.Log($"[AudioManager]: can't find clip in the Musics list.", MXUtilities.MXDebug.LogType.Warning);
             }
             else MXDebug.Log($"[AudioManager]: AudioClip invalid.", MXUtilities.MXDebug.LogType.Warning);
         }
+        MXDebug.Log($"[AudioManager]: can't find clip in the Musics list.", MXUtilities.MXDebug.LogType.Warning);
     }
 
     public void PlaySFX(string clipName)
@@ -93,10 +93,10 @@ public class AudioManager : MonoBehaviour
                     AudioSourceSFX.PlayOneShot(sfx.clip);
                     return;
                 }
-                MXDebug.Log($"[AudioManager]: can't find clip named '{clipName}' in the Music list.", MXUtilities.MXDebug.LogType.Warning);
             }
             else MXDebug.Log($"[AudioManager]: AudioClip invalid.", MXUtilities.MXDebug.LogType.Warning);
         }
+        MXDebug.Log($"[AudioManager]: can't find clip named '{clipName}' in the Music list.", MXUtilities.MXDebug.LogType.Warning);
     }
     public void PlaySFX(AudioClip ac)
     {//global sound effect
@@ -109,10 +109,11 @@ public class AudioManager : MonoBehaviour
                     AudioSourceSFX.PlayOneShot(ac);
                     return;
                 }
-                MXDebug.Log($"[AudioManager]: can't find clip in the SFXs list.", MXUtilities.MXDebug.LogType.Warning);
             }
+
             else MXDebug.Log($"[AudioManager]: AudioClip invalid.", MXUtilities.MXDebug.LogType.Warning);
         }
+        MXDebug.Log($"[AudioManager]: can't find clip in the SFXs list.", MXUtilities.MXDebug.LogType.Warning);
     }
 
 

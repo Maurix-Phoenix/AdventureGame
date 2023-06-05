@@ -308,11 +308,11 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 25dcf68878ce8574baeaa14187683aeb, type: 3}
   - Name: BeholderDie
     clip: {fileID: 8300000, guid: d371c10b2bdb0ad4d925e3dac35b5c17, type: 3}
-  - Name: MonsterChestAttack1
+  - Name: ChestMonsterAttack1
     clip: {fileID: 8300000, guid: de834a26c9b68cc4f884543cd983fd5a, type: 3}
-  - Name: MonsterChestAttack2
+  - Name: ChestMonsterAttack2
     clip: {fileID: 8300000, guid: 25dcf68878ce8574baeaa14187683aeb, type: 3}
-  - Name: MonsterChestDie
+  - Name: ChestMonsterDie
     clip: {fileID: 8300000, guid: d371c10b2bdb0ad4d925e3dac35b5c17, type: 3}
   - Name: CoinA
     clip: {fileID: 8300000, guid: 3fcd56905dd4cff4089a53af7383bf38, type: 3}
