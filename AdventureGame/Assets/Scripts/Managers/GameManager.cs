@@ -152,7 +152,6 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-
         UIManager.HideUIPauseMenu();
         SceneManager.LoadScene("MainMenu");
         SetGameState(State.Started);

@@ -13,6 +13,7 @@ public class Coin : MonoBehaviour
     private float _MoveSpeed = 1f;
 
     private EventManager _EM;
+    private AudioManager _AM;
 
     // Start is called before the first frame update
     void Start()
@@ -23,10 +24,12 @@ public class Coin : MonoBehaviour
     private void OnEnable()
     {
         _EM = GameManager.Instance.EventManager;
-        if(CT != null)
+        _AM = GameManager.Instance.AudioManager;
+        if (CT != null)
         {
             _Value = CT.Value;
         }
+        else _Value = 1;
         _Attracted = false;
     }
 
@@ -52,6 +55,7 @@ public class Coin : MonoBehaviour
                 transform.Translate(_Direction * _MoveSpeed * Time.deltaTime);
                 if (Vector3.Distance(Player.Instance.transform.position, transform.position) < 0.2)
                 {
+                    _AM.PlaySFX(CT.PickupSFX);
                     Player.Instance.AddCoins(_Value);
                     Destroy(gameObject);
                 }
