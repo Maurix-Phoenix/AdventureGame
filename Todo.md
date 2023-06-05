@@ -4,7 +4,7 @@ To do List
 
 2.improve UI (adding more info on screen)
 
-3.adding sounds (sad to play on mute mode)
+3.adding sounds (sad to play on mute mode) - Work in progress
 
 4.mob level scaling (for gameplay pourpose)
 
