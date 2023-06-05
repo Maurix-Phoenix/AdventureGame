@@ -60,10 +60,7 @@ public class UIManager : MonoBehaviour
     }
     public void HideUIPauseMenu()
     {
-        if (SceneManager.GetActiveScene().name != "MainMenu")
-        {
-            UIPauseMenu.SetActive(false);
-        }
+        UIPauseMenu.SetActive(false);
     }
 
 public void UIPauseMenu_ButtonResumeGame()

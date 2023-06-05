@@ -14,18 +14,7 @@ public class GameManager : MonoBehaviour
 {
     //Singleton I HATE THIS
     private static GameManager _Instance = null;
-    public static GameManager Instance 
-    {
-        get 
-        { 
-            if(_Instance == null)
-            {
-                _Instance = FindAnyObjectByType<GameManager>();
-                DontDestroyOnLoad(_Instance.gameObject);
-            }
-            return _Instance;
-        }
-    }
+    public static GameManager Instance { get { return _Instance; } }
 
 
     //Other Managers
@@ -70,7 +59,19 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-            InitializingManagers();
+        //Singleton
+        if(_Instance != null && _Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _Instance = this;
+            DontDestroyOnLoad(_Instance.gameObject);
+        }
+
+
+        InitializingManagers();
     }
     private void OnEnable()
     {
