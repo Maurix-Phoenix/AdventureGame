@@ -1,18 +1,19 @@
 To do List
 
-1.add a Level shop (using coins player can upgrade his attack, defence and health stats)
+[v] adding sounds (sad to play on mute mode) - Completed
+-------------------
 
-2.improve UI (adding more info on screen)
+[] add a Level shop (using coins player can upgrade his attack, defence and health stats)
 
-3.adding sounds (sad to play on mute mode) - Work in progress
+[] improve UI (adding more info on screen)
 
-4.mob level scaling (for gameplay pourpose)
+[] mob level scaling (for gameplay pourpose)
 
-5.dungeon chunks (for better performance and bigger dungeons)
+[] dungeon chunks (for better performance and bigger dungeons)
 
-6.custom editor tools for dungeon creation, triggers and other stuff.
+[] custom editor tools for dungeon creation, triggers and other stuff.
 
-7.improve animations.
+[] improve animations.
 
-8.improve IA and pathfinding (navmesh or some other system, maybe i will create my own pathfinding system)
+[] improve IA and pathfinding (navmesh or some other system, maybe i will create my own pathfinding system)
 
