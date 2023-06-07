@@ -9,7 +9,9 @@ To do List
 
 [] mob level scaling (for gameplay pourpose)
 
-[] dungeon chunks (for better performance and bigger dungeons)
+[WORK IN PROGRESS] dungeon chunks (for better performance and bigger dungeons)
+
+[] add a quest system
 
 [] custom editor tools for dungeon creation, triggers and other stuff.
 
