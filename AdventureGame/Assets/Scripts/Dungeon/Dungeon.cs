@@ -12,10 +12,8 @@ public class Dungeon : MonoBehaviour
 {
     public static Dungeon Instance;
 
-    private Room _PlayerCurrentRoom = null;
-
     [Header("Dungeon Structure")]
-    [SerializeField] private int RoomsNumber = 2;
+    [SerializeField] private Vector2Int RoomsNumberRange = new Vector2Int(2, 15);
     [SerializeField] private Vector2Int RoomSizeXRange = new Vector2Int(3, 9);
     [SerializeField] private Vector2Int RoomSizeYRange = new Vector2Int(3, 9);
     [SerializeField] private Vector2Int RoomsDistanceInTile = new Vector2Int(0,3);
@@ -49,7 +47,8 @@ public class Dungeon : MonoBehaviour
 
     private void Start()
     {
-        GenerateRooms(RoomsNumber);
+        int numberR = Random.Range(RoomsNumberRange.x, RoomsNumberRange.y);
+        GenerateRooms(numberR);
         GenerateBoundaries();
         DungeonGenerationComplete();
     }
@@ -58,7 +57,7 @@ public class Dungeon : MonoBehaviour
     {
         if(Player.Instance != null)
         {
-            _PlayerCurrentRoom = Player.Instance.CurrentRoom; //need this for dynamic room (de)activation.
+            RoomsChunks();
         }
     }
 
@@ -348,7 +347,7 @@ public class Dungeon : MonoBehaviour
             }
         }
     }
-    public MobSpawner CreateMobSpawner(Room room)
+    private MobSpawner CreateMobSpawner(Room room)
     {
         MobSpawner ms = new GameObject("Mob Spawner").AddComponent<MobSpawner>();
         ms.ParentRoom = room;
@@ -359,4 +358,24 @@ public class Dungeon : MonoBehaviour
         return ms;
     }
 
+    private void RoomsChunks()
+    {
+        //deactivate the rooms based on the distance they have with the player
+
+        foreach(Room r in Rooms)
+        {
+            if(Vector3.Distance(r.Position, Player.Instance.transform.position) > 5)
+            {
+                if(r != Rooms[0]) //starting room should never be deactivated
+                {
+                    r.gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                r.gameObject.SetActive(true);
+            }
+        }
+    }
+    
 }

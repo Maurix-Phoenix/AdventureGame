@@ -98,6 +98,9 @@ public class GameManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         AudioManager.PlaySceneMusic(SceneManager.GetActiveScene());
+        UIManager.HideUIPauseMenu();
+
+        SetGameState(State.Playing);
     }
 
 

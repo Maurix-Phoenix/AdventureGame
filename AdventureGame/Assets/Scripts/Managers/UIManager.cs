@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     private GameManager _GM;
     [Header("UI")]
     [SerializeField] private GameObject UIPauseMenu;
+    [SerializeField] private GameObject UIPauseMenu_ExitDungeonButton;
 
     [Header("UIWS")]
     [SerializeField]private GameObject UIWSLabelPrefab;
@@ -55,7 +56,15 @@ public class UIManager : MonoBehaviour
         if(SceneManager.GetActiveScene().name != "MainMenu")
         {
             UIPauseMenu.SetActive(true);
+
+
+            if (SceneManager.GetActiveScene().name == "Dungeon")
+            {
+                UIPauseMenu_ExitDungeonButton.SetActive(true);
+            }
+
         }
+
 
     }
     public void HideUIPauseMenu()
@@ -63,12 +72,17 @@ public class UIManager : MonoBehaviour
         UIPauseMenu.SetActive(false);
     }
 
-public void UIPauseMenu_ButtonResumeGame()
+    public void UIPauseMenu_ButtonResumeGame()
     {
         GameManager.Instance.SetGameState(GameManager.State.Playing);
     }
     public void UIPauseMenu_ButtonRestartGame()
     {
         GameManager.Instance.RestartGame();
+    }
+
+    public void UIPauseMenu_ButtonExitDungeon()
+    {
+        SceneManager.LoadScene("TrainingValley"); //TMP: game manager should be the one that change scenes change this after 
     }
 }
