@@ -11,9 +11,7 @@ Attack: F
 
 tips: every time you die you respawn near the.. spawner.. you can die endllessy but you can heal only four time. (The light will let you know)
 
-tip: the dungeon is in the north cavern.
-
-WARNING: CANT EXIT FROM THE DUNGEON
+tip: the dungeon is in the north cavern. to exit access the menu (ESC)
 __________________________________________________________
 
 A little Overview:
