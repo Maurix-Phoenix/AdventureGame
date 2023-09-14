@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe0538d1c3332cb42bfb5d8c77cfc74c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActiveRoomChunks: 1
+  ActiveRoomChunks: 0
   RoomsNumberRange: {x: 5, y: 30}
   RoomSizeXRange: {x: 3, y: 5}
   RoomSizeYRange: {x: 3, y: 5}

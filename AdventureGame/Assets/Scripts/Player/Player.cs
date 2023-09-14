@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     public TrailRenderer SwordEffectTrail;
     public LayerMask MobsLayerMask;
     public Light PlayerLight;
+    public Collider PlayerNearTrigger;
 
 
     private InputManager _IM;
@@ -492,14 +493,16 @@ public class Player : MonoBehaviour
     {
         MXDebug.Log("Action Key Pressed");
 
-        Collider[] others;
-        others = Physics.OverlapBoxNonAlloc(RigidBody.position, new Vector3(0.5f,0.5f,0.5f), others, Quaternion.identity);
-
-        foreach(Collider other in others)
+        RaycastHit[] hitResults = new RaycastHit[5];
+        Physics.BoxCastNonAlloc(new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z), new Vector3(0.2f, 0.3f, 0.2f), Vector3.forward, hitResults, Quaternion.identity, 0.2f);
+        foreach(RaycastHit other in hitResults)
         {
-            if(other.gameObject.TryGetComponent<IInteractable>(out IInteractable interactable))
+            if(other.collider != null)
             {
-                interactable.Interaction();
+                if (other.transform.root.TryGetComponent<IInteractable>(out IInteractable interactable))
+                {
+                    interactable.Interaction();
+                }
             }
         }
 
@@ -587,11 +590,28 @@ public class Player : MonoBehaviour
     #endregion
 
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.root.TryGetComponent<IInteractable>(out IInteractable interactable))
+        {
+            MXDebug.Log($"Showing Label {other.transform.root}");
+            interactable.ShowPromptLabel();
+        }
+    }
+    private void OnTriggerExit(Collider other) 
+    { 
+        if(other.transform.root.TryGetComponent<IInteractable>(out IInteractable interactable))
+        {
+            MXDebug.Log($"Hiding Label {other.transform.root}");
+            interactable.HidePromptLabel();
+        }
+    }
+
 
 #if UNITY_EDITOR
-    private void OnDrawGizmosSelected()
+    public void OnDrawGizmos()
     {
-        Gizmos.DrawCube(RigidBody.position, new Vector3(0.5f, 0.5f, 0.5f));
+        //Gizmos.DrawWireCube(new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z), new Vector3(0.2f, 0.2f, 0.2f));
 
         //checking the attack range
         if (AttackPoint != null)

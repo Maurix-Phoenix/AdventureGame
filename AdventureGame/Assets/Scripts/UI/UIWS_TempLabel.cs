@@ -17,6 +17,7 @@ public class UIWS_TempLabel : MonoBehaviour
     private void OnEnable()
     {
         Text = GetComponentInChildren<TMP_Text>();
+        Text.text = LabelText;
     }
 
     private void OnDisable()
@@ -48,6 +49,7 @@ public class UIWS_TempLabel : MonoBehaviour
         gameObject.transform.position = position;
         gameObject.transform.SetParent(parent);
 
+        LabelText = text;
         Temporary = temporary;
         Speed = speed;
         LifeTime = lifetime;

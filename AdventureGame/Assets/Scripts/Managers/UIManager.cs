@@ -39,7 +39,6 @@ public class UIManager : MonoBehaviour
     {
 
         UIWS_TempLabel hl = Instantiate(UIWSLabelPrefab, position, Quaternion.identity, parent).GetComponent<UIWS_TempLabel>();
-
         hl.UpdateLabel(text, position, parent, fontSize,temporary, speed, lifetime);
         return hl;
     }

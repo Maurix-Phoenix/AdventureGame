@@ -104,7 +104,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.25732517, y: 0.55857724, z: 0.20914173}
   m_Center: {x: 0.0006546527, y: -0.04921803, z: -0.013260841}
@@ -120,8 +120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a140503d0f5dde54ba63fd22f0b2b3c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ParticleS: {fileID: 5988243643896944309}
   IsOn: 0
+  _InteractionLabel: {fileID: 0}
+  _InteractionLabelText: 
 --- !u!1 &6246022559041301365
 GameObject:
   m_ObjectHideFlags: 0

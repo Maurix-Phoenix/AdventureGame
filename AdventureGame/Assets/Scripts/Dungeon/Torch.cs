@@ -13,11 +13,21 @@ public class Torch : MonoBehaviour, IInteractable
     
     private ParticleSystem _ParticleS;
 
-
     public void Interaction()
     {
         SwichLight();
     }
+
+    public void ShowPromptLabel()
+    {
+        _InteractionLabel.gameObject.SetActive(true);
+    }
+
+    public void HidePromptLabel()
+    {
+        _InteractionLabel.gameObject.SetActive(false);
+    }
+
 
     public void SwichLight()
     {

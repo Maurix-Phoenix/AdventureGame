@@ -4,5 +4,8 @@ using UnityEngine;
 
 public interface IInteractable
 {
+
+    public void ShowPromptLabel();
+    public void HidePromptLabel();
     public void Interaction();
 }

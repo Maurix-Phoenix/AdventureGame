@@ -56,8 +56,8 @@ public class PlayerSpawningPoint : MonoBehaviour, IInteractable
 
     void Start()
     {
-
         SpawnPlayer();
+
     }
 
     void Update()
@@ -98,8 +98,7 @@ public class PlayerSpawningPoint : MonoBehaviour, IInteractable
                 _Player.transform.LookAt(transform.position);
             }
             _Player.SpawningPoint = this;
-            
-
+            _Label = _UIM.CreateUIWSTempLabel("Press 'E' to interact", new Vector3(transform.position.x, transform.position.y + 0.18f, transform.position.z), transform, 78, false, 0, 0);
         }
     }
 
@@ -108,14 +107,13 @@ public class PlayerSpawningPoint : MonoBehaviour, IInteractable
         _PlayerSpawned = true;
 
         _UIM = GameManager.Instance.UIManager;
-        _Label = _UIM.CreateUIWSTempLabel("Press 'E' to interact", new Vector3(transform.position.x, transform.position.y + 0.18f, transform.position.z), transform, 78, false, 0, 0);
-
     }
     private void OnPlayerDeath()
     {
+        Destroy(_Label.gameObject); 
+        _Label = null;
         _PlayerSpawned = false;
         _CurrentTime = _TimeToSpawn;
-        Destroy(_Label);
     }
 
     public void Interaction()
@@ -142,6 +140,22 @@ public class PlayerSpawningPoint : MonoBehaviour, IInteractable
 
             _CanInteract = false;
             _InteractionT = _InteractionTime;
+        }
+    }
+
+    public void ShowPromptLabel()
+    {
+        if(_Label != null)
+        {
+            _Label.gameObject.SetActive(true);
+        }
+    }
+
+    public void HidePromptLabel()
+    {
+        if (_Label != null)
+        {
+            _Label.gameObject.SetActive(false);
         }
     }
 }
