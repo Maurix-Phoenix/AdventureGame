@@ -47,7 +47,7 @@ public class Coin : MonoBehaviour
 
     private void MoveToPlayer()
     {
-        if(Player.Instance!= null && !Player.Instance.Dead)
+        if(Player.Instance!= null && !Player.Instance.IsDead)
         {
             if (_Attracted)
             {

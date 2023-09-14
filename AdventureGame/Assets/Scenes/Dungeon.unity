@@ -104,7 +104,7 @@ NavMeshSettings:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_BuildSettings:
-    serializedVersion: 2
+    serializedVersion: 3
     agentTypeID: 0
     agentRadius: 0.15
     agentHeight: 2
@@ -117,76 +117,18 @@ NavMeshSettings:
     cellSize: 0.05
     manualTileSize: 0
     tileSize: 256
-    accuratePlacement: 0
+    buildHeightMesh: 0
     maxJobWorkers: 0
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: afe5e9c4b7bf00f48a6be77b31d83f84, type: 2}
---- !u!1 &1756906991
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1756906993}
-  - component: {fileID: 1756906992}
-  m_Layer: 0
-  m_Name: Dungeon
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1756906992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1756906991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe0538d1c3332cb42bfb5d8c77cfc74c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RoomsNumberRange: {x: 5, y: 30}
-  RoomSizeXRange: {x: 3, y: 5}
-  RoomSizeYRange: {x: 3, y: 5}
-  RoomsDistanceInTile: {x: 1, y: 3}
-  Rooms: []
-  Tiles: []
-  CorridorTiles: []
-  Boundaries: []
-  PlayerSpawnerPrefab: {fileID: 2797456916212649293, guid: 8ce6433c0429cfa4fbc7ebf53f6366e8, type: 3}
-  GroundPrefab: {fileID: 647765265510742994, guid: 3b7501cf91abe9c48958e7862c1799ef, type: 3}
-  WallPrefab: {fileID: 9104321445825918880, guid: 166b92b7222fe8344a671615701d3657, type: 3}
-  DoorwayPrefab: {fileID: 5902516603717596668, guid: 7a756a1138b5901419953d835ddb6483, type: 3}
-  MobSpawnerTemplates:
-  - {fileID: 11400000, guid: 96cfa4b25de3ac5469c81817a0ca993f, type: 2}
-  MobSpawners: []
---- !u!4 &1756906993
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1756906991}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1875263730
+--- !u!1001 &541526190
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5187088159008421640, guid: 425171639d978d4469b704cabb8834c2, type: 3}
@@ -238,12 +180,76 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+--- !u!1 &1756906991
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1756906993}
+  - component: {fileID: 1756906992}
+  m_Layer: 0
+  m_Name: Dungeon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1756906992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756906991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe0538d1c3332cb42bfb5d8c77cfc74c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActiveRoomChunks: 1
+  RoomsNumberRange: {x: 5, y: 30}
+  RoomSizeXRange: {x: 3, y: 5}
+  RoomSizeYRange: {x: 3, y: 5}
+  RoomsDistanceInTile: {x: 1, y: 3}
+  Rooms: []
+  Tiles: []
+  CorridorTiles: []
+  Boundaries: []
+  PlayerSpawnerPrefab: {fileID: 2797456916212649293, guid: 8ce6433c0429cfa4fbc7ebf53f6366e8, type: 3}
+  GroundPrefab: {fileID: 647765265510742994, guid: 3b7501cf91abe9c48958e7862c1799ef, type: 3}
+  WallPrefab: {fileID: 9104321445825918880, guid: 166b92b7222fe8344a671615701d3657, type: 3}
+  DoorwayPrefab: {fileID: 5902516603717596668, guid: 7a756a1138b5901419953d835ddb6483, type: 3}
+  MobSpawnerTemplates:
+  - {fileID: 11400000, guid: 96cfa4b25de3ac5469c81817a0ca993f, type: 2}
+  MobSpawners: []
+--- !u!4 &1756906993
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756906991}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2098982482
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 6335714701754035866, guid: 3b49bbbaa5e151944b824433c1bffeca, type: 3}
@@ -339,4 +345,7 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b49bbbaa5e151944b824433c1bffeca, type: 3}

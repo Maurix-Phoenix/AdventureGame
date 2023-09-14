@@ -43,7 +43,7 @@ public class MobState_Combat : IMobState
         while (Mob.GetCurrentState() == this)
         {
             Player player = Player.Instance;
-            if (!player.Dead)
+            if (!player.IsDead)
             {
                 Mob.transform.LookAt(player.transform.position);
                 if (Vector3.Distance(player.transform.position, Mob.transform.position) <= Mob.MT.AttackRange)

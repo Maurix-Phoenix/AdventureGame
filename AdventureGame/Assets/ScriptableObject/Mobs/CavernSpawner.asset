@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc41e0652c5562a45a4d205b9d451759, type: 3}
   m_Name: CavernSpawner
   m_EditorClassIdentifier: 
+  Prefab: {fileID: 1884843188502778560, guid: 51ff33a3d285abb459bb0fad8d613e5d, type: 3}
   Tag: Dungeon
   MobsList:
   - {fileID: 11400000, guid: 4daa4f3704e75224cbcfba43cacb749a, type: 2}

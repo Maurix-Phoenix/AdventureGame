@@ -5,6 +5,10 @@ using UnityEngine.AI;
 using static MXUtilities;
 using static AdventureGame;
 using static AdventureGame.AGDungeons;
+using UnityEngine.SceneManagement;
+using System.Diagnostics.Tracing;
+using UnityEngine.Experimental.GlobalIllumination;
+using Unity.VisualScripting;
 
 public class MobSpawner : MonoBehaviour
 {
@@ -18,6 +22,10 @@ public class MobSpawner : MonoBehaviour
     private int _Capacity = 3;
     private float _SpawnDistance = 3;
     public Room ParentRoom = null;
+    public Light LightO = null;
+
+
+    private bool _IsInDungeon = false;
 
     private List<Mob> _MobsList = new List<Mob>();
     private Queue<GameObject> _MobFactory = new Queue<GameObject>();
@@ -38,6 +46,11 @@ public class MobSpawner : MonoBehaviour
         }
 
         _SpawnT = _SpawnIntervail;
+
+        if(LightO != null)
+        {
+            LightO.gameObject.SetActive(!_IsActive);
+        }
     }
 
     private void OnDisable()
@@ -51,17 +64,28 @@ public class MobSpawner : MonoBehaviour
         if(_IsActive)
         {
             ClearMobs();
-            SpawnMob(_InitialMobsNumber);
+            SpawnMob(_InitialMobsNumber, ParentRoom);
         }
+
     }
     void Update()
     {
         if(_IsActive)
         {
-            _SpawnT -= Time.deltaTime;
-            if (_SpawnT <= 0)
+            if (!_IsInDungeon)
             {
-                SpawnMob(_SpawnNumber, ParentRoom);
+                _SpawnT -= Time.deltaTime;
+                if (_SpawnT <= 0)
+                {
+                    SpawnMob(_SpawnNumber, ParentRoom);
+                }
+            }
+        }
+        else
+        {
+            if(_IsInDungeon)
+            {
+                ClearMobs();
             }
         }
     }
@@ -81,7 +105,6 @@ public class MobSpawner : MonoBehaviour
                                          transform.position.y+1,
                                          transform.position.z + Random.Range(-_SpawnDistance, _SpawnDistance));
 
-            //if the room is active spawn mob basing on the room size
             //if the room is active spawn mob basing on the room tiles
             if (ParentRoom != null)
             {
@@ -110,6 +133,14 @@ public class MobSpawner : MonoBehaviour
         mob.gameObject.SetActive(false);
         mob.gameObject.transform.position = Vector3.zero;
         _MobFactory.Enqueue(mob.gameObject);
+
+        if(_IsInDungeon && _MobsList.Count <= 0)
+        {
+            _IsActive = false;
+            LightO.gameObject.SetActive(true);
+            MXDebug.Log($"Mob Spawner deactivate in {ParentRoom.name}");
+        }
+
     }
     private void InitializeFactory()
     {
@@ -119,9 +150,11 @@ public class MobSpawner : MonoBehaviour
             Vector3 newPos = new Vector3(transform.position.x + Random.Range(-_SpawnDistance, _SpawnDistance),
                              transform.position.y + 0.5f,
                              transform.position.z + Random.Range(-_SpawnDistance, _SpawnDistance));
+
             //if the room is active spawn mob basing on the room tiles
-            if (ParentRoom != null)
+            if (SceneManager.GetActiveScene().name == "Dungeon" && ParentRoom != null)
             {
+                _IsInDungeon = true;
                 newPos = ParentRoom.Tiles[Random.Range(0, ParentRoom.Tiles.Count)].Position;
                 newPos = new Vector3(newPos.x, newPos.y + 0.5f, newPos.z);
             }

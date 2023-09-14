@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -34,12 +35,13 @@ public class UIManager : MonoBehaviour
 
     }
 
-    public void CreateUIWSTempLabel(string text, Vector3 position, Transform parent, float speed = 0.5f, float lifetime = 0.8f)
+    public UIWS_TempLabel CreateUIWSTempLabel(string text, Vector3 position, Transform parent, int fontSize = 32, bool temporary = true, float speed = 0.5f, float lifetime = 0.8f)
     {
+
         UIWS_TempLabel hl = Instantiate(UIWSLabelPrefab, position, Quaternion.identity, parent).GetComponent<UIWS_TempLabel>();
-        hl.LabelText = text;
-        hl.Speed = speed;
-        hl.LifeTime = lifetime;
+
+        hl.UpdateLabel(text, position, parent, fontSize,temporary, speed, lifetime);
+        return hl;
     }
 
     public UIWS_HealthBar CreateUIWSHealthBar(Vector3 offsetPosition, Transform parent)

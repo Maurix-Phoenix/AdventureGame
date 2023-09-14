@@ -3,6 +3,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using static MXUtilities;
 
 public class MobState_Idle : IMobState
@@ -52,10 +53,17 @@ public class MobState_Idle : IMobState
             if (!_CanMove)
             {
                 _Destination = new Vector3(Mob.transform.position.x + Random.Range(-1, 1),
-                           Mob.transform.position.y,
-                           Mob.transform.position.z + Random.Range(-1, 1));
-                _Direction = (_Destination - Mob.transform.position).normalized;
+                                           Mob.transform.position.y,
+                                           Mob.transform.position.z + Random.Range(-1, 1));
 
+                //if in dungeon get a random tile position inside the current mob spawner room.
+                if (SceneManager.GetActiveScene().name == "Dungeon")
+                {
+                    Room mobRoom = Mob.Spawner.ParentRoom;
+                    _Destination = mobRoom.Tiles[Random.Range(0, mobRoom.Tiles.Count-1)].transform.position;
+                }
+
+                _Direction = (_Destination - Mob.transform.position).normalized;
                 _CanMove = true;
             }
         }

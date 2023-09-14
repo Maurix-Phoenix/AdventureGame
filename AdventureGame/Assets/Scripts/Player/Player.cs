@@ -1,13 +1,11 @@
 using UnityEngine;
 using static MXUtilities;
 using static AdventureGame;
-using System.Collections.Generic;
+
 using System.Collections;
-using UnityEngine.Rendering;
+
 using UnityEngine.SceneManagement;
-using UnityEngine.Experimental.GlobalIllumination;
-using Unity.VisualScripting;
-using System.Runtime.InteropServices;
+using System.Linq.Expressions;
 
 public class Player : MonoBehaviour
 {
@@ -30,7 +28,7 @@ public class Player : MonoBehaviour
 
     private Animator _Animator;
 
-    public bool Dead = false;
+    public bool IsDead = false;
 
     #region Player Movement Data
     private bool _CanMove = true;
@@ -82,7 +80,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         if (Instance != null && Instance != this)
-        { 
+        {
             Destroy(Instance.gameObject);
         }
         else
@@ -101,14 +99,15 @@ public class Player : MonoBehaviour
 
         RigidBody = GetComponent<Rigidbody>();
         _Animator = GetComponent<Animator>();
-        _AudioSource= GetComponent<AudioSource>();
+        _AudioSource = GetComponent<AudioSource>();
 
-        Dead = false;
+        _CanMove = false;
+        IsDead = false;
         _Speed = _MoveSpeed;
         _AttackComboCount = 0;
         _Health = _MaxHealth;
 
-        if(_HealthBar != null)
+        if (_HealthBar != null)
         {
             _HealthBar.gameObject.SetActive(true);
         }
@@ -124,11 +123,11 @@ public class Player : MonoBehaviour
         SubscribeToInputs();
         SubscribeToEvents();
 
-        if(SceneManager.GetActiveScene().name == "TrainingValley")
+        if (SceneManager.GetActiveScene().name == "TrainingValley")
         {
             PlayerLight.gameObject.SetActive(false);
         }
-        else if(SceneManager.GetActiveScene().name != "Dungeon")
+        else if (SceneManager.GetActiveScene().name != "Dungeon")
         {
             PlayerLight.gameObject.SetActive(false);
         }
@@ -156,9 +155,9 @@ public class Player : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Dungeon")
         {
             CheckPlayerPositionInDungeon();
-        } 
+        }
 
-        if (!Dead)
+        if (!IsDead)
         {
             UpdateAttack();
             UpdateCombat();
@@ -169,7 +168,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(!Dead)
+        if (!IsDead)
         {
             Idle();
             Move();
@@ -181,12 +180,13 @@ public class Player : MonoBehaviour
 
     private void SubscribeToEvents()
     {
-       
+        _EM.CameraReachPosition += OnCameraReachPlayer;
+
     }
     private void UnsubscribeToEvents()
     {
 
-
+        _EM.CameraReachPosition -= OnCameraReachPlayer;
     }
 
     #endregion
@@ -213,9 +213,7 @@ public class Player : MonoBehaviour
     private void UnsubscribeToInputs()
     {
         _IM.UnsubscribeInput("Action", OnActionInput);
-
         _IM.UnsubscribeInput("Attack", OnAttackInput);
-
         _IM.UnsubscribeInput("Sprint", OnSprintInput);
         _IM.UnsubscribeInput("Sprint", OnSprintInputReleased);
 
@@ -286,9 +284,15 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Movement
+
+    private void OnCameraReachPlayer(MXEventParams<Vector3> position)
+    {
+        _CanMove = true;
+    }
+
     private void Idle()
-    { 
-        if(!_IsMoving && !_IsAttacking)
+    {
+        if (!_IsMoving && !_IsAttacking)
         {
             if (_CombatStance)
             {
@@ -365,26 +369,26 @@ public class Player : MonoBehaviour
             string attackNameAnimation = $"Attack{_AttackComboCount}";
             _AM.PlaySFXLocal(_AudioSource, $"PlayerAttack{_AttackComboCount}");
             _ANIMM.PlayAnimation(_Animator, "Player", attackNameAnimation, 0, forceState: true);
-            
+
             float totalDamage = _Attack;
-            if(Random.value > 0.7f)
+            if (Random.value > 0.7f)
             {
                 totalDamage = totalDamage * 2;
             }
 
-            
+
 
             Collider[] mobsHit = Physics.OverlapSphere(AttackPoint.position, _AttackRange, MobsLayerMask);
-            foreach(Collider col in mobsHit)
+            foreach (Collider col in mobsHit)
             {
-                if(col.gameObject.GetComponent<Mob>())
+                if (col.gameObject.GetComponent<Mob>())
                 {
                     Mob mob = col.gameObject.GetComponent<Mob>();
                     if (mob != null)
                     {
                         MXDebug.Log($"Hit: {mob.MT.Name}");
                         mob.TakeDamage(totalDamage);
-                        
+
                     }
                 }
             }
@@ -443,7 +447,7 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(float d)
     {
-        if (!Dead)
+        if (!IsDead)
         {
             float totalDamage = d - (_Defence / 2);
             if (totalDamage > 0)
@@ -453,7 +457,7 @@ public class Player : MonoBehaviour
 
                 _ANIMM.PlayAnimation(_Animator, "Player", "GetHit");
                 _UI.CreateUIWSTempLabel($"-{totalDamage.ToString("N1")}", transform.position, transform);
-                _HealthBar.UpdateHealthBar( _Health, _MaxHealth);
+                _HealthBar.UpdateHealthBar(_Health, _MaxHealth);
                 //damage taken sound
 
                 if (_Health <= 0)
@@ -462,23 +466,22 @@ public class Player : MonoBehaviour
                     _HealthBar.UpdateHealthBar(_Health, _MaxHealth, "DEATH");
                     StartCoroutine(Kill());
                 }
-
             }
             else
             {
                 //maybe a "damage blocked" sound?
+                _UI.CreateUIWSTempLabel($"Miss", transform.position, transform);
             }
         }
     }
 
     public IEnumerator Kill()
     {
-        Dead = true;
+        IsDead = true;
         _EM.RaiseOnPlayerDeath();
         _ANIMM.PlayAnimation(_Animator, "Player", "Die", forceState: true);
         yield return MXProgramFlow.EWait(_Animator.GetCurrentAnimatorStateInfo(0).length);
         gameObject.SetActive(false);
-
     }
 
     #endregion
@@ -488,25 +491,41 @@ public class Player : MonoBehaviour
     private void PlayerAction()
     {
         MXDebug.Log("Action Key Pressed");
-        Ray ray = new Ray(new Vector3(RigidBody.position.x, RigidBody.position.y + 0.1f, transform.position.z), transform.forward);
-        RaycastHit hit;
 
+        Collider[] others;
+        others = Physics.OverlapBoxNonAlloc(RigidBody.position, new Vector3(0.5f,0.5f,0.5f), others, Quaternion.identity);
 
-
-        if(Physics.Raycast(ray,out hit, 0.5f))
+        foreach(Collider other in others)
         {
-            MXDebug.Log($"hit: {hit.transform.gameObject.name}");
-            if (hit.collider != null)
+            if(other.gameObject.TryGetComponent<IInteractable>(out IInteractable interactable))
             {
-                if(hit.transform.parent.TryGetComponent( out IInteractable interactable))
-                {
-                    interactable.Interaction();
-                    MXDebug.Log($"hit Interactable: {hit.transform.gameObject.name}");
-                }
+                interactable.Interaction();
             }
         }
 
+
         
+
+
+
+
+
+
+        //Ray ray = new Ray(new Vector3(RigidBody.position.x, RigidBody.position.y + 0.1f, transform.position.z), transform.forward);
+        //RaycastHit hit;
+
+        //if (Physics.Raycast(ray, out hit, 0.5f))
+        //{
+        //    MXDebug.Log($"hit: {hit.transform.gameObject.name}");
+        //    if (hit.collider != null)
+        //    {
+        //        if (hit.transform.parent.TryGetComponent(out IInteractable interactable))
+        //        {
+        //            interactable.Interaction();
+        //            MXDebug.Log($"hit Interactable: {hit.transform.gameObject.name}");
+        //        }
+        //    }
+        //}
     }
 
     #endregion
@@ -521,12 +540,12 @@ public class Player : MonoBehaviour
     }
 
     public void Heal(float h)
-    { 
-        if(_Health + h < _MaxHealth)
+    {
+        if (_Health + h < _MaxHealth)
         {
-            _Health +=  h;
+            _Health += h;
         }
-        else if( _Health  + h >= _MaxHealth)
+        else if (_Health + h >= _MaxHealth)
         {
             _Health = _MaxHealth;
         }
@@ -534,7 +553,7 @@ public class Player : MonoBehaviour
 
         _UI.CreateUIWSTempLabel($"+Heal {h}", transform.position, transform);
         _HealthBar.UpdateHealthBar(_Health, _MaxHealth);
-        
+
     }
 
     #endregion
@@ -553,9 +572,9 @@ public class Player : MonoBehaviour
             if (hit.collider != null)
             {
                 MXDebug.Log($"Player Ground: {hit.collider.name}");
-                if(hit.transform.parent.parent.TryGetComponent(out Room room)) 
+                if (hit.transform.parent.parent.TryGetComponent(out Room room))
                 {
-                    if(room != null)
+                    if (room != null)
                     {
                         CurrentRoom = room;
                         MXDebug.Log($"CurrentRoom: {room.name}");
@@ -567,15 +586,19 @@ public class Player : MonoBehaviour
 
     #endregion
 
+
+
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
+        Gizmos.DrawCube(RigidBody.position, new Vector3(0.5f, 0.5f, 0.5f));
+
         //checking the attack range
-        if(AttackPoint != null)
+        if (AttackPoint != null)
         {
             Gizmos.DrawSphere(AttackPoint.position, _AttackRange);
         }
-       
+
     }
 #endif
 }

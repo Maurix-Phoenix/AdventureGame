@@ -72,6 +72,7 @@ public class CameraScript : MonoBehaviour
                     {
                         _FirstAnimationPerformed = true;
                         transform.position = _Player.RigidBody.position + Offset;
+                        _EM.RaiseOnCameraReachPosition(new MXEventParams<Vector3>(transform.position));
                     }
                 }
                 else

@@ -21,6 +21,16 @@ public class EventManager : MonoBehaviour
     }
 
 
+
+
+    #region Camera Events
+    public Action<MXEventParams<Vector3>> CameraReachPosition;
+    public void RaiseOnCameraReachPosition(MXEventParams<Vector3> cameraPos)
+    {
+        CameraReachPosition?.Invoke(cameraPos);
+    }
+    #endregion
+
     #region Player Related Events
 
     public Action PlayerSpawn;

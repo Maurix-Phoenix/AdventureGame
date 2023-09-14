@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9afa72bf50e9def4ea43b35b6d1d667c, type: 3}
+  m_Name: Boss
+  m_EditorClassIdentifier: 
+  Name: Grunt
+  Tags: []
+  MobPrefab: {fileID: 100050, guid: aad05534a7ba0dd49b8c54ce188308ec, type: 3}
+  Attack1SFX: {fileID: 8300000, guid: e0e7215a8a4681541823e889fcd64fa1, type: 3}
+  Attack2SFX: {fileID: 8300000, guid: 2b69571449c16084abacc8fd3e9c5115, type: 3}
+  DieSFX: {fileID: 8300000, guid: 6c36d144c11f5514183d1ebdcf5c4773, type: 3}
+  Health: 50
+  Attack: 10
+  Defence: 8
+  MoveSpeed: 1
+  AttackSpeed: 1
+  AttackRange: 1
+  AggroRange: 5
+  CoinsLoot:
+  - {fileID: 11400000, guid: e469b9cabe4cbff4481e5a5a86442a99, type: 2}
+  - {fileID: 11400000, guid: e469b9cabe4cbff4481e5a5a86442a99, type: 2}
+  - {fileID: 11400000, guid: e469b9cabe4cbff4481e5a5a86442a99, type: 2}

@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Mob Spawner", menuName ="Scriptable Objects/Mobs/New Mob Spawner")]
 public class MobSpawnerTemplate : ScriptableObject
 {
+    public GameObject Prefab;
     public string Tag = "";
     public List<MobTemplate> MobsList;
  

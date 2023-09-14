@@ -1,7 +1,5 @@
-using System.CodeDom.Compiler;
+
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
@@ -13,6 +11,7 @@ public class Dungeon : MonoBehaviour
     public static Dungeon Instance;
 
     [Header("Dungeon Structure")]
+    [SerializeField] private bool ActiveRoomChunks = true;
     [SerializeField] private Vector2Int RoomsNumberRange = new Vector2Int(2, 15);
     [SerializeField] private Vector2Int RoomSizeXRange = new Vector2Int(3, 9);
     [SerializeField] private Vector2Int RoomSizeYRange = new Vector2Int(3, 9);
@@ -349,7 +348,7 @@ public class Dungeon : MonoBehaviour
     }
     private MobSpawner CreateMobSpawner(Room room)
     {
-        MobSpawner ms = new GameObject("Mob Spawner").AddComponent<MobSpawner>();
+        MobSpawner ms = Instantiate(MobSpawnerTemplates[0].Prefab).GetComponent<MobSpawner>();
         ms.ParentRoom = room;
         ms.transform.position = new Vector3(room.Position.x + (room.Size.x / 2) * AGDungeons.DUNGEON_UNIT , 0.3f, room.Position.z + (room.Size.y / 2) * AGDungeons.DUNGEON_UNIT);
         ms.transform.SetParent(room.transform);
@@ -360,20 +359,22 @@ public class Dungeon : MonoBehaviour
 
     private void RoomsChunks()
     {
-        //deactivate the rooms based on the distance they have with the player
-
-        foreach(Room r in Rooms)
+        if(ActiveRoomChunks)
         {
-            if(Vector3.Distance(r.Position, Player.Instance.transform.position) > 5)
+            //deactivate the rooms based on the distance they have with the player
+            foreach (Room r in Rooms)
             {
-                if(r != Rooms[0]) //starting room should never be deactivated
+                if (Vector3.Distance(r.Position, Player.Instance.transform.position) > 5)
                 {
-                    r.gameObject.SetActive(false);
+                    if (r != Rooms[0]) //starting room should never be deactivated
+                    {
+                        r.gameObject.SetActive(false);
+                    }
                 }
-            }
-            else
-            {
-                r.gameObject.SetActive(true);
+                else
+                {
+                    r.gameObject.SetActive(true);
+                }
             }
         }
     }
