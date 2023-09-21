@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.UIElements;
@@ -34,75 +35,13 @@ public class WallTile : MonoBehaviour
         InstantiateWallObjects();
     }
 
-    public void PlaceObjectOnWall(GameObject obj, WallPositions wallPos)
+    public GameObject InstantiateWallObject(GameObject prefab = null, WallPositions wallPos = WallPositions.NONE)
     {
-        if (obj != null)
+        if(prefab != null)
         {
-            switch (wallPos)
-            {
-                case WallPositions.NONE: { break; }
-                case WallPositions.Random:
-                    {
-                        int randomP = Random.Range(0, ContentPrefab.Length + 1);
-                        PlaceObjectOnWall(obj, (WallPositions)randomP);
-                        break;
-                    }
-                case WallPositions.ALL:
-                    {
-                        for (int i = 0; i < ContentPrefab.Length; i++)
-                        {
-                            if (ContentPrefab[i] == null)
-                            {
-                                ContentPrefab[i] = obj;
-                            }
-                        }
-                        break;
-                    }
-                default:
-                    {
-                        if (ContentPrefab[(int)wallPos] == null)
-                        {
-                            ContentPrefab[(int)wallPos] = obj;
-                        }
-
-                        break;
-                    }
-            }
+            ContentPrefab[(int)wallPos] = prefab;
         }
-    }
 
-    private void UpdateWallObject(GameObject newOBJ, WallPositions wallPos)
-    {
-        if(wallPos == WallPositions.Left || wallPos == WallPositions.Center || wallPos == WallPositions.Right)
-        {
-            if (ContentPrefab[(int)wallPos] != null)
-            {
-                Destroy(ContentPrefab[(int)wallPos].gameObject);
-                ContentPrefab[(int)wallPos] = newOBJ;
-            }
-            else
-            {
-                ContentPrefab[(int)wallPos] = newOBJ;
-            }
-            InstantiateWallObject(wallPos);
-        }
-    }
-
-    public void DestroyAllObjectsOnWall()
-    {
-        for(int i = 0; i < ContentPrefab.Length;i++)
-        { 
-            if (ContentPrefab[i] != null)
-            {
-                Destroy(ContentPrefab[i].gameObject);
-                ContentPrefab[i] = null;
-            }
-                
-        }
-    }
-
-    private void InstantiateWallObject(WallPositions wallPos)
-    {
         if (wallPos == WallPositions.Left || wallPos == WallPositions.Center || wallPos == WallPositions.Right)
         {
             if (ContentPrefab[(int)wallPos] != null)
@@ -126,6 +65,7 @@ public class WallTile : MonoBehaviour
                             xOffset = _WallCollider.bounds.size.x / 3;
                             break;
                         }
+                    default: { return null; }
                 }
 
                 GameObject wallObj = Instantiate(ContentPrefab[(int)wallPos]);
@@ -137,26 +77,26 @@ public class WallTile : MonoBehaviour
 
                 if(wallObj.TryGetComponent<IInteractable>(out IInteractable intObject))
                 {
-                    if(intObject.GetType() == typeof(Torch))
-                    {
-                        Torch t = (Torch)intObject;
-                        Room r = _ParentTile.Parent.GetComponent<Room>();
+                //    if(intObject.GetType() == typeof(Torch))
+                //    {
+                //        Torch t = (Torch)intObject;
+                //        Room r = _ParentTile.Parent.GetComponent<Room>();
 
-                        
-                        if(r != null)
-                        {
+                //        if(r.TorchesList.Count < r.MaxRoomTorches)
+                //        {
+                //            r.TorchesList.Add(t);
+                //            t.Parent = r.transform;
+                //        }
 
-                        }
-                        r.TorchesList.Add(t);
-                        t.Parent = r.transform;
-                        MXUtilities.MXDebug.Log("Torch added");
-                    }
-                }
+                //        MXUtilities.MXDebug.Log("Torch added");
+                //    }
                 wallObj.transform.SetParent(null);
-
+                }
+                return wallObj;
 
             }
         }
+        return null;
     }
 
 
@@ -165,7 +105,7 @@ public class WallTile : MonoBehaviour
     {
         for(int i = 0; i < ContentPrefab.Length; i++)
         {
-            InstantiateWallObject((WallPositions) i);
+            InstantiateWallObject(null,(WallPositions) i);
         }
     }
 }

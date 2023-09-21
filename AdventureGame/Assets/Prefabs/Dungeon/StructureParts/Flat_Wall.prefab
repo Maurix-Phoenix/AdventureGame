@@ -120,5 +120,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ContentPrefab:
   - {fileID: 0}
-  - {fileID: 2620836825153648452, guid: 314e96176343aa2428831fb5923f3bc7, type: 3}
+  - {fileID: 0}
   - {fileID: 0}

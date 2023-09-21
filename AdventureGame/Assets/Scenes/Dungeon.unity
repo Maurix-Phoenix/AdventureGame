@@ -214,19 +214,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActiveRoomChunks: 1
+  ChunkDistance: 5.5
   RoomsNumberRange: {x: 5, y: 30}
   RoomSizeXRange: {x: 3, y: 5}
   RoomSizeYRange: {x: 3, y: 5}
   RoomsDistanceInTile: {x: 1, y: 3}
+  DungeonSeed: -1
   Rooms: []
   Tiles: []
-  CorridorTiles: []
   Boundaries: []
   PlayerSpawnerPrefab: {fileID: 2797456916212649293, guid: 8ce6433c0429cfa4fbc7ebf53f6366e8, type: 3}
   GroundPrefab: {fileID: 647765265510742994, guid: 3b7501cf91abe9c48958e7862c1799ef, type: 3}
   WallPrefab: {fileID: 9104321445825918880, guid: 166b92b7222fe8344a671615701d3657, type: 3}
   DoorwayPrefab: {fileID: 5902516603717596668, guid: 7a756a1138b5901419953d835ddb6483, type: 3}
-  TorchPrefab: {fileID: 0}
+  TorchPrefab: {fileID: 2620836825153648452, guid: 314e96176343aa2428831fb5923f3bc7, type: 3}
   MobSpawnerTemplates:
   - {fileID: 11400000, guid: 96cfa4b25de3ac5469c81817a0ca993f, type: 2}
   MobSpawners: []

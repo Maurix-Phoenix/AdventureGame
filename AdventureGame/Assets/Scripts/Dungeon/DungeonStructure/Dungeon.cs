@@ -223,6 +223,13 @@ public class Dungeon : MonoBehaviour
                 tile.BuildBoundaries();
             }
         }
+
+        //adding torches
+        foreach (Room room in Rooms)
+        {
+            room.PlaceRoomTorches(Random.Range(room.RoomTorches.x, room.RoomTorches.y));
+
+        }
     }
 
     private void CreateRoomCorridor(Room room, int distanceInTiles)

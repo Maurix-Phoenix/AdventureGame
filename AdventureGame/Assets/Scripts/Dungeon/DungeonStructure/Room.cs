@@ -16,8 +16,11 @@ public class Room : MonoBehaviour
     public Room[] ConnectedRooms = new Room[(int)Direction.Directions.ALL];
 
     public List<Tile> Tiles = new List<Tile>();
+
     public List<GameObject>Boundaries = new List<GameObject>();
     public MobSpawner MobSpawner;
+
+    public Vector2Int RoomTorches = new Vector2Int(4,6);
     public List<Torch> TorchesList = new List<Torch>();
 
     public void Initialize()
@@ -70,7 +73,52 @@ public class Room : MonoBehaviour
                 Dungeon.Instance.Tiles.Add(tile);
             }
         }
-
         transform.SetParent(Parent);
+    }
+
+    public void PlaceRoomTorches(int torchN)
+    {
+        MXDebug.Log("Placing Torches...");
+        if(torchN > RoomTorches.y)
+        {
+            torchN = RoomTorches.y;
+        }
+        else if (torchN < RoomTorches.x)
+        {
+            torchN = RoomTorches.x;
+        }
+
+        List<WallTile> wtl = new List<WallTile>();
+        for(int i = 0; i < Boundaries.Count;  i++)
+        {
+            if(Boundaries[i] != null)
+            {
+                if(Boundaries[i].GetComponent<WallTile>() != null)
+                {
+                    wtl.Add(Boundaries[i].GetComponent<WallTile>());
+                }
+
+                //else is a doorway
+            }
+        }
+
+
+        for(int i = 0; i < torchN; i++)
+        {
+            //select a random wall
+            if (wtl.Count > 0)
+            {
+                WallTile selectedWT = wtl[Random.Range(0, wtl.Count - 1)];
+                wtl.Remove(selectedWT);
+
+
+                //instance the torch
+                
+                Torch torch = selectedWT.InstantiateWallObject(Dungeon.Instance.TorchPrefab, WallTile.WallPositions.Center).GetComponent<Torch>();
+                TorchesList.Add(torch);
+            }
+        }
+
+
     }
 }
