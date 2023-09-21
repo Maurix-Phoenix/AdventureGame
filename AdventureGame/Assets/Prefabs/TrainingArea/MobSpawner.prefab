@@ -46,4 +46,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MST: {fileID: 11400000, guid: 96cfa4b25de3ac5469c81817a0ca993f, type: 2}
   ParentRoom: {fileID: 0}
-  LightO: {fileID: 0}

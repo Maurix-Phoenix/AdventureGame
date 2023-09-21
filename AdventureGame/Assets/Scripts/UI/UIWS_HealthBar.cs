@@ -13,19 +13,35 @@ public class UIWS_HealthBar : MonoBehaviour
     private TMP_Text _HBText;
     private Slider _Slider;
 
+    private float distanceFromPlayer = 2.0f;
+    Player player;
+
     private void Awake()
     { 
-        _Slider = GetComponent<Slider>();
+        _Slider = gameObject.transform.GetComponentInChildren<Slider>();
         _HBText = gameObject.transform.GetComponentInChildren<TMP_Text>();
     }
 
     private void Start()
     {
-        
+        player = Player.Instance;
     }
 
     void LateUpdate()
     {
+        if(player != null)
+        {
+            if (Vector3.Distance(gameObject.transform.position, player.transform.position) < distanceFromPlayer)
+            { 
+                //_Slider.gameObject.SetActive(true);
+                _HBText.gameObject.SetActive(true);
+            }
+            else
+            {
+                //_Slider.gameObject.SetActive(false);
+                _HBText.gameObject.SetActive(false);
+            }
+        }
         //prevent strange behaviours if in parent objects (always face camera)
         transform.LookAt(transform.position + Camera.main.transform.rotation * Camera.main.transform.forward, Camera.main.transform.rotation * Vector3.up);
         

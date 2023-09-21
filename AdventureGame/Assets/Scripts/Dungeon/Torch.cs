@@ -6,6 +6,7 @@ public class Torch : MonoBehaviour, IInteractable
 {
     [Header("Status")]
     public bool IsOn = false;
+    public Transform Parent;
 
     [Header("Light")]
     [SerializeField]private Light _Light;
@@ -52,9 +53,18 @@ public class Torch : MonoBehaviour, IInteractable
          _InteractionLabel.gameObject.SetActive(false);
     }
 
+
+
+    private void OnEnable()
+    {
+        if(IsOn)
+        {
+            _ParticleS.Play();
+        }
+    }
+
     private void OnDisable()
     {
-
     }
 
     private void Start()
@@ -92,7 +102,6 @@ public class Torch : MonoBehaviour, IInteractable
                 _Light.range += _rangeVariation *  _StepAtLimit;
 ;
             }
-
         }
     }
 }

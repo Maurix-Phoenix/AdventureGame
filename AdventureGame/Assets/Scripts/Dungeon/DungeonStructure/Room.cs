@@ -30,16 +30,23 @@ public class Room : MonoBehaviour
 
     private void OnEnable()
     {
-        foreach(Torch t in TorchesList)
+        if(TorchesList.Count > 0)
         {
-            t.gameObject.SetActive(true);
+            foreach (Torch t in TorchesList)
+            {
+                t.gameObject.SetActive(true);
+            }
         }
+        
     }
     private void OnDisable()
     {
-        foreach (Torch t in TorchesList)
+        if (TorchesList.Count > 0)
         {
-            t.gameObject.SetActive(false);
+            foreach (Torch t in TorchesList)
+            {
+                t.gameObject.SetActive(false);
+            }
         }
     }
     public void CreateRoom(Vector3 position, Vector2Int size, Transform parent, string tag)

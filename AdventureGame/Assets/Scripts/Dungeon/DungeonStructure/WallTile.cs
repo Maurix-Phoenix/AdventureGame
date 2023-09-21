@@ -140,12 +140,15 @@ public class WallTile : MonoBehaviour
                     if(intObject.GetType() == typeof(Torch))
                     {
                         Torch t = (Torch)intObject;
-                        
-                        if(_ParentTile != null && _ParentTile.Parent.GetComponent<Room>() != null)
-                        {
-                            _ParentTile.Parent.GetComponent<Room>().TorchesList.Add(t);
-                        }
+                        Room r = _ParentTile.Parent.GetComponent<Room>();
 
+                        
+                        if(r != null)
+                        {
+
+                        }
+                        r.TorchesList.Add(t);
+                        t.Parent = r.transform;
                         MXUtilities.MXDebug.Log("Torch added");
                     }
                 }

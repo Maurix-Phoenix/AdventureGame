@@ -12,13 +12,14 @@ public class Dungeon : MonoBehaviour
 
     [Header("Dungeon Structure")]
     [SerializeField] private bool ActiveRoomChunks = true;
+    [SerializeField] private float ChunkDistance = 5.0f;
     [SerializeField] private Vector2Int RoomsNumberRange = new Vector2Int(2, 15);
     [SerializeField] private Vector2Int RoomSizeXRange = new Vector2Int(3, 9);
     [SerializeField] private Vector2Int RoomSizeYRange = new Vector2Int(3, 9);
     [SerializeField] private Vector2Int RoomsDistanceInTile = new Vector2Int(0,3);
+    [SerializeField] private int DungeonSeed = -1;
     public List<Room> Rooms = new List<Room>();
     public List<Tile> Tiles = new List<Tile>();
-    public List<Tile> CorridorTiles = new List<Tile>();
     public List<GameObject> Boundaries = new List<GameObject>();
 
 
@@ -35,6 +36,12 @@ public class Dungeon : MonoBehaviour
 
     private void Awake()
     {
+        if (DungeonSeed == -1)
+        {
+            DungeonSeed = Random.Range(0, int.MaxValue);
+        }
+        Random.InitState(DungeonSeed);
+
         if (Instance != null && Instance != this)
         {
             Destroy(Instance);
@@ -282,10 +289,9 @@ public class Dungeon : MonoBehaviour
                             }
                     }
                     Tile corridorTile = new GameObject($"CorridorTile").AddComponent<Tile>();
-                    corridorTile.CreateTile(corridorPos, transform, Tile.Types.Corridor);
+                    corridorTile.CreateTile(corridorPos, room.transform, Tile.Types.Corridor);
                     Tiles.Add(corridorTile);
-                    CorridorTiles.Add(corridorTile);
-                    corridorTile.name = $"Corridor {CorridorTiles.IndexOf(corridorTile)}";
+                    room.Tiles.Add(corridorTile);
                 }
             }
         }
@@ -370,7 +376,7 @@ public class Dungeon : MonoBehaviour
             //deactivate the rooms based on the distance they have with the player
             foreach (Room r in Rooms)
             {
-                if (Vector3.Distance(r.Position, Player.Instance.transform.position) > 5)
+                if (Vector3.Distance(r.Position, Player.Instance.transform.position) > ChunkDistance)
                 {
                     if (r != Rooms[0]) //starting room should never be deactivated
                     {
