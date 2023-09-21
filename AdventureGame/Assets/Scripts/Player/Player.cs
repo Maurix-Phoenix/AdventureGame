@@ -494,11 +494,13 @@ public class Player : MonoBehaviour
         MXDebug.Log("Action Key Pressed");
 
         RaycastHit[] hitResults = new RaycastHit[5];
-        Physics.BoxCastNonAlloc(new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z), new Vector3(0.2f, 0.3f, 0.2f), Vector3.forward, hitResults, Quaternion.identity, 0.2f);
-        foreach(RaycastHit other in hitResults)
+        Physics.BoxCastNonAlloc(new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z), new Vector3(0.2f, 0.3f, 0.2f), Vector3.forward, hitResults, Quaternion.identity, 0.2f, LayerMask.GetMask("Interactable"));
+        foreach (RaycastHit other in hitResults)
         {
-            if(other.collider != null)
+            if (other.collider != null)
             {
+                Debug.Log("Oggetto rilevato: " + other.collider.name);
+
                 if (other.transform.root.TryGetComponent<IInteractable>(out IInteractable interactable))
                 {
                     interactable.Interaction();
@@ -598,9 +600,9 @@ public class Player : MonoBehaviour
             interactable.ShowPromptLabel();
         }
     }
-    private void OnTriggerExit(Collider other) 
-    { 
-        if(other.transform.root.TryGetComponent<IInteractable>(out IInteractable interactable))
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.transform.root.TryGetComponent<IInteractable>(out IInteractable interactable))
         {
             MXDebug.Log($"Hiding Label {other.transform.root}");
             interactable.HidePromptLabel();

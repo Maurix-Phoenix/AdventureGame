@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe0538d1c3332cb42bfb5d8c77cfc74c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActiveRoomChunks: 0
+  ActiveRoomChunks: 1
   RoomsNumberRange: {x: 5, y: 30}
   RoomSizeXRange: {x: 3, y: 5}
   RoomSizeYRange: {x: 3, y: 5}
@@ -226,6 +226,7 @@ MonoBehaviour:
   GroundPrefab: {fileID: 647765265510742994, guid: 3b7501cf91abe9c48958e7862c1799ef, type: 3}
   WallPrefab: {fileID: 9104321445825918880, guid: 166b92b7222fe8344a671615701d3657, type: 3}
   DoorwayPrefab: {fileID: 5902516603717596668, guid: 7a756a1138b5901419953d835ddb6483, type: 3}
+  TorchPrefab: {fileID: 0}
   MobSpawnerTemplates:
   - {fileID: 11400000, guid: 96cfa4b25de3ac5469c81817a0ca993f, type: 2}
   MobSpawners: []
@@ -271,6 +272,10 @@ PrefabInstance:
     - target: {fileID: 6335714701754035868, guid: 3b49bbbaa5e151944b824433c1bffeca, type: 3}
       propertyPath: m_BackGroundColor.r
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6335714701754035868, guid: 3b49bbbaa5e151944b824433c1bffeca, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 351
       objectReference: {fileID: 0}
     - target: {fileID: 6335714701754035869, guid: 3b49bbbaa5e151944b824433c1bffeca, type: 3}
       propertyPath: m_RootOrder

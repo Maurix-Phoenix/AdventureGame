@@ -27,6 +27,7 @@ public class Dungeon : MonoBehaviour
     public GameObject GroundPrefab;
     public GameObject WallPrefab;
     public GameObject DoorwayPrefab;
+    public GameObject TorchPrefab;
 
     [Header("Dungeon Mob Pool")]
     public List<MobSpawnerTemplate> MobSpawnerTemplates;
@@ -51,6 +52,7 @@ public class Dungeon : MonoBehaviour
         GenerateBoundaries();
         DungeonGenerationComplete();
     }
+
 
     private void Update()
     {
@@ -343,6 +345,10 @@ public class Dungeon : MonoBehaviour
             if(room.Tag != "Starting Room")
             {
                 room.MobSpawner = CreateMobSpawner(room);
+            }
+            else
+            {
+             
             }
         }
     }

@@ -18,6 +18,7 @@ public class Room : MonoBehaviour
     public List<Tile> Tiles = new List<Tile>();
     public List<GameObject>Boundaries = new List<GameObject>();
     public MobSpawner MobSpawner;
+    public List<Torch> TorchesList = new List<Torch>();
 
     public void Initialize()
     {
@@ -27,6 +28,20 @@ public class Room : MonoBehaviour
         Size = new Vector2Int(AGDungeons.Rooms.MIN_X,AGDungeons.Rooms.MAX_X);
     }
 
+    private void OnEnable()
+    {
+        foreach(Torch t in TorchesList)
+        {
+            t.gameObject.SetActive(true);
+        }
+    }
+    private void OnDisable()
+    {
+        foreach (Torch t in TorchesList)
+        {
+            t.gameObject.SetActive(false);
+        }
+    }
     public void CreateRoom(Vector3 position, Vector2Int size, Transform parent, string tag)
     {
         Parent = parent;

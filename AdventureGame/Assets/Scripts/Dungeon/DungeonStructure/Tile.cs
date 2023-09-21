@@ -123,13 +123,13 @@ public class Tile : MonoBehaviour
             case Direction.Directions.East:
                 {
                     pos = new Vector3(Position.x + AGDungeons.DUNGEON_UNIT/2, AGDungeons.DUNGEON_UNIT / 2, Position.z);
-                    rot = new Vector3(0, 90, 0);
+                    rot = new Vector3(0, 270, 0);
                     break;
                 }
             case Direction.Directions.West:
                 {
                     pos = new Vector3(Position.x - AGDungeons.DUNGEON_UNIT/2, AGDungeons.DUNGEON_UNIT / 2, Position.z);
-                    rot = new Vector3(0, -90, 0);
+                    rot = new Vector3(0, 90, 0);
                     break;
                 }
             default: return;

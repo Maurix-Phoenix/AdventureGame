@@ -26,7 +26,8 @@ public class PlayerSpawningPoint : MonoBehaviour, IInteractable
     private const float _InteractionTime = 1.0f;
     private float _InteractionT = _InteractionTime;
 
-
+    public string Name { get => _Name; set => _Name = value; }
+    private string _Name = "";
     private void OnEnable()
     {
         _EM = GameManager.Instance.EventManager;

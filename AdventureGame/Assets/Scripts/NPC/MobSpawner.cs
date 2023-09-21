@@ -22,7 +22,6 @@ public class MobSpawner : MonoBehaviour
     private int _Capacity = 3;
     private float _SpawnDistance = 3;
     public Room ParentRoom = null;
-    public Light LightO = null;
 
 
     private bool _IsInDungeon = false;
@@ -46,11 +45,6 @@ public class MobSpawner : MonoBehaviour
         }
 
         _SpawnT = _SpawnIntervail;
-
-        if(LightO != null)
-        {
-            LightO.gameObject.SetActive(!_IsActive);
-        }
     }
 
     private void OnDisable()
@@ -137,7 +131,11 @@ public class MobSpawner : MonoBehaviour
         if(_IsInDungeon && _MobsList.Count <= 0)
         {
             _IsActive = false;
-            LightO.gameObject.SetActive(true);
+            //LightO.gameObject.SetActive(true);
+            foreach(Torch torch in ParentRoom.TorchesList)
+            {
+                torch.Interaction();
+            }
             MXDebug.Log($"Mob Spawner deactivate in {ParentRoom.name}");
         }
 
