@@ -102,7 +102,7 @@ public class MobSpawner : MonoBehaviour
             //if the room is active spawn mob basing on the room tiles
             if (ParentRoom != null)
             {
-                newPos = ParentRoom.Tiles[Random.Range(0, ParentRoom.Tiles.Count)].Position;
+                newPos = ParentRoom.Tiles[Random.Range(0, ParentRoom.Tiles.Count)].WorldPosition;
                 newPos = new Vector3(newPos.x, newPos.y + 0.5f, newPos.z);
             }
 
@@ -153,7 +153,7 @@ public class MobSpawner : MonoBehaviour
             if (SceneManager.GetActiveScene().name == "Dungeon" && ParentRoom != null)
             {
                 _IsInDungeon = true;
-                newPos = ParentRoom.Tiles[Random.Range(0, ParentRoom.Tiles.Count)].Position;
+                newPos = ParentRoom.Tiles[Random.Range(0, ParentRoom.Tiles.Count)].WorldPosition;
                 newPos = new Vector3(newPos.x, newPos.y + 0.5f, newPos.z);
             }
             GameObject mobObj = Instantiate(mobPrefab, newPos, Quaternion.identity);

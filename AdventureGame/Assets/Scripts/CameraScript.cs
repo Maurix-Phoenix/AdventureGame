@@ -64,8 +64,8 @@ public class CameraScript : MonoBehaviour
                     if (transform.position != (_Player.RigidBody.position + Offset)
                         && (Vector3.Distance(transform.position, _Player.RigidBody.position + Offset) > 0.3))
                     {
-                        _Direction = (_Player.RigidBody.position + Offset - transform.position).normalized;
-                        transform.Translate(_Direction * _Speed * Time.deltaTime);
+                        _Direction = ((_Player.RigidBody.position + Offset) - transform.position).normalized;
+                        transform.position += _Direction * _Speed * Time.deltaTime;
                         transform.LookAt(_Player.RigidBody.position);
                     }
                     else

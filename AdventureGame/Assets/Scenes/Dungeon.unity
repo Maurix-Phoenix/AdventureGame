@@ -131,6 +131,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3888698716502274763, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4679041183001270893, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5187088159008421640, guid: 425171639d978d4469b704cabb8834c2, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -178,6 +186,10 @@ PrefabInstance:
     - target: {fileID: 5688698331835082660, guid: 425171639d978d4469b704cabb8834c2, type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8987706108678789791, guid: 425171639d978d4469b704cabb8834c2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -324,7 +336,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6335714701754035870, guid: 3b49bbbaa5e151944b824433c1bffeca, type: 3}
       propertyPath: Offset.y
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6335714701754035870, guid: 3b49bbbaa5e151944b824433c1bffeca, type: 3}
       propertyPath: Offset.z

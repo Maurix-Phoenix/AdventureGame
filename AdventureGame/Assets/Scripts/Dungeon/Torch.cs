@@ -18,7 +18,7 @@ public class Torch : MonoBehaviour, IInteractable
     [SerializeField]private float _baseIntensity = 1.0f;
     [SerializeField]private float _IntensityVariation = 0.3f;
     [SerializeField]private float _Frequency = 1f;
-    [SerializeField] private float _StepAtLimit = 1.5f;
+    private float _StepAtLimit = 0.1f;
     
 
     [Header("Interaction Label")]
@@ -80,6 +80,7 @@ public class Torch : MonoBehaviour, IInteractable
         _ParticleS.Stop();
         _Light.gameObject.SetActive(false);
         _InteractionLabel = GameManager.Instance.UIManager.CreateUIWSTempLabel("Press 'E' to interact", _ParticleS.transform.position, transform, 32, false, 0, 0);
+        _StepAtLimit = _baseIntensity / 3;
         HidePromptLabel();
     }
 

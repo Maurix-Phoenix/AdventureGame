@@ -328,8 +328,8 @@ public class Dungeon : MonoBehaviour
         //if only one of the dungeon tiles is already inside that area will return false
         foreach (Tile tile in Tiles)
         {
-            if(tile.Position.x >= minPosition.x && tile.Position.x <= maxPosition.x &&
-               tile.Position.z >= minPosition.z && tile.Position.z <= maxPosition.z)
+            if(tile.WorldPosition.x >= minPosition.x && tile.WorldPosition.x <= maxPosition.x &&
+               tile.WorldPosition.z >= minPosition.z && tile.WorldPosition.z <= maxPosition.z)
             {
                 return false;
             }

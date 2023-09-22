@@ -51,8 +51,8 @@ public class Coin : MonoBehaviour
         {
             if (_Attracted)
             {
-                _Direction = (Player.Instance.RigidBody.position - transform.position).normalized;
-                transform.Translate(_Direction * _MoveSpeed * Time.deltaTime);
+                _Direction = Player.Instance.RigidBody.position - transform.position;
+                transform.position += _Direction.normalized * _MoveSpeed * Time.deltaTime;
                 if (Vector3.Distance(Player.Instance.transform.position, transform.position) < 0.2)
                 {
                     _AM.PlaySFX(CT.PickupSFX);

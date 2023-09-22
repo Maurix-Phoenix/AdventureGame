@@ -13,19 +13,45 @@ public class Tile : MonoBehaviour
 
     public Vector2Int LocalPosition;
     public Transform Parent { get; private set; }
-    public Vector3 Position { get; private set; }
+    public Vector3 WorldPosition;
 
     public Tile[] ConnectedTiles = new Tile[(int)Direction.Directions.ALL];
     public GameObject[] Boundaries =new GameObject[(int)Direction.Directions.ALL];
     public void CreateTile(Vector3 position, Transform parent, Types typ)
     {
         Parent = parent;
-        Position = position;
-        transform.position = Position;
+        WorldPosition = position;
+        transform.position = WorldPosition;
         Type = typ;
-        Instantiate(Dungeon.Instance.GroundPrefab, Position, Quaternion.identity, transform);
+        if(IsSpaceFree(position, new Vector2Int(1,1)))
+        {
+            Instantiate(Dungeon.Instance.GroundPrefab, WorldPosition, Quaternion.identity, transform);
+        }
+        else
+        {
+            Destroy(this);
+        }
 
         transform.SetParent(Parent);
+    }
+
+
+    private bool IsSpaceFree(Vector3 position, Vector2Int size)
+    {
+        //"virtual area" the room occupy 
+        Vector3 minPosition = new Vector3(position.x - (size.x/2 * AGDungeons.DUNGEON_UNIT), 0, position.z-(size.y/2 * AGDungeons.DUNGEON_UNIT));
+        Vector3 maxPosition = new Vector3(position.x + (size.x/2 * AGDungeons.DUNGEON_UNIT), 0, position.z + (size.y/2 * AGDungeons.DUNGEON_UNIT));
+
+        //if only one of the dungeon tiles is already inside that area will return false
+        foreach (Tile tile in Dungeon.Instance.Tiles)
+        {
+            if (tile.WorldPosition.x >= minPosition.x && tile.WorldPosition.x <= maxPosition.x &&
+               tile.WorldPosition.z >= minPosition.z && tile.WorldPosition.z <= maxPosition.z)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void FindConnectedTiled()
@@ -41,22 +67,22 @@ public class Tile : MonoBehaviour
                 {
                     case Direction.Directions.North: 
                         {
-                            searchPosition = new Vector3(Position.x, 0, Position.z + AGDungeons.DUNGEON_UNIT);
+                            searchPosition = new Vector3(WorldPosition.x, 0, WorldPosition.z + AGDungeons.DUNGEON_UNIT);
                             break;
                         }
                     case Direction.Directions.South: 
                         {
-                            searchPosition = new Vector3(Position.x, 0, Position.z - AGDungeons.DUNGEON_UNIT);
+                            searchPosition = new Vector3(WorldPosition.x, 0, WorldPosition.z - AGDungeons.DUNGEON_UNIT);
                             break;
                         }
                     case Direction.Directions.East: 
                         {
-                            searchPosition = new Vector3(Position.x + AGDungeons.DUNGEON_UNIT, 0, Position.z);
+                            searchPosition = new Vector3(WorldPosition.x + AGDungeons.DUNGEON_UNIT, 0, WorldPosition.z);
                             break;
                         }
                     case Direction.Directions.West: 
                         {
-                            searchPosition = new Vector3(Position.x - AGDungeons.DUNGEON_UNIT, 0, Position.z);
+                            searchPosition = new Vector3(WorldPosition.x - AGDungeons.DUNGEON_UNIT, 0, WorldPosition.z);
                             break; 
                         }
                 }
@@ -66,7 +92,7 @@ public class Tile : MonoBehaviour
                     Tile tile = Dungeon.Instance.Tiles[n];
                     if(tile != null && tile != this)
                     {
-                        if(tile.Position == searchPosition) 
+                        if(tile.WorldPosition == searchPosition) 
                         {
                             ConnectedTiles[i] = tile;
                             int oppositeD = (int)Direction.GetOppositeDirection((Direction.Directions)i);
@@ -110,25 +136,25 @@ public class Tile : MonoBehaviour
         {
             case Direction.Directions.North:
                 {
-                    pos = new Vector3(Position.x, AGDungeons.DUNGEON_UNIT/2, Position.z + AGDungeons.DUNGEON_UNIT/2);
+                    pos = new Vector3(WorldPosition.x, AGDungeons.DUNGEON_UNIT/2, WorldPosition.z + AGDungeons.DUNGEON_UNIT/2);
                     rot = new Vector3(0, 180, 0);
                     break;
                 }
             case Direction.Directions.South:
                 {
-                    pos = new Vector3(Position.x, AGDungeons.DUNGEON_UNIT / 2, Position.z - AGDungeons.DUNGEON_UNIT/2);
+                    pos = new Vector3(WorldPosition.x, AGDungeons.DUNGEON_UNIT / 2, WorldPosition.z - AGDungeons.DUNGEON_UNIT/2);
                     rot = new Vector3(0, 0, 0);
                     break;
                 }
             case Direction.Directions.East:
                 {
-                    pos = new Vector3(Position.x + AGDungeons.DUNGEON_UNIT/2, AGDungeons.DUNGEON_UNIT / 2, Position.z);
+                    pos = new Vector3(WorldPosition.x + AGDungeons.DUNGEON_UNIT/2, AGDungeons.DUNGEON_UNIT / 2, WorldPosition.z);
                     rot = new Vector3(0, 270, 0);
                     break;
                 }
             case Direction.Directions.West:
                 {
-                    pos = new Vector3(Position.x - AGDungeons.DUNGEON_UNIT/2, AGDungeons.DUNGEON_UNIT / 2, Position.z);
+                    pos = new Vector3(WorldPosition.x - AGDungeons.DUNGEON_UNIT/2, AGDungeons.DUNGEON_UNIT / 2, WorldPosition.z);
                     rot = new Vector3(0, 90, 0);
                     break;
                 }
