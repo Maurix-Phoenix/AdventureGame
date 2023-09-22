@@ -57,9 +57,9 @@ public class Dungeon : MonoBehaviour
         int numberR = Random.Range(RoomsNumberRange.x, RoomsNumberRange.y);
         GenerateRooms(numberR);
         GenerateBoundaries();
+        PlaceTorches();
         DungeonGenerationComplete();
     }
-
 
     private void Update()
     {
@@ -222,13 +222,6 @@ public class Dungeon : MonoBehaviour
             {
                 tile.BuildBoundaries();
             }
-        }
-
-        //adding torches
-        foreach (Room room in Rooms)
-        {
-            room.PlaceRoomTorches(Random.Range(room.RoomTorches.x, room.RoomTorches.y));
-
         }
     }
 
@@ -398,4 +391,11 @@ public class Dungeon : MonoBehaviour
         }
     }
     
+    private void PlaceTorches()
+    {
+        foreach(Room r in Rooms)
+        {
+            r.PlaceRoomTorches(Random.Range(r.RoomTorches.x, r.RoomTorches.y));
+        }
+    }
 }

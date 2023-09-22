@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsOn: 1
-  Parent: {fileID: 0}
+  _ParticleS: {fileID: 5988243643896944309}
   _Light: {fileID: 4763912603046193776}
   _baseRange: 3
   _rangeVariation: 1.5

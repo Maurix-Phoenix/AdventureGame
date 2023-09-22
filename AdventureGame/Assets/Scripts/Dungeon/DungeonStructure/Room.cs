@@ -37,7 +37,10 @@ public class Room : MonoBehaviour
         {
             foreach (Torch t in TorchesList)
             {
-                t.gameObject.SetActive(true);
+                if (t != null)
+                {
+                    t.gameObject.SetActive(true);
+                }
             }
         }
         
@@ -48,7 +51,10 @@ public class Room : MonoBehaviour
         {
             foreach (Torch t in TorchesList)
             {
-                t.gameObject.SetActive(false);
+                if(t != null)
+                {
+                    t.gameObject.SetActive(false);
+                }
             }
         }
     }
@@ -79,14 +85,6 @@ public class Room : MonoBehaviour
     public void PlaceRoomTorches(int torchN)
     {
         MXDebug.Log("Placing Torches...");
-        if(torchN > RoomTorches.y)
-        {
-            torchN = RoomTorches.y;
-        }
-        else if (torchN < RoomTorches.x)
-        {
-            torchN = RoomTorches.x;
-        }
 
         List<WallTile> wtl = new List<WallTile>();
         for(int i = 0; i < Boundaries.Count;  i++)
@@ -97,7 +95,6 @@ public class Room : MonoBehaviour
                 {
                     wtl.Add(Boundaries[i].GetComponent<WallTile>());
                 }
-
                 //else is a doorway
             }
         }
@@ -109,16 +106,19 @@ public class Room : MonoBehaviour
             if (wtl.Count > 0)
             {
                 WallTile selectedWT = wtl[Random.Range(0, wtl.Count - 1)];
-                wtl.Remove(selectedWT);
+
 
 
                 //instance the torch
                 
                 Torch torch = selectedWT.InstantiateWallObject(Dungeon.Instance.TorchPrefab, WallTile.WallPositions.Center).GetComponent<Torch>();
                 TorchesList.Add(torch);
+                print($"{torch.name}");
+                torch.gameObject.SetActive(true);
+
+                wtl.Remove(selectedWT);
             }
         }
-
 
     }
 }

@@ -28,7 +28,6 @@ public class WallTile : MonoBehaviour
     {
         _WallCollider = GetComponent<Collider>();
         _ParentTile = transform.parent.GetComponent<Tile>();
-        MXUtilities.MXDebug.Log($"WallTile Prent = {_ParentTile.name}");
     }
     private void Start()
     {
@@ -37,14 +36,14 @@ public class WallTile : MonoBehaviour
 
     public GameObject InstantiateWallObject(GameObject prefab = null, WallPositions wallPos = WallPositions.NONE)
     {
-        if(prefab != null)
+        if (prefab != null)
         {
             ContentPrefab[(int)wallPos] = prefab;
         }
 
-        if (wallPos == WallPositions.Left || wallPos == WallPositions.Center || wallPos == WallPositions.Right)
+        if (ContentPrefab[(int)wallPos] != null)
         {
-            if (ContentPrefab[(int)wallPos] != null)
+            if (wallPos == WallPositions.Left || wallPos == WallPositions.Center || wallPos == WallPositions.Right)
             {
                 float xOffset = 0;
 
@@ -75,37 +74,24 @@ public class WallTile : MonoBehaviour
                 wallObj.transform.SetParent(transform);
                 wallObj.transform.localPosition = new Vector3(xOffset, -_WallCollider.bounds.extents.y, +0.15f);
 
-                if(wallObj.TryGetComponent<IInteractable>(out IInteractable intObject))
+                if (wallObj.TryGetComponent<IInteractable>(out IInteractable intObject))
                 {
-                //    if(intObject.GetType() == typeof(Torch))
-                //    {
-                //        Torch t = (Torch)intObject;
-                //        Room r = _ParentTile.Parent.GetComponent<Room>();
-
-                //        if(r.TorchesList.Count < r.MaxRoomTorches)
-                //        {
-                //            r.TorchesList.Add(t);
-                //            t.Parent = r.transform;
-                //        }
-
-                //        MXUtilities.MXDebug.Log("Torch added");
-                //    }
-                wallObj.transform.SetParent(null);
+                    wallObj.transform.SetParent(null);
                 }
                 return wallObj;
-
             }
+            else return null;
         }
-        return null;
+        else return null;
     }
 
 
 
     private void InstantiateWallObjects()
     {
-        for(int i = 0; i < ContentPrefab.Length; i++)
+        for (int i = 0; i < ContentPrefab.Length; i++)
         {
-            InstantiateWallObject(null,(WallPositions) i);
+            InstantiateWallObject(null, (WallPositions)i);
         }
     }
 }

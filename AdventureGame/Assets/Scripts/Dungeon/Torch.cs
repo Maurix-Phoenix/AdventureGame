@@ -6,7 +6,10 @@ public class Torch : MonoBehaviour, IInteractable
 {
     [Header("Status")]
     public bool IsOn = false;
-    public Transform Parent;
+
+
+    [Header("Particles")]
+    [SerializeField] private ParticleSystem _ParticleS;
 
     [Header("Light")]
     [SerializeField]private Light _Light;
@@ -16,31 +19,49 @@ public class Torch : MonoBehaviour, IInteractable
     [SerializeField]private float _IntensityVariation = 0.3f;
     [SerializeField]private float _Frequency = 1f;
     [SerializeField] private float _StepAtLimit = 1.5f;
+    
 
     [Header("Interaction Label")]
     [SerializeField]private UIWS_TempLabel _InteractionLabel;
     [SerializeField]private string _InteractionLabelText;
     
-    private ParticleSystem _ParticleS;
 
     public string Name { get =>_Name; set => _Name = value; }
     private string _Name = "Torch";
 
-    public void Interaction()
+
+    private void OnEnable()
     {
-        IsOn = !IsOn;
         if (IsOn)
         {
             _ParticleS.Play();
-            _Light.gameObject.SetActive(true);
-            _Light.range = _baseRange;
-            _Light.intensity = _baseIntensity;
         }
-        else
+    }
+
+    private void OnDisable()
+    {
+        _ParticleS.Stop();
+    }
+
+    public void Interaction()
+    {
+        if(gameObject.activeSelf)
         {
-            _ParticleS.Stop();
-            _Light.gameObject.SetActive(false);
+            IsOn = !IsOn;
+            if (IsOn)
+            {
+                _ParticleS.Play();
+                _Light.gameObject.SetActive(true);
+                _Light.range = _baseRange;
+                _Light.intensity = _baseIntensity;
+            }
+            else
+            {
+                _ParticleS.Stop();
+                _Light.gameObject.SetActive(false);
+            }
         }
+
     }
 
     public void ShowPromptLabel()
@@ -53,23 +74,9 @@ public class Torch : MonoBehaviour, IInteractable
          _InteractionLabel.gameObject.SetActive(false);
     }
 
-
-
-    private void OnEnable()
-    {
-        if(IsOn)
-        {
-            _ParticleS.Play();
-        }
-    }
-
-    private void OnDisable()
-    {
-    }
-
     private void Start()
     {
-        _ParticleS = transform.GetComponentInChildren<ParticleSystem>();
+        IsOn = false;
         _ParticleS.Stop();
         _Light.gameObject.SetActive(false);
         _InteractionLabel = GameManager.Instance.UIManager.CreateUIWSTempLabel("Press 'E' to interact", _ParticleS.transform.position, transform, 32, false, 0, 0);
