@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 231550554267203785}
   - component: {fileID: 8249134584991881415}
   - component: {fileID: 3766166245356935182}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Foliage3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 6761706183854318675}
   - component: {fileID: 6500680442897149243}
   - component: {fileID: 6571215404374082257}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Trunk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,9 +175,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3731485556818542038}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4297690599191098640
@@ -189,7 +197,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5162105936345048602}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: MapTree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,7 +234,7 @@ GameObject:
   - component: {fileID: 7349380109622186381}
   - component: {fileID: 2666045191083481215}
   - component: {fileID: 5562887932875177803}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Foliage1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -309,7 +317,7 @@ GameObject:
   - component: {fileID: 3003989076060292730}
   - component: {fileID: 688242603398953494}
   - component: {fileID: 9077041937176343007}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Foliage2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

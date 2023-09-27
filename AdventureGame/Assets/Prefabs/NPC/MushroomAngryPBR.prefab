@@ -78,6 +78,7 @@ GameObject:
   - component: {fileID: -4746309247916164137}
   - component: {fileID: 4791173992844471518}
   - component: {fileID: -7639211582514383328}
+  - component: {fileID: 2643250682340714632}
   m_Layer: 6
   m_Name: MushroomAngryPBR
   m_TagString: Untagged
@@ -135,11 +136,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eed8fe9f4f605e48bdf00f2660e6bc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _NodePath: {fileID: 0}
   Spawner: {fileID: 0}
   MT: {fileID: 11400000, guid: 1be5a0dbea930f746bbb641238236045, type: 2}
   Animator: {fileID: 0}
   Rigidbody: {fileID: 0}
   StartingPos: {x: 0, y: 0, z: 0}
+  AudioSource: {fileID: 0}
 --- !u!54 &-4746309247916164137
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -147,10 +150,21 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 875073071404757921}
-  serializedVersion: 2
+  serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -164,9 +178,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 875073071404757921}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 0.8, y: 0.8, z: 0.8}
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!82 &-7639211582514383328
@@ -265,6 +287,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2643250682340714632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875073071404757921}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6754ba0c372acd34b88102fb4bd0dfc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NodeMap: {fileID: 0}
+  FinalPath: []
+  StartingPosition: {x: 0, y: 0, z: 0}
+  EndingPosition: {x: 0, y: 0, z: 0}
+  PathTickTime: 1
+  MoveSpeed: 1
+  EDITOR_ShowPath: 1
+  Heuristic: 0
 --- !u!1 &1326775223490303571
 GameObject:
   m_ObjectHideFlags: 0

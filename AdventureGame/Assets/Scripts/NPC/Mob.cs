@@ -1,4 +1,5 @@
 
+using MXNodes;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class Mob : MonoBehaviour
     private AnimationManager _ANIMM;
     private AudioManager _AM;
 
+
+    public NodePath _NodePath;
     public MobSpawner Spawner;
     public MobTemplate MT;
     public Animator Animator;
@@ -39,6 +42,7 @@ public class Mob : MonoBehaviour
 
     private void OnEnable()
     {
+        _NodePath = GetComponent<NodePath>();
         _UI = GameManager.Instance.UIManager;
         _EM = GameManager.Instance.EventManager;
         _ANIMM = GameManager.Instance.AnimationManager;

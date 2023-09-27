@@ -10,6 +10,7 @@ public class Dungeon : MonoBehaviour
 {
     public static Dungeon Instance;
 
+
     [Header("Dungeon Structure")]
     [SerializeField] private bool ActiveRoomChunks = true;
     [SerializeField] private float ChunkDistance = 5.0f;
@@ -50,6 +51,7 @@ public class Dungeon : MonoBehaviour
         {
             Instance = this;
         }
+
     }
 
     private void Start()
@@ -211,6 +213,7 @@ public class Dungeon : MonoBehaviour
                 tile.FindConnectedTiled();
             }
         }
+
     }
 
     private void GenerateBoundaries()
@@ -398,4 +401,5 @@ public class Dungeon : MonoBehaviour
             r.PlaceRoomTorches(Random.Range(r.RoomTorches.x, r.RoomTorches.y));
         }
     }
+
 }

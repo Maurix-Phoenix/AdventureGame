@@ -3,6 +3,7 @@ using static AdventureGame;
 
 public class Tile : MonoBehaviour
 {
+
     public enum Types
     {
         None = -1,

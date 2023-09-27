@@ -679,6 +679,7 @@ GameObject:
   - component: {fileID: -1172667309094495693}
   - component: {fileID: 4753038541036401347}
   - component: {fileID: 8403348042388010447}
+  - component: {fileID: 3709030240571318098}
   m_Layer: 6
   m_Name: ChestMonsterPBR
   m_TagString: Untagged
@@ -732,9 +733,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6860756994242604922}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 0.8, y: 0.8, z: 0.8}
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!54 &-1172667309094495693
@@ -744,10 +753,21 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6860756994242604922}
-  serializedVersion: 2
+  serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -765,11 +785,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eed8fe9f4f605e48bdf00f2660e6bc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _NodePath: {fileID: 0}
   Spawner: {fileID: 0}
   MT: {fileID: 11400000, guid: c01dbf53c292e57438b02f5f6582a7d2, type: 2}
   Animator: {fileID: 0}
   Rigidbody: {fileID: 0}
   StartingPos: {x: 0, y: 0, z: 0}
+  AudioSource: {fileID: 0}
 --- !u!82 &8403348042388010447
 AudioSource:
   m_ObjectHideFlags: 0
@@ -866,6 +888,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3709030240571318098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6860756994242604922}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6754ba0c372acd34b88102fb4bd0dfc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NodeMap: {fileID: 0}
+  FinalPath: []
+  StartingPosition: {x: 0, y: 0, z: 0}
+  EndingPosition: {x: 0, y: 0, z: 0}
+  PathTickTime: 1
+  MoveSpeed: 1
+  EDITOR_ShowPath: 1
+  Heuristic: 0
 --- !u!1 &6860756994242604924
 GameObject:
   m_ObjectHideFlags: 0

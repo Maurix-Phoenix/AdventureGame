@@ -1,4 +1,5 @@
 
+using MXNodes;
 using System.IO;
 using UnityEngine;
 using UnityEngine.AI;
@@ -55,12 +56,14 @@ public class MobState_Idle : IMobState
                 _Destination = new Vector3(Mob.transform.position.x + Random.Range(-1, 1),
                                            Mob.transform.position.y,
                                            Mob.transform.position.z + Random.Range(-1, 1));
+                Mob._NodePath.SetDestination( _Destination);
 
                 //if in dungeon get a random tile position inside the current mob spawner room.
                 if (SceneManager.GetActiveScene().name == "Dungeon")
                 {
                     Room mobRoom = Mob.Spawner.ParentRoom;
                     _Destination = mobRoom.Tiles[Random.Range(0, mobRoom.Tiles.Count-1)].transform.position;
+                    Mob._NodePath.SetDestination(_Destination);
                 }
 
                 _Direction = (_Destination - Mob.transform.position).normalized;
@@ -74,8 +77,10 @@ public class MobState_Idle : IMobState
         if(_CanMove)
         {
             _MoveT -= Time.fixedDeltaTime;
-            Mob.transform.LookAt(_Destination);
-            Mob.Rigidbody.MovePosition(Mob.transform.position + _Direction * Time.fixedDeltaTime * Mob.MT.MoveSpeed);
+            Mob.transform.LookAt(_Direction);
+
+            Mob._NodePath.MoveToDestination(Mob.MT.MoveSpeed);
+            //Mob.Rigidbody.MovePosition(Mob.transform.position + _Direction * Time.fixedDeltaTime * Mob.MT.MoveSpeed);
 
             //apply move animation here
             _ANIMM.PlayAnimation(Mob.Animator, _Name, "Move");

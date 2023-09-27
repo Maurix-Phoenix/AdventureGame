@@ -17,12 +17,12 @@ TagManager:
   - Mobs
   - WorldUI
   - Interactable
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Wall
+  - Floor
+  - Ground
+  - Trees
+  - Building
+  - Mountain
   - 
   - 
   - 
